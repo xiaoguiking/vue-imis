@@ -46,6 +46,7 @@
           v-model="ruleForm.checkPass"
           autocomplete="off"
           placeholder="checkPass"
+          @keyup.enter.native="submitForm('ruleForm')"
         ></el-input>
       </el-form-item>
       <!-- <el-form-item label="年龄" prop="age">
@@ -154,7 +155,7 @@ export default {
             message: `恭喜你，登录成功, vip: ${this.userName}`,
             type: "success"
           });
-          // this.$router.push({ path: "home" });
+          this.$router.push({ path: "/" });
         } else {
           console.log("error submit!!");
           return false;

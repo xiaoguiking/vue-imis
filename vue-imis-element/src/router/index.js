@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Index from "../views/Index.vue";
 import Login from "@/views/login/index";
+import NoFound from "@/views/error-page/404";
 
 // 测试
 import User from "@/views/test/User";
@@ -13,33 +13,25 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "login",
-    redirect: "/login"
-    // component: () => import('@/views/login/index'),
+    name: "main",
+    component: () => import("@/views/Main.vue")
   },
+  // {
+  //   path: "/",
+  //   name: "login",
+  //   redirect: "/login"
+  //   // component: () => import('@/views/login/index'),
+  // },
   {
     path: "/login",
     name: "login",
     // component: () => import('@/views/login/index'),
     component: Login
   },
-  // {
-  //   path: "/login",
-  //   name: "login",
-  //   component: () => import('@/views/login/index'),
-  //   component: Login
-  // },
-  {
-    path: "/index",
-    name: "Index",
-    component: Index
-  },
+
   {
     path: "/about",
     name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
@@ -70,6 +62,13 @@ const routes = [
     path: "/user",
     name: "user",
     component: User
+  },
+  // 匹配404page
+  {
+    // 会匹配所有路径
+    path: "*",
+    name: "404",
+    component: NoFound
   }
 ];
 
