@@ -3,25 +3,41 @@
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
-      background-color="rgb(48, 65, 86)"
-      text-color="rgb(191, 203, 217)"
+      background-color="#545c64"
+      text-color="#fff"
       active-text-color="#ffd04b"
-      :collapse="collapse"
     >
-      <el-submenu index="1">
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
-        </el-menu-item>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
+      <el-menu-item
+        :index="item.path"
+        v-for="item in noChildren"
+        :key="item.path"
+      >
+        <i :class="'el-icon-' + item.icon"></i>
+        <span slot="title">
+          <router-link :to="item.path">{{ item.title }}</router-link>
+        </span>
       </el-menu-item>
+      <el-submenu
+        index="item.path"
+        v-for="(item, index) in hasChildren"
+        :key="index"
+      >
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>{{ item.title }}</span>
+        </template>
+        <el-menu-item-group>
+          <!-- <template slot="title">分组一</template> -->
+          <el-menu-item
+            :index="subItem.path"
+            v-for="(subItem, subIndex) in item.children"
+            :key="subIndex"
+            unique-opened
+          >
+            <router-link :to="item.path">{{ subItem.title }}</router-link>
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
     </el-menu>
   </div>
 </template>
@@ -32,11 +48,11 @@ import { sideMenu } from "@/mock/menuList.js";
 export default {
   name: "CommonAside",
   props: {
-    collapse: Boolean,
+    collapse: Boolean
   },
   data() {
     return {
-      asideMenu: [],
+      asideMenu: []
     };
   },
   created() {
@@ -45,12 +61,14 @@ export default {
   },
   mounted() {},
   computed: {
-    name() {
-      return this.data 
+    noChildren() {
+      return this.asideMenu.filter(item => !item.children);
+    },
+    hasChildren() {
+      return this.asideMenu.filter(item => item.children);
     }
-  },
+  }
 };
-
 </script>
 
 <style lang="less" scoped></style>

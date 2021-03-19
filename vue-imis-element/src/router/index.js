@@ -14,14 +14,32 @@ const routes = [
   {
     path: "/",
     name: "main",
-    component: () => import("@/views/Main.vue")
+    component: () => import("@/views/Main"),
+    children: [
+      {
+        path: "/index",
+        name: "index",
+        component: () => import("@/views/Home/index")
+      },
+      {
+        path: "/test",
+        name: "test",
+        component: () => import("@/views/test"),
+        children: [
+          {
+            path: "log",
+            name: "log",
+            component: Log
+          },
+          {
+            path: "res",
+            name: "res",
+            component: Res
+          }
+        ]
+      }
+    ]
   },
-  // {
-  //   path: "/",
-  //   name: "login",
-  //   redirect: "/login"
-  //   // component: () => import('@/views/login/index'),
-  // },
   {
     path: "/login",
     name: "login",
@@ -35,23 +53,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
-  {
-    path: "/test",
-    name: "test",
-    component: () => import("@/views/test"),
-    children: [
-      {
-        path: "log",
-        name: "log",
-        component: Log
-      },
-      {
-        path: "res",
-        name: "res",
-        component: Res
-      }
-    ]
-  },
+
   // 动态路径参数 以冒号开头
   // {
   //   path: "/test/:id",
