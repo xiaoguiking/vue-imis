@@ -4,7 +4,7 @@
     <el-aside :width="isCollapse ? '210px' : '50px'">
       <!-- 头部区域 -->
       <el-header>
-        <common-header ></common-header>
+        <common-header :collapse="isCollapse"></common-header>
       </el-header>
       <common-aside :collapse="isCollapse"></common-aside>
     </el-aside>
@@ -45,7 +45,7 @@ export default {
 <style lang="less" scoped>
 .el-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 60px;
   background-color: rgb(84, 92, 100);

@@ -1,5 +1,5 @@
 <template>
-  <div class="test--page">
+  <div class="test-page">
     测试页面
     <el-button type="primary" @click="open1('456')">点击我查看路由</el-button>
 
@@ -8,6 +8,49 @@
     <hr />
     <Log v-if="this.$route.path === '/test/log'"></Log>
     <Res v-if="this.$route.path === '/test/res'"></Res>
+    <hr />
+    <a href="#" class="test-alink test-click">click me =====================</a>
+    <a href="#" class="test-alink test-click">click me =====================</a>
+    <hr />
+    <el-alert
+      title="悬浮置顶提示框"
+      description="我喝过很烈的酒,也放过不该放的手,从前不会回头,往后不会将就。
+    弱肉强食的自然界中，越是兽中之王，越喜欢那种远离兽群，俯视苍生的感觉，人类也如此，因为上位者不会跟卑微者走在一起。
+    有利益的地方就自然会让人类这种苍蝇一股脑涌上。
+    "
+      type="success"
+      class="test-alert"
+    >
+    </el-alert>
+    <el-table
+      ref="multipleTable"
+      :data="tableData"
+      tooltip-effect="dark"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column type="selection" width="55"> </el-table-column>
+      <el-table-column label="日期" width="120">
+        <template slot-scope="scope">{{ scope.row.date }}</template>
+      </el-table-column>
+      <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
+      <el-table-column prop="address" label="地址" show-overflow-tooltip>
+      </el-table-column>
+    </el-table>
+    <div style="margin-top: 20px">
+      <el-button @click="toggleSelection([tableData[1], tableData[2]])"
+        >切换第二、第三行的选中状态</el-button
+      >
+      <el-button @click="toggleSelection()">取消选择</el-button>
+    </div>
+
+    <div class="test-box">盒模型标准</div>
+    <div class="test-box1">盒模型ie</div>
+    <div class="con-box">
+      <div class="box box1">外层包裹父元素解决margin合并问题</div>
+    </div>
+    <div class="box">2</div>
+    <div class="box">3</div>
   </div>
 </template>
 
@@ -19,7 +62,45 @@ export default {
   data() {
     return {
       routervalue: "",
-      log: ""
+      log: "",
+      tableData: [
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-08",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-06",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+      ],
+      multipleSelection: []
     };
   },
   components: {
@@ -57,6 +138,18 @@ export default {
     },
     getPath() {
       // console.log(this.$route.path);
+    },
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row);
+        });
+      } else {
+        this.$refs.multipleTable.clearSelection();
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
     }
   },
   watch: {
@@ -74,7 +167,63 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.test {
-  color: chocolate;
+.test-page {
+  // color: chocolate;
+  // height: 1080px;
+  height: auto;
+}
+
+.test-alink::selection {
+  color: cyan;
+}
+// .test-alink::before {
+//   content: "";
+//   display: block;
+//   width: 20px;
+//   height: 20px;
+//   background-color: red;
+// }
+// .test-alink::after{
+//   content: "";
+//   display: block;
+//   width: 20px;
+//   height: 20px;
+//   background-color: blue;
+// }
+// .test-click {
+//   color: initial;
+// }
+.test-alert {
+  position: sticky;
+  top: -20px;
+  z-index: 10;
+}
+.test-box {
+  width: 200px;
+  height: 200px;
+  border: 1px solid blue;
+  padding: 10px;
+  margin: 10px;
+  background: cadetblue;
+}
+.test-box1 {
+  width: 200px;
+  height: 200px;
+  border: 1px solid blue;
+  padding: 10px;
+  margin: 10px;
+  background-color: chocolate;
+}
+.box {
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  background-color: red;
+}
+.con-box {
+  overflow: auto;
+}
+.box1 {
+  margin-bottom: 30px;
 }
 </style>

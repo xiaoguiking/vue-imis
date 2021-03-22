@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
-    <span class="header-title">欢迎：{{ "admin" }}</span>
-    <span class="signout" @click="$router.push('/login')">
+    <span class="header-title">{{ "admin" }}</span>
+    <span class="signout" @click="$router.push('/login')" v-if="collapse">
       退出
     </span>
   </div>
@@ -9,7 +9,13 @@
 
 <script>
 export default {
-  name: "CommonHeader"
+  name: "CommonHeader",
+  props: {
+    collapse: Boolean
+  },
+  data() {
+    return {};
+  }
 };
 </script>
 
