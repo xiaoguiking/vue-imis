@@ -60,6 +60,29 @@ const sideMenu = [
     ]
   },
   {
+    title: "帖子管理",
+    path: "/post",
+    icon: "home",
+    children: [
+      // 子菜单列表
+      {
+        title: "广告系统",
+        path: "/post/list",
+        icon: "line-chart"
+      },
+      {
+        title: "广告主资质审核",
+        path: "/post/host",
+        icon: "opportunity"
+      },
+      {
+        title: "广告物料审核",
+        path: "/post/wuliao",
+        icon: "data"
+      }
+    ]
+  },
+  {
     title: "广告管理",
     path: "/admagment",
     icon: "home",

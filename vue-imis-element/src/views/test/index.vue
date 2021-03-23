@@ -67,45 +67,45 @@ export default {
         {
           date: "2016-05-03",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-02",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-04",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-01",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-08",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-06",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-07",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
       ],
-      multipleSelection: []
+      multipleSelection: [],
     };
   },
   components: {
     Log,
-    Res
+    Res,
   },
   methods: {
     open1(id) {
@@ -127,13 +127,13 @@ export default {
       this.$router.push({
         path: "/user",
         query: {
-          id: id
-        }
+          id: id,
+        },
       });
 
       this.$notify({
         title: "提示",
-        message: `这是一条不会自动关闭的消息, ${this.$router.path}`
+        message: `这是一条不会自动关闭的消息, ${this.$router.path}`,
       });
     },
     getPath() {
@@ -141,7 +141,7 @@ export default {
     },
     toggleSelection(rows) {
       if (rows) {
-        rows.forEach(row => {
+        rows.forEach((row) => {
           this.$refs.multipleTable.toggleRowSelection(row);
         });
       } else {
@@ -150,7 +150,7 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
-    }
+    },
   },
   watch: {
     "$route.path": function(newVal) {
@@ -161,15 +161,13 @@ export default {
       if (newVal === "/test/res") {
         console.log("欢迎进入注册页面");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="less" scoped>
 .test-page {
-  // color: chocolate;
-  // height: 1080px;
   height: auto;
 }
 
@@ -195,7 +193,7 @@ export default {
 // }
 .test-alert {
   position: sticky;
-  top: -20px;
+  top: -8px;
   z-index: 10;
 }
 .test-box {

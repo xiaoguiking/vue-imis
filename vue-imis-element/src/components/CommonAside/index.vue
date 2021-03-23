@@ -3,7 +3,7 @@
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
-      background-color="#545c64"
+      background-color="#304156"
       text-color="#fff"
       active-text-color="#ffd04b"
     >
@@ -57,7 +57,6 @@ export default {
   },
   created() {
     this.asideMenu = sideMenu;
-    console.log(this.asideMenu, "1");
   },
   mounted() {},
   computed: {

@@ -1,10 +1,17 @@
 <template>
-  <div></div>
+  <div class="system-container">
+    系统管理页面
+  </div>
 </template>
 
 <script>
 export default {
-  name: "SystemManagementr"
+  name: "SystemManagementr",
+  data () {
+    return {
+      
+    }
+  }
 };
 </script>
 
