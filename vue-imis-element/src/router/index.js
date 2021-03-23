@@ -39,28 +39,33 @@ const routes = [
         ]
       },
       {
-        path: 'dynamic-table',
-        // component: () => import('@/views/table/dynamic-table/index'),
-        name: 'DynamicTable',
-        meta: { title: 'Dynamic Table' }
+        path: "systemmanagement",
+        name: "SystemManagement",
+        component: () => import("@/views/SystemManagement/index")
       },
       {
-        path: 'drag-table',
+        path: "usermanagement",
+        component: () => import("@/views/UserManagement/index"),
+        name: "DynamicTable"
+        // meta: { title: "Dynamic Table" }
+      },
+      {
+        path: "drag-table",
         // component: () => import('@/views/table/drag-table'),
-        name: 'DragTable',
-        meta: { title: 'Drag Table' }
+        name: "DragTable",
+        meta: { title: "Drag Table" }
       },
       {
-        path: 'inline-edit-table',
+        path: "inline-edit-table",
         // component: () => import('@/views/table/inline-edit-table'),
-        name: 'InlineEditTable',
-        meta: { title: 'Inline Edit' }
+        name: "InlineEditTable",
+        meta: { title: "Inline Edit" }
       },
       {
-        path: 'complex-table',
+        path: "complex-table",
         // component: () => import('@/views/table/complex-table'),
-        name: 'ComplexTable',
-        meta: { title: 'Complex Table' }
+        name: "ComplexTable",
+        meta: { title: "Complex Table" }
       }
     ]
   },

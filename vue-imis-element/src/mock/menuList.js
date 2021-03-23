@@ -1,7 +1,7 @@
 const sideMenu = [
   {
     title: "首页", // 菜单名称
-    path: "/index", // 对应path
+    path: "/", // 对应path
     icon: "eleme" // 对应图标
   },
   {
@@ -11,12 +11,12 @@ const sideMenu = [
   },
   {
     title: "系统管理",
-    path: "/systemmanagementr",
+    path: "/systemmanagement",
     icon: "user"
   },
   {
     title: "用户管理",
-    path: "/usermanagementr",
+    path: "/usermanagement",
     icon: "setting"
   },
   {

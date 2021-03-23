@@ -1,9 +1,6 @@
 <template>
   <div class="header-container">
-    <div
-      class="toggle-button el-icon-s-fold"
-      @click="toggleSide"
-    ></div>
+    <div class="toggle-button el-icon-s-fold" @click="toggleSide"></div>
     <div class="header-user">
       <span class="header-title">欢迎：{{ "admin" }}</span>
       <span class="signout" @click="$router.push('/login')">
@@ -17,20 +14,18 @@
 export default {
   name: "CommonHeader",
   props: {
-    collapse: Boolean,
+    collapse: Boolean
   },
   data() {
     return {};
   },
   created() {},
   methods: {
-    toggleSide () {
-      this.$emit("showSide", )
+    toggleSide() {
+      this.$emit("showSide");
     }
   },
-  medthods: {
-
-  },
+  medthods: {}
 };
 </script>
 
