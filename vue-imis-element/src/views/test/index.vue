@@ -51,12 +51,19 @@
     </div>
     <div class="box">2</div>
     <div class="box">3</div>
+    <common-table
+      :tableDataList="tableDataList"
+      :isShowOp="isShowOp"
+      :tableLabelList="tableLabelList"
+    ></common-table>
   </div>
 </template>
 
 <script>
 import Log from "@/views/test/Log";
 import Res from "@/views/test/Res";
+import CommonTable from "@/components/CommonTable";
+
 export default {
   name: "test",
   data() {
@@ -100,12 +107,57 @@ export default {
           address: "上海市普陀区金沙江路 1518 弄"
         }
       ],
-      multipleSelection: []
+      multipleSelection: [],
+      tableDataList: [
+        {
+          id: 123,
+          name: "ck",
+          address: "china",
+          age: 123,
+          sex: "男"
+        },
+        {
+          id: 123,
+          name: "ck",
+          address: "china",
+          age: 123,
+          sex: "男"
+        }
+      ],
+      tableLabelList: [
+        {
+          prop: "id",
+          label: "id"
+        },
+        {
+          prop: "name",
+          label: "姓名"
+        },
+        {
+          prop: "address",
+          label: "地址"
+        },
+        {
+          prop: "age",
+          label: "年领"
+        },
+        {
+          prop: "sex",
+          label: "性别"
+        }
+      ],
+      config: {
+        page: 1,
+        total: 30,
+        loading: false
+      },
+      isShowOp: true
     };
   },
   components: {
     Log,
-    Res
+    Res,
+    CommonTable
   },
   methods: {
     open1(id) {

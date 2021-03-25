@@ -1,40 +1,63 @@
 <template>
   <div class="user-container">
-    <el-table :data="shopList" border style="width: 100%">
-      <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-      <el-table-column prop="address" label="地址" width="300">
-      </el-table-column>
-      <el-table-column fixed prop="date" label="日期" width="150">
-      </el-table-column>
-      <el-table-column prop="province" label="省份" width="120">
-      </el-table-column>
-      <el-table-column prop="city" label="市区" width="120"> </el-table-column>
-      <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
-      <el-table-column prop="id" label="id" width="120"> </el-table-column>
-      <el-table-column prop="index" label="index" width="120">
-      </el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
+    <!-- 卡片视图区域 -->
+    <el-card>
+      <!-- 搜索与添加区域 -->
+      <el-row :gutter="20" style="margin-bottom:20px">
+        <el-col :span="8">
+          <el-input
+            placeholder="请输入内容"
+            class="input-with-select"
           >
-          <el-button type="text" size="small" @click="openModel"
-            >编辑</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
+            <el-button slot="append" icon="el-icon-search"></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="primary">添加用户</el-button>
+        </el-col>
+      </el-row>
+      <common-table
+        :tableDataList="tableDataList"
+        :tableLabelList="tableLabelList"
+      ></common-table>
+    </el-card>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import CommonTable from "@/components/CommonTable";
 export default {
   name: "UserManagement",
   data() {
     return {
-      shopList: [],
+      tableDataList: [],
+      tableLabelList: [
+        {
+          prop: "name",
+          label: "姓名",
+        },
+        {
+          prop: "address",
+          label: "地址",
+        },
+        {
+          prop: "sex",
+          label: "性别",
+        },
+        {
+          prop: "age",
+          label: "年龄",
+        },
+        {
+          prop: "id",
+          label: "id",
+        },
+      ],
     };
+  },
+  components: {
+    CommonTable,
   },
   created() {
     this.getList();
@@ -45,21 +68,19 @@ export default {
     },
     // 请求数据
     getList() {
+      var that =this;
+      console.log(this, that)
       axios
         .get("https://mock.yonyoucloud.com/mock/15866/tablelist")
         .then(function(response) {
-          // console.log(typeof [response.data]);
-          // console.log(response.data, "data")
-          // this.shopList = [response.data];
-          // console.log(this.shopList, "list")
-          console.log(this.shopList, "list")
-         return response.data.map(item => {
-            console.log(item, "item")
-          })
-        
+  // 记录this指向问题
+
+          console.log(this)
+          that.tableDataList = response.data.data.users;
+          console.log(response.data.data.users, "data");
         })
         .catch(function(error) {
-          console.log(error);
+          console.log(error, "error");
         });
     },
   },
