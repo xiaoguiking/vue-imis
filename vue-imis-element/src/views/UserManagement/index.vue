@@ -5,10 +5,7 @@
       <!-- 搜索与添加区域 -->
       <el-row :gutter="20" style="margin-bottom:20px">
         <el-col :span="8">
-          <el-input
-            placeholder="请输入内容"
-            class="input-with-select"
-          >
+          <el-input placeholder="请输入内容" class="input-with-select">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
@@ -19,6 +16,7 @@
       <common-table
         :tableDataList="tableDataList"
         :tableLabelList="tableLabelList"
+        :config="config"
       ></common-table>
     </el-card>
   </div>
@@ -54,6 +52,11 @@ export default {
           label: "id",
         },
       ],
+      config: {
+        loading: false,
+        page: 1,
+        total: 30,
+      },
     };
   },
   components: {
@@ -62,21 +65,23 @@ export default {
   created() {
     this.getList();
   },
+  mounted() {},
   methods: {
     openModel() {
       alert(1111);
     },
     // 请求数据
     getList() {
-      var that =this;
-      console.log(this, that)
+      var that = this;
+      console.log(this, that);
+      this.config.loading = true;
       axios
         .get("https://mock.yonyoucloud.com/mock/15866/tablelist")
         .then(function(response) {
-  // 记录this指向问题
-
-          console.log(this)
+          // 记录this指向问题
+          console.log(this);
           that.tableDataList = response.data.data.users;
+          that.config.loading = false;
           console.log(response.data.data.users, "data");
         })
         .catch(function(error) {
