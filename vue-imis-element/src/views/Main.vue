@@ -75,6 +75,12 @@ export default {
 .el-main {
   overflow: visible;
 }
+.el-footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background: forestgreen;
+}
 @keyframes sideNav {
   0% {
     width: 300px;

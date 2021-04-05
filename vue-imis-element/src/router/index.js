@@ -50,6 +50,16 @@ const routes = [
         // meta: { title: "Dynamic Table" }
       },
       {
+        path: "logincopy",
+        component: () => import("@/views/loginCopy/index"),
+        name: "loginCopy"
+      },
+      {
+        path: "chatroom",
+        component: () => import("@/views/chatroom/index"),
+        name: "chatroom"
+      },
+      {
         path: "drag-table",
         // component: () => import('@/views/table/drag-table'),
         name: "DragTable",

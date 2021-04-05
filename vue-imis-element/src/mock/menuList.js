@@ -20,6 +20,16 @@ const sideMenu = [
     icon: "setting"
   },
   {
+    title: "登录聊天室",
+    path: "/logincopy",
+    icon: "setting"
+  },
+  {
+    title: "聊天室",
+    path: "/chatroom",
+    icon: "setting"
+  },
+  {
     title: "pc浏览端",
     path: "/file",
     icon: "house",
