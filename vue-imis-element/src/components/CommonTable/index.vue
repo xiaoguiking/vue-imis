@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="common-table">
     <!-- 基础表格实例 -->
     <!-- <el-table :data="tableData" style="width: 100%" border show-header>
       <el-table-column prop="date" label="日期" width="180"> </el-table-column>
@@ -19,7 +19,7 @@
         </template>
       </el-table-column>
     </el-table> -->
-    <el-table :data="tableDataList" style="width: 100%" border>
+    <el-table :data="tableDataList"  border v-loading="config.loading">
       <el-table-column
         show-overflow-tooltip
         v-for="item in tableLabelList"
@@ -104,4 +104,8 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.common-table {
+  // height: 500px;
+}
+</style>
