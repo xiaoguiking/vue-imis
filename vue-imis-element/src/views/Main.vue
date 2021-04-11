@@ -5,16 +5,16 @@
       <common-aside></common-aside>
     </el-aside>
     <!-- 页面主题区域 -->
-    <el-container class="common-container">
+    <el-container :class="isCollapse ? 'common-container' : 'container-active'">
       <!-- 头部区域 -->
-      <el-header style="height: 50px">
+      <el-header style="height: 40px">
         <common-header @showSide="handleSide"></common-header>
       </el-header>
       <!-- 右侧内容主题 -->
       <el-main>
         <router-view></router-view>
       </el-main>
-      <el-footer>Footer</el-footer>
+      <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </el-container>
 </template>
@@ -26,19 +26,19 @@ export default {
   name: "Main",
   data() {
     return {
-      isCollapse: true
+      isCollapse: true,
     };
   },
   components: {
     CommonHeader,
-    CommonAside
+    CommonAside,
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -48,7 +48,8 @@ export default {
   position: relative;
   background-color: #fff;
   -webkit-box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  box-shadow: 1px 2px 10px #7a7575;
+  line-height: 40px;
 }
 
 .el-aside {
@@ -71,7 +72,11 @@ export default {
   margin-left: 210px;
   position: relative;
 }
-
+.container-active {
+  -webkit-transition: margin-left 0.28s;
+  transition: margin-left 0.28s;
+  margin-left: 60px;
+}
 .el-main {
   overflow: visible;
 }

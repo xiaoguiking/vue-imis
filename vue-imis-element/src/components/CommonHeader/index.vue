@@ -1,11 +1,12 @@
 <template>
   <div class="header-container">
-    <div class="toggle-button el-icon-s-fold" @click="toggleSide"></div>
+    <div class="header-left">
+      <div class="toggle-button el-icon-s-fold" @click="toggleSide"></div>
+      <header class="header-imis">welcome vue-imis</header>
+    </div>
     <div class="header-user">
-      <span class="header-title">欢迎：{{ "admin" }}</span>
-      <span class="signout" @click="$router.push('/login')">
-        退出
-      </span>
+      <span class="header-user-title">欢迎：{{ "admin" }}</span>
+      <span class="signout" @click="$router.push('/login')"> 退出 </span>
     </div>
   </div>
 </template>
@@ -14,7 +15,7 @@
 export default {
   name: "CommonHeader",
   props: {
-    collapse: Boolean
+    collapse: Boolean,
   },
   data() {
     return {};
@@ -23,9 +24,9 @@ export default {
   methods: {
     toggleSide() {
       this.$emit("showSide");
-    }
+    },
   },
-  medthods: {}
+  medthods: {},
 };
 </script>
 
@@ -35,13 +36,19 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  .toggle-button {
-    cursor: pointer;
-    padding-left: 5px;
-    font-size: 20px;
+  .header-left {
+    .toggle-button {
+      cursor: pointer;
+      padding-left: 5px;
+      font-size: 20px;
+    }
+    .header-imis {
+      display: inline-block;
+    }
   }
+
   .header-user {
-    .header-title {
+    .header-user-title {
       color: #000;
       padding-right: 10px;
     }

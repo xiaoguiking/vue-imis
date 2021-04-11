@@ -1,5 +1,6 @@
 <template>
   <div class="user-container">
+    <!-- 弹框 -->
     <!-- 卡片视图区域 -->
     <el-card>
       <!-- 搜索与添加区域 -->
@@ -49,14 +50,14 @@ export default {
         },
         {
           prop: "id",
-          label: "id",
-        },
+          label: "id"
+        }
       ],
       config: {
         loading: false,
         page: 1,
-        total: 30,
-      },
+        total: 30
+      }
     };
   },
   components: {
@@ -71,29 +72,31 @@ export default {
       alert(1111);
     },
     // 请求数据
-    getList() {
+    async getList() {
       var that = this;
-      console.log(this, that);
-<<<<<<< HEAD
-=======
+      // promise
+      // console.log(this, that);
+      // this.config.loading = true;
+      // axios
+      //   .get("https://mock.yonyoucloud.com/mock/15866/tablelist")
+      //   .then(function (response) {
+      //     // 记录this指向问题
+      //     console.log(this);
+      //     that.tableDataList = response.data.data.users;
+      //     that.config.loading = false;
+      //     console.log(response.data.data.users, "data");
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error, "error");
+      //   });
       this.config.loading = true;
->>>>>>> 8eab2e277cb6cb153b275fcc44952bbb428f67b0
-      axios
-        .get("https://mock.yonyoucloud.com/mock/15866/tablelist")
-        .then(function(response) {
-          // 记录this指向问题
-<<<<<<< HEAD
-
-=======
->>>>>>> 8eab2e277cb6cb153b275fcc44952bbb428f67b0
-          console.log(this);
-          that.tableDataList = response.data.data.users;
-          that.config.loading = false;
-          console.log(response.data.data.users, "data");
-        })
-        .catch(function(error) {
-          console.log(error, "error");
-        });
+      const { data } = await axios.get(
+        "https://mock.yonyoucloud.com/mock/15866/tablelist"
+      );
+      const { users } = data.data;
+      console.log(data);
+      that.config.loading = false;
+      that.tableDataList = users;
     }
   }
 };

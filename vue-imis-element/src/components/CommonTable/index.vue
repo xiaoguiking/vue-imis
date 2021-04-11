@@ -19,7 +19,7 @@
         </template>
       </el-table-column>
     </el-table> -->
-    <el-table :data="tableDataList"  border v-loading="config.loading">
+    <el-table :data="tableDataList" border v-loading="config.loading">
       <el-table-column
         show-overflow-tooltip
         v-for="item in tableLabelList"
