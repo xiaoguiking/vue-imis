@@ -108,20 +108,21 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.password) {
+      } else if (value !== this.ruleForm.pass) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
     };
     return {
+      loginloading: false,
       ruleForm: {
         pass: "",
         checkPass: "",
         passwordType: "password",
         userName: "",
         password: "",
-        loginloading: false,
+
         // age: "",
       },
       rules: {
@@ -140,19 +141,19 @@ export default {
     }
   },
   methods: {
-    showPwd() {
-      if (this.passwordType === "password") {
-        this.passwordType = "";
-      } else {
-        this.passwordType = "password";
-      }
-      this.$nextTick(() => {
-        this.$refs.password.focus();
-      });
-    },
+    // showPwd() {
+    //   if (this.passwordType === "password") {
+    //     this.passwordType = "";
+    //   } else {
+    //     this.passwordType = "password";
+    //   }
+    //   this.$nextTick(() => {
+    //     this.$refs.password.focus();
+    //   });
+    // },
     submitForm(formName) {
       let username = this.ruleForm.userName;
-      let password = this.ruleForm.password;
+      let password = this.ruleForm.pass;
       // var that = this;
 
       this.$refs[formName].validate(async (valid) => {
