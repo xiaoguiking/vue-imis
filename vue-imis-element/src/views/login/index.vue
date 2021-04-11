@@ -53,8 +53,11 @@
         <el-input v-model.number="ruleForm.age"></el-input>
       </el-form-item> -->
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >提交</el-button
+        <el-button
+          type="primary"
+          @click="submitForm('ruleForm')"
+          :loading="loginloading"
+          >登录</el-button
         >
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
@@ -96,8 +99,8 @@ export default {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
+        if (this.ruleForm.password !== "") {
+          this.$refs.ruleForm.validateField("password");
         }
         callback();
       }
@@ -105,7 +108,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -116,15 +119,17 @@ export default {
         pass: "",
         checkPass: "",
         passwordType: "password",
-        userName: ""
+        userName: "",
+        password: "",
+        loginloading: false,
         // age: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        password: [{ validator: validatePass, trigger: "blur" }],
         userName: [{ validator: validateUsername, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
+        checkPass: [{ validator: validatePass2, trigger: "blur" }],
         // age: [{ validator: checkAge, trigger: "blur" }],
-      }
+      },
     };
   },
   mounted() {
@@ -146,26 +151,41 @@ export default {
       });
     },
     submitForm(formName) {
-      this.userName = this.ruleForm.userName;
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          console.log("login================>", valid);
-          // alert("submit!");
-          this.$message({
-            message: `恭喜你，登录成功, vip: ${this.userName}`,
-            type: "success"
-          });
-          this.$router.push({ path: "/" });
-        } else {
+      let username = this.ruleForm.userName;
+      let password = this.ruleForm.password;
+      // var that = this;
+
+      this.$refs[formName].validate(async (valid) => {
+        if (!valid) {
           console.log("error submit!!");
           return false;
+        }
+        this.loginloading = true;
+        const { data } = await this.$axios.post("/api/permission/getMenu", {
+          username,
+          password,
+        });
+
+        let { code, ...rest } = data;
+        console.log(code, "code");
+        if (code === "20000") {
+          console.log("success");
+          this.loginloading = false;
+          this.$message({
+            message: `恭喜你，登录成功, vip: ${username}`,
+            type: "success",
+          });
+        } else if (code === "-999") {
+          this.loginloading = false;
+          this.$message.error(`${rest.data.message}`);
+          return;
         }
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 

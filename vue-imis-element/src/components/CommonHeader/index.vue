@@ -15,7 +15,7 @@
 export default {
   name: "CommonHeader",
   props: {
-    collapse: Boolean,
+    collapse: Boolean
   },
   data() {
     return {};
@@ -24,9 +24,9 @@ export default {
   methods: {
     toggleSide() {
       this.$emit("showSide");
-    },
+    }
   },
-  medthods: {},
+  medthods: {}
 };
 </script>
 

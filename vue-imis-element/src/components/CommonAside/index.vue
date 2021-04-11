@@ -52,7 +52,8 @@ export default {
   },
   data() {
     return {
-      asideMenu: []
+      asideMenu: [],
+      menu: []
     };
   },
   created() {

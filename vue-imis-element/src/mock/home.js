@@ -1,5 +1,3 @@
-import Mock from "mockjs";
-
 export default {
   getHomeData: () => {
     return {
@@ -7,32 +5,28 @@ export default {
       data: {
         videoData: [
           {
-            name: "mock",
-            value: Mock.Random.float(1000, 10000, 0, 2)
+            title: "快速入门",
+            content: "vue-imis-element"
           },
           {
-            name: "mock",
-            value: Mock.Random.float(1000, 10000, 0, 2)
+            title: "反馈",
+            content: "快速使用手册"
           },
           {
-            name: "mock",
-            value: Mock.Random.float(1000, 10000, 0, 2)
+            title: "置顶菜单",
+            content: "快速使用手册"
           },
           {
-            name: "mock",
-            value: Mock.Random.float(1000, 10000, 0, 2)
+            title: "快速入门",
+            content: "快速使用手册"
           },
           {
-            name: "mock",
-            value: Mock.Random.float(1000, 10000, 0, 2)
+            title: "快速入门",
+            content: "快速使用手册"
           },
           {
-            name: "mock",
-            value: Mock.Random.float(1000, 10000, 0, 2)
-          },
-          {
-            name: "mock",
-            value: Mock.Random.float(1000, 10000, 0, 2)
+            title: "快速入门",
+            content: "快速使用手册"
           }
         ]
       }

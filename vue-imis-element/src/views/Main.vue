@@ -26,19 +26,19 @@ export default {
   name: "Main",
   data() {
     return {
-      isCollapse: true,
+      isCollapse: true
     };
   },
   components: {
     CommonHeader,
-    CommonAside,
+    CommonAside
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    },
-  },
+    }
+  }
 };
 </script>
 

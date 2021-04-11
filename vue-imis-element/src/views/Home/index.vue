@@ -24,43 +24,23 @@ export default {
   name: "Home",
   data() {
     return {
-      homelist: [
-        {
-          title: "快速入门",
-          content: "vue-imis-element",
-        },
-        {
-          title: "反馈",
-          content: "快速使用手册",
-        },
-        {
-          title: "置顶菜单",
-          content: "快速使用手册",
-        },
-        {
-          title: "快速入门",
-          content: "快速使用手册",
-        },
-        {
-          title: "快速入门",
-          content: "快速使用手册",
-        },
-        {
-          title: "快速入门",
-          content: "快速使用手册",
-        },
-      ],
+      homelist: []
     };
   },
   mounted() {
-    // console.log(this.$axios.get);
-    // axios.get("/home/getData").then((res) => {
+    // promise
+    // this.$axios.get("/home/getData").then((res) => {
     //   console.log(res.data);
     // });
-    this.$axios.get("/home/getData").then((res) => {
-      console.log(res.data);
-    });
+    this.getData();
   },
+  methods: {
+    async getData() {
+      const { data } = await this.$axios.get("/home/getData");
+      const { videoData } = data.data;
+      this.homelist = videoData;
+    }
+  }
 };
 </script>
 

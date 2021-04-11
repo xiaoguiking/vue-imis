@@ -24,6 +24,7 @@ service.interceptors.response.use(response => {
 
   res.status = response.status;
   res.data = response.data;
+  return res;
 });
 
 // export default service;
