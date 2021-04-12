@@ -121,16 +121,16 @@ export default {
         checkPass: "",
         passwordType: "password",
         userName: "",
-        password: "",
+        password: ""
 
         // age: "",
       },
       rules: {
         password: [{ validator: validatePass, trigger: "blur" }],
         userName: [{ validator: validateUsername, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }]
         // age: [{ validator: checkAge, trigger: "blur" }],
-      },
+      }
     };
   },
   mounted() {
@@ -156,37 +156,41 @@ export default {
       let password = this.ruleForm.pass;
       // var that = this;
 
-      this.$refs[formName].validate(async (valid) => {
+      this.$refs[formName].validate(async valid => {
         if (!valid) {
           console.log("error submit!!");
           return false;
         }
         this.loginloading = true;
-        const { data } = await this.$axios.post("/api/permission/getMenu", {
+        
+        // 解构学习
+        const {
+          data: {  data: {menu, message}, code, type }
+        } = await this.$axios.post("/api/permission/getMenu", {
           username,
-          password,
+          password
         });
 
-        let { code, ...rest } = data;
-        console.log(code, "code");
+        console.log(menu,message, code, type, "数据");
+
         if (code === "20000") {
           console.log("success");
           this.loginloading = false;
           this.$message({
             message: `恭喜你，登录成功, vip: ${username}`,
-            type: "success",
+            type: "success"
           });
         } else if (code === "-999") {
           this.loginloading = false;
-          this.$message.error(`${rest.data.message}`);
+          this.$message.error(`${message}`);
           return;
         }
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-  },
+    }
+  }
 };
 </script>
 
