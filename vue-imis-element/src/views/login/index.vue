@@ -22,7 +22,7 @@
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="密码" prop="pass">
+      <el-form-item label="密码" prop="password">
         <!-- <span class="svg-container">
             <svg-icon icon-class="password" />
           </span> -->
@@ -52,6 +52,11 @@
       <!-- <el-form-item label="年龄" prop="age">
         <el-input v-model.number="ruleForm.age"></el-input>
       </el-form-item> -->
+      <el-form-item prop="agree">
+        <el-checkbox v-model="ruleForm.agree"
+          >我已经阅读并同意用户协议和隐私条款</el-checkbox
+        >
+      </el-form-item>
       <el-form-item>
         <el-button
           type="primary"
@@ -117,20 +122,34 @@ export default {
     return {
       loginloading: false,
       ruleForm: {
-        pass: "",
+        password: "",
         checkPass: "",
         passwordType: "password",
         userName: "",
-        password: ""
-
+        agree: false, // 是否同意协议
         // age: "",
       },
       rules: {
         password: [{ validator: validatePass, trigger: "blur" }],
         userName: [{ validator: validateUsername, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
+        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        // 自定义校验规则
+        // 验证通过callback
+        // 验证失败 callback new Error(“错误消息”)
+        agree: [
+          {
+            validator: (rule, value, callback) => {
+              if (value) {
+                callback();
+              } else {
+                callback(new Error("请同意用户协议"));
+              }
+            },
+            trigger: "blur",
+          },
+        ],
         // age: [{ validator: checkAge, trigger: "blur" }],
-      }
+      },
     };
   },
   mounted() {
@@ -156,29 +175,32 @@ export default {
       let password = this.ruleForm.pass;
       // var that = this;
 
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (!valid) {
           console.log("error submit!!");
           return false;
         }
         this.loginloading = true;
-        
+
         // 解构学习
         const {
-          data: {  data: {menu, message}, code, type }
+          data: {
+            data: { menu, message },
+            code,
+            type,
+          },
         } = await this.$axios.post("/api/permission/getMenu", {
           username,
-          password
+          password,
         });
 
-        console.log(menu,message, code, type, "数据");
+        console.log(menu, message, code, type, "数据");
 
         if (code === "20000") {
-          console.log("success");
           this.loginloading = false;
           this.$message({
             message: `恭喜你，登录成功, vip: ${username}`,
-            type: "success"
+            type: "success",
           });
         } else if (code === "-999") {
           this.loginloading = false;
@@ -189,8 +211,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 
