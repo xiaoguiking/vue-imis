@@ -29,7 +29,7 @@
         <el-input
           ref="password"
           type="password"
-          v-model="ruleForm.pass"
+          v-model="ruleForm.password"
           autocomplete="off"
           placeholder="Password"
         ></el-input>
@@ -101,22 +101,30 @@ export default {
 
     // 密码检查
     var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        if (this.ruleForm.password !== "") {
-          this.$refs.ruleForm.validateField("password");
-        }
+      if (value) {
         callback();
+      } else {
+        callback(new Error("请输入密码"));
       }
     };
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
+      }
+    };
+    // 校验用户协议
+    // 自定义校验规则
+    // 验证通过callback
+    // 验证失败 callback new Error(“错误消息”)
+    var validateAgree = (rule, value, callback) => {
+      if (value) {
+        callback();
+      } else {
+        callback(new Error("请同意用户协议"));
       }
     };
     return {
@@ -126,30 +134,22 @@ export default {
         checkPass: "",
         passwordType: "password",
         userName: "",
-        agree: false, // 是否同意协议
+        agree: false // 是否同意协议
         // age: "",
       },
       rules: {
-        password: [{ validator: validatePass, trigger: "blur" }],
         userName: [{ validator: validateUsername, trigger: "blur" }],
+        password: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        // 自定义校验规则
-        // 验证通过callback
-        // 验证失败 callback new Error(“错误消息”)
+
         agree: [
           {
-            validator: (rule, value, callback) => {
-              if (value) {
-                callback();
-              } else {
-                callback(new Error("请同意用户协议"));
-              }
-            },
-            trigger: "blur",
-          },
-        ],
+            validator: validateAgree,
+            trigger: "blur"
+          }
+        ]
         // age: [{ validator: checkAge, trigger: "blur" }],
-      },
+      }
     };
   },
   mounted() {
@@ -172,10 +172,10 @@ export default {
     // },
     submitForm(formName) {
       let username = this.ruleForm.userName;
-      let password = this.ruleForm.pass;
+      let password = this.ruleForm.password;
       // var that = this;
 
-      this.$refs[formName].validate(async (valid) => {
+      this.$refs[formName].validate(async valid => {
         if (!valid) {
           console.log("error submit!!");
           return false;
@@ -187,11 +187,11 @@ export default {
           data: {
             data: { menu, message },
             code,
-            type,
-          },
+            type
+          }
         } = await this.$axios.post("/api/permission/getMenu", {
           username,
-          password,
+          password
         });
 
         console.log(menu, message, code, type, "数据");
@@ -200,7 +200,7 @@ export default {
           this.loginloading = false;
           this.$message({
             message: `恭喜你，登录成功, vip: ${username}`,
-            type: "success",
+            type: "success"
           });
         } else if (code === "-999") {
           this.loginloading = false;
@@ -211,8 +211,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-  },
+    }
+  }
 };
 </script>
 
