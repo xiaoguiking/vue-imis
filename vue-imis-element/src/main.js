@@ -11,14 +11,14 @@ import "@/styles/index.less"; // global css
 import "element-ui/lib/theme-chalk/index.css";
 
 // 全局挂载请求函数
-import http from "@/api/config";
 // import axios from "axios";
 import "./mock/index.js";
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
-// Vue.prototype.$axios = axios;
-Vue.prototype.$axios = http;
+
+// import http from "@/api/config";
+// Vue.prototype.$axios = http;
 
 new Vue({
   router,

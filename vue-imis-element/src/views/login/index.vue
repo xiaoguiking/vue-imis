@@ -71,6 +71,8 @@
 </template>
 
 <script>
+import { login } from "@/api/user.js";
+
 export default {
   name: "login",
   data() {
@@ -134,7 +136,7 @@ export default {
         checkPass: "",
         passwordType: "password",
         userName: "",
-        agree: false // 是否同意协议
+        agree: false, // 是否同意协议
         // age: "",
       },
       rules: {
@@ -145,11 +147,11 @@ export default {
         agree: [
           {
             validator: validateAgree,
-            trigger: "blur"
-          }
-        ]
+            trigger: "blur",
+          },
+        ],
         // age: [{ validator: checkAge, trigger: "blur" }],
-      }
+      },
     };
   },
   mounted() {
@@ -170,12 +172,23 @@ export default {
     //     this.$refs.password.focus();
     //   });
     // },
+
+    /**
+     *  配置Form表单验证
+     * 1.必须给el-form 表单配置表单数据对象
+     * 2.给需要验证的el-form-item绑定prop 属性 --->>> prop: 指定表单对象中的属性名称
+     * 3.通过el-form 中的rule配置属性校验规则
+     *
+     * 4.手动触发表单验证：
+     * 1.给el-form设置ref起名字，
+     * 2.通过ref获取el-form组件，调用组件的valiate进行验证
+     */
     submitForm(formName) {
       let username = this.ruleForm.userName;
       let password = this.ruleForm.password;
       // var that = this;
 
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (!valid) {
           console.log("error submit!!");
           return false;
@@ -183,16 +196,25 @@ export default {
         this.loginloading = true;
 
         // 解构学习
+        // const {
+        //   data: {
+        //     data: { menu, message },
+        //     code,
+        //     type,
+        //   },
+        // } = await this.$axios.post("/api/permission/getMenu", {
+        //   username,
+        //   password,
+        // });
+
+        // 接口封装
         const {
           data: {
             data: { menu, message },
             code,
-            type
-          }
-        } = await this.$axios.post("/api/permission/getMenu", {
-          username,
-          password
-        });
+            type,
+          },
+        } = await login({ username, password });
 
         console.log(menu, message, code, type, "数据");
 
@@ -200,7 +222,12 @@ export default {
           this.loginloading = false;
           this.$message({
             message: `恭喜你，登录成功, vip: ${username}`,
-            type: "success"
+            type: "success",
+          });
+          // 路由跳转
+          // this.$router.push("/");
+          this.$router.push({
+            name: "index",
           });
         } else if (code === "-999") {
           this.loginloading = false;
@@ -211,8 +238,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 
