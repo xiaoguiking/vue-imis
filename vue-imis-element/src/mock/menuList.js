@@ -7,7 +7,7 @@ const sideMenu = [
   {
     title: "测试路由", // 菜单名称
     path: "/test", // 对应path
-    icon: "eleme" // 对应图标
+    icon: "warning" // 对应图标
   },
   {
     title: "系统管理",
@@ -17,17 +17,17 @@ const sideMenu = [
   {
     title: "用户管理",
     path: "/usermanagement",
-    icon: "setting"
+    icon: "user-solid"
   },
   {
     title: "登录聊天室",
     path: "/logincopy",
-    icon: "setting"
+    icon: "s-promotion"
   },
   {
     title: "聊天室",
     path: "/chatroom",
-    icon: "setting"
+    icon: "s-comment"
   },
   {
     title: "pc浏览端",
@@ -42,14 +42,13 @@ const sideMenu = [
       {
         title: "首页排行榜",
         path: "/index/list",
-        icon: "camera"
       }
     ]
   },
   {
     title: "掐尖库",
     path: "/charts",
-    icon: "home",
+    icon: "-video-camera",
     children: [
       // 子菜单列表
       {

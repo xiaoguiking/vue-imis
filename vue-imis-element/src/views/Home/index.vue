@@ -19,12 +19,12 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 export default {
   name: "Home",
   data() {
     return {
-      homelist: []
+      homelist: [],
     };
   },
   mounted() {
@@ -36,11 +36,11 @@ export default {
   },
   methods: {
     async getData() {
-      const { data } = await this.$axios.get("/home/getData");
+      const { data } = await axios.get("/home/getData");
       const { videoData } = data.data;
       this.homelist = videoData;
-    }
-  }
+    },
+  },
 };
 </script>
 

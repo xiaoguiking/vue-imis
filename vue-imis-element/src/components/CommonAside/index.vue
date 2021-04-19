@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-menu
-      default-active="2"
+      default-active="/"
       class="el-menu-vertical-demo"
-      background-color="#304156"
+      background-color="#002033"
       text-color="#fff"
       active-text-color="#ffd04b"
     >
@@ -23,7 +23,7 @@
         :key="index"
       >
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <i :class="'el-icon-' + item.icon"></i>
           <span>{{ item.title }}</span>
         </template>
         <el-menu-item-group>
@@ -48,12 +48,12 @@ import { sideMenu } from "@/mock/menuList.js";
 export default {
   name: "CommonAside",
   props: {
-    collapse: Boolean
+    collapse: Boolean,
   },
   data() {
     return {
       asideMenu: [],
-      menu: []
+      menu: [],
     };
   },
   created() {
@@ -62,12 +62,12 @@ export default {
   mounted() {},
   computed: {
     noChildren() {
-      return this.asideMenu.filter(item => !item.children);
+      return this.asideMenu.filter((item) => !item.children);
     },
     hasChildren() {
-      return this.asideMenu.filter(item => item.children);
-    }
-  }
+      return this.asideMenu.filter((item) => item.children);
+    },
+  },
 };
 </script>
 

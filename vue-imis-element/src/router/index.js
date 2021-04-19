@@ -13,7 +13,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "main",
+    // 如果有默认的子路由，父级路由不能使用name
+    // name: "main",
     component: () => import("@/views/Main"),
     children: [
       {
