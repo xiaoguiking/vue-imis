@@ -1,8 +1,9 @@
 const sideMenu = [
   {
-    title: "首页", // 菜单名称
+    title: "系统首页", // 菜单名称
     path: "/", // 对应path
-    icon: "eleme" // 对应图标
+    icon: "platform-eleme" // 对应图标
+    // icon: "iconelectronics" // 对应图标
   },
   {
     title: "测试路由", // 菜单名称
@@ -32,7 +33,7 @@ const sideMenu = [
   {
     title: "pc浏览端",
     path: "/file",
-    icon: "house",
+    icon: "goods",
     children: [
       {
         title: "首页大图区",
@@ -48,7 +49,7 @@ const sideMenu = [
   {
     title: "掐尖库",
     path: "/charts",
-    icon: "-video-camera",
+    icon: "video-camera",
     children: [
       // 子菜单列表
       {
@@ -71,7 +72,7 @@ const sideMenu = [
   {
     title: "帖子管理",
     path: "/post",
-    icon: "home",
+    icon: "s-opportunity",
     children: [
       // 子菜单列表
       {
@@ -94,7 +95,7 @@ const sideMenu = [
   {
     title: "广告管理",
     path: "/admagment",
-    icon: "home",
+    icon: "s-order",
     children: [
       // 子菜单列表
       {

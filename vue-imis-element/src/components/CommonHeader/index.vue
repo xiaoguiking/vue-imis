@@ -5,8 +5,17 @@
       <header class="header-imis">welcome vue-imis</header>
     </div>
     <div class="header-user">
-      <span class="header-user-title">欢迎：{{ "admin" }}</span>
-      <span class="signout" @click="$router.push('/login')"> 退出 </span>
+      <el-dropdown size="small" split-button type="primary">
+        {{ "admin" }}
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <a href="https://github.com/xiaoguiking/vue-imis" target="_blank">
+              项目仓库</a
+            >
+          </el-dropdown-item>
+          <el-dropdown-item @click.native="loginOut">退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -15,7 +24,7 @@
 export default {
   name: "CommonHeader",
   props: {
-    collapse: Boolean
+    collapse: Boolean,
   },
   data() {
     return {};
@@ -24,9 +33,13 @@ export default {
   methods: {
     toggleSide() {
       this.$emit("showSide");
-    }
+    },
+
+    loginOut() {
+      console.log(1);
+      this.$router.push("/login");
+    },
   },
-  medthods: {}
 };
 </script>
 
@@ -44,6 +57,9 @@ export default {
     }
     .header-imis {
       display: inline-block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-left: 5px;
     }
   }
 

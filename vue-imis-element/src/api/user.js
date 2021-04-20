@@ -14,7 +14,10 @@ export const login = data => {
 };
 // 获取用户信息
 export const getUserInfo = () => {
-    return;
+    return request({
+        method: "GET",
+        url: "",
+    })
 };
 
 // 更改用户信息
