@@ -20,7 +20,12 @@ const routes = [
       {
         path: "/",
         name: "index",
-        component: () => import("@/views/Home/index")
+        component: () => import("@/views/home/index")
+      },
+      {
+        path: "/css",
+        name: "csscluster",
+        component: () => import("@/views/css-cluster/index")
       },
       {
         path: "/test",
@@ -42,17 +47,17 @@ const routes = [
       {
         path: "systemmanagement",
         name: "SystemManagement",
-        component: () => import("@/views/SystemManagement/index")
+        component: () => import("@/views/system-management/index")
       },
       {
         path: "usermanagement",
-        component: () => import("@/views/UserManagement/index"),
+        component: () => import("@/views/user-management/index"),
         name: "DynamicTable"
         // meta: { title: "Dynamic Table" }
       },
       {
         path: "logincopy",
-        component: () => import("@/views/loginCopy/index"),
+        component: () => import("@/views/login-copy/index"),
         name: "loginCopy"
       },
       {

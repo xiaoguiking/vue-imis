@@ -6,6 +6,7 @@
     </el-aside>
     <!-- 页面主题区域 -->
     <el-container :class="isCollapse ? 'common-container' : 'container-active'">
+      <!-- <el-container :class=[{containeractive:isCollapse},commonContainer]> -->
       <!-- 头部区域 -->
       <el-header style="height: 40px">
         <common-header @showSide="handleSide"></common-header>
@@ -26,19 +27,22 @@ export default {
   name: "Main",
   data() {
     return {
-      isCollapse: true,
+      isCollapse: false,
+      // 数组对象控制css
+      // containerActive: "container-active",
+      commonContainer: "common-container"
     };
   },
   components: {
     CommonHeader,
-    CommonAside,
+    CommonAside
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -46,9 +50,11 @@ export default {
 .el-header {
   overflow: hidden;
   position: relative;
-  background-color: #fff;
-  -webkit-box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  box-shadow: 1px 2px 10px #7a7575;
+  // background-color: #fff;
+
+  background-color: #304156;
+  // -webkit-box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  // box-shadow: 1px 2px 10px #7a7575;
   line-height: 40px;
 }
 
@@ -68,9 +74,10 @@ export default {
 .common-container {
   min-height: 100%;
   -webkit-transition: margin-left 0.28s;
-  transition: margin-left 0.28s;
+  transition: margin-left 0.2s;
   margin-left: 210px;
   position: relative;
+  overflow: hidden;
 }
 .container-active {
   -webkit-transition: margin-left 0.28s;
@@ -79,6 +86,7 @@ export default {
 }
 .el-main {
   overflow: visible;
+  background: #f0f0f0;
 }
 .el-footer {
   width: 100%;

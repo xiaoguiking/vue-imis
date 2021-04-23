@@ -20,7 +20,7 @@
 let url = "ws:localhost:9999";
 const ws = new WebSocket(url);
 export default {
-  name: "chatroom",
+  name: "Chatroom",
   data() {
     return {
       message: "",

@@ -6,6 +6,12 @@ const sideMenu = [
     // icon: "iconelectronics" // 对应图标
   },
   {
+    title: "css集群", // 菜单名称
+    path: "/css", // 对应path
+    icon: "picture" // 对应图标
+  },
+
+  {
     title: "测试路由", // 菜单名称
     path: "/test", // 对应path
     icon: "warning" // 对应图标
@@ -42,7 +48,7 @@ const sideMenu = [
       },
       {
         title: "首页排行榜",
-        path: "/index/list",
+        path: "/index/list"
       }
     ]
   },

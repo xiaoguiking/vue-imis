@@ -14,6 +14,10 @@ import "element-ui/lib/theme-chalk/index.css";
 // import axios from "axios";
 import "./mock/index.js";
 
+// 时间格式化
+import dayjs from "dayjs";
+Vue.prototype.dayjs = dayjs; //可以全局使用dayjs
+
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 

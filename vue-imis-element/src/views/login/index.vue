@@ -74,7 +74,7 @@
 import { login } from "@/api/user.js";
 
 export default {
-  name: "login",
+  name: "Login",
   data() {
     // var checkAge = (rule, value, callback) => {
     //   if (!value) {
@@ -136,7 +136,7 @@ export default {
         checkPass: "",
         passwordType: "password",
         userName: "",
-        agree: false, // 是否同意协议
+        agree: false // 是否同意协议
         // age: "",
       },
       rules: {
@@ -147,11 +147,11 @@ export default {
         agree: [
           {
             validator: validateAgree,
-            trigger: "blur",
-          },
-        ],
+            trigger: "blur"
+          }
+        ]
         // age: [{ validator: checkAge, trigger: "blur" }],
-      },
+      }
     };
   },
   mounted() {
@@ -188,7 +188,7 @@ export default {
       let password = this.ruleForm.password;
       // var that = this;
 
-      this.$refs[formName].validate(async (valid) => {
+      this.$refs[formName].validate(async valid => {
         if (!valid) {
           console.log("error submit!!");
           return false;
@@ -212,8 +212,8 @@ export default {
           data: {
             data: { menu, message },
             code,
-            type,
-          },
+            type
+          }
         } = await login({ username, password });
 
         console.log(menu, message, code, type, "数据");
@@ -222,12 +222,12 @@ export default {
           this.loginloading = false;
           this.$message({
             message: `恭喜你，登录成功, vip: ${username}`,
-            type: "success",
+            type: "success"
           });
           // 路由跳转
           // this.$router.push("/");
           this.$router.push({
-            name: "index",
+            name: "index"
           });
         } else if (code === "-999") {
           this.loginloading = false;
@@ -238,8 +238,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-  },
+    }
+  }
 };
 </script>
 

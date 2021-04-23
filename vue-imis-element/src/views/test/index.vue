@@ -65,7 +65,7 @@ import Res from "@/views/test/Res";
 import CommonTable from "@/components/CommonTable";
 
 export default {
-  name: "test",
+  name: "Test",
   data() {
     return {
       routervalue: "",

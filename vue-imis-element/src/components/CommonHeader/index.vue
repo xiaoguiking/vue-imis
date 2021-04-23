@@ -2,7 +2,7 @@
   <div class="header-container">
     <div class="header-left">
       <div class="toggle-button el-icon-s-fold" @click="toggleSide"></div>
-      <header class="header-imis">welcome vue-imis</header>
+      <div class="header-imis orange">welcome vue-imis-element</div>
     </div>
     <div class="header-user">
       <el-dropdown size="small" split-button type="primary">
@@ -24,7 +24,7 @@
 export default {
   name: "CommonHeader",
   props: {
-    collapse: Boolean,
+    collapse: Boolean
   },
   data() {
     return {};
@@ -38,8 +38,8 @@ export default {
     loginOut() {
       console.log(1);
       this.$router.push("/login");
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -54,12 +54,21 @@ export default {
       cursor: pointer;
       padding-left: 5px;
       font-size: 20px;
+      color: whitesmoke;
+    }
+
+    .orange {
+      color: #ff5722;
     }
     .header-imis {
       display: inline-block;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 20px;
       margin-left: 5px;
+      cursor: pointer;
+
+      &:hover {
+        animation: orange 1.5s ease-in-out infinite alternate;
+      }
     }
   }
 
@@ -71,6 +80,18 @@ export default {
     .signout {
       cursor: pointer;
     }
+  }
+}
+
+@keyframes orange {
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff5722,
+      0 0 70px #ff5722, 0 0 80px #ff5722, 0 0 100px #ff5722, 0 0 150px #ff5722;
+  }
+  from {
+    filter: brightness(110%);
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff5722,
+      0 0 35px #ff5722, 0 0 40px #ff5722, 0 0 50px #ff5722, 0 0 75px #ff5722;
   }
 }
 </style>

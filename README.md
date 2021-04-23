@@ -1,4 +1,4 @@
-# vue-imis 后台管理系统
+# vue-imis-element 后台管理系统
 
 # node-chatroom 服务端聊天室
 
@@ -19,3 +19,14 @@
 - ci 持续集成
 - types 类型定义文件更改
 - wip 开发中
+
+
+## vue-imis-element 规范备忘录
+
+```
+ - 文件里面 name 统一形式为： CssCluster， Login
+
+ - views  命名： 单文件夹 login   复杂文件夹： css-cluster
+
+ - components 组件文件夹命名： CommonHeader   
+```

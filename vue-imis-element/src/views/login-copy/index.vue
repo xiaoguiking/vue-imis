@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "loginCopy",
+  name: "LoginCopy",
   data() {
     return {
       username: ""

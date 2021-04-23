@@ -48,12 +48,12 @@ import { sideMenu } from "@/mock/menuList.js";
 export default {
   name: "CommonAside",
   props: {
-    collapse: Boolean,
+    collapse: Boolean
   },
   data() {
     return {
       asideMenu: [],
-      menu: [],
+      menu: []
     };
   },
   created() {
@@ -62,12 +62,12 @@ export default {
   mounted() {},
   computed: {
     noChildren() {
-      return this.asideMenu.filter((item) => !item.children);
+      return this.asideMenu.filter(item => !item.children);
     },
     hasChildren() {
-      return this.asideMenu.filter((item) => item.children);
-    },
-  },
+      return this.asideMenu.filter(item => item.children);
+    }
+  }
 };
 </script>
 
