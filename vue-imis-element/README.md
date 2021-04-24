@@ -26,6 +26,14 @@ module.exports = {
 - 封装 axios
   https://github.com/PanJiaChen/vue-element-admin/blob/master/src/utils/request.js
 
+### vue 技巧
+
+```
+<component msg="字符串"></component>  ---------->  对应字符串
+<component :msg="value"></component> -----------> 指向变量
+
+```
+
 ## 权限管理思路
 
 - 什么是权限管理

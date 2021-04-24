@@ -10,6 +10,11 @@ const sideMenu = [
     path: "/css", // 对应path
     icon: "picture" // 对应图标
   },
+  {
+    title: "vue组件化", // 菜单名称
+    path: "/vue", // 对应path
+    icon: "warning" // 对应图标
+  },
 
   {
     title: "测试路由", // 菜单名称

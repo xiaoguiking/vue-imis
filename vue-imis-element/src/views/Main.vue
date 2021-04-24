@@ -2,6 +2,8 @@
   <el-container>
     <!-- 侧边栏 -->
     <el-aside :width="isCollapse ? '220px' : '50px'">
+      <!-- <el-aside width="auto"> -->
+      <!-- <common-aside :is-collapse="isCollapse"></common-aside> -->
       <common-aside></common-aside>
     </el-aside>
     <!-- 页面主题区域 -->
@@ -30,19 +32,19 @@ export default {
       isCollapse: false,
       // 数组对象控制css
       // containerActive: "container-active",
-      commonContainer: "common-container"
+      commonContainer: "common-container",
     };
   },
   components: {
     CommonHeader,
-    CommonAside
+    CommonAside,
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    }
-  }
+    },
+  },
 };
 </script>
 

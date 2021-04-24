@@ -20,12 +20,17 @@ const routes = [
       {
         path: "/",
         name: "index",
-        component: () => import("@/views/home/index")
+        component: () => import("@/views/home-page/index")
       },
       {
         path: "/css",
         name: "csscluster",
         component: () => import("@/views/css-cluster/index")
+      },
+      {
+        path: "/vue",
+        name: "vuecom",
+        component: () => import("@/views/vue-com/index")
       },
       {
         path: "/test",

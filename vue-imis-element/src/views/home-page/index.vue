@@ -13,9 +13,7 @@
               <span>时间：{{ time }}</span>
               <span></span>
             </div>
-            <div class="user-info-list">
-              位置： {{"北京"}}
-            </div>
+            <div class="user-info-list">位置： {{ "北京" }}</div>
           </el-card>
         </div></el-col
       >
@@ -66,7 +64,7 @@ export default {
     //   console.log(res.data);
     // });
     this.getData();
-    this.getLocation();
+    // this.getLocation();
   },
   methods: {
     async getData() {

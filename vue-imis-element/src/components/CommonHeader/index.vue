@@ -23,9 +23,6 @@
 <script>
 export default {
   name: "CommonHeader",
-  props: {
-    collapse: Boolean
-  },
   data() {
     return {};
   },

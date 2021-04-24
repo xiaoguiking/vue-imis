@@ -47,27 +47,33 @@ import { sideMenu } from "@/mock/menuList.js";
 
 export default {
   name: "CommonAside",
-  props: {
-    collapse: Boolean
-  },
+  // props: {
+  //   // isCollapse: Boolean,
+  //   // "is-collapse": Boolean,
+  // },
   data() {
     return {
       asideMenu: [],
-      menu: []
+      menu: [],
+      isCollapse: true,
     };
   },
+
   created() {
     this.asideMenu = sideMenu;
   },
-  mounted() {},
+
+  mounted() {
+    this.asideMenu = sideMenu;
+  },
   computed: {
     noChildren() {
-      return this.asideMenu.filter(item => !item.children);
+      return this.asideMenu.filter((item) => !item.children);
     },
     hasChildren() {
-      return this.asideMenu.filter(item => item.children);
-    }
-  }
+      return this.asideMenu.filter((item) => item.children);
+    },
+  },
 };
 </script>
 
