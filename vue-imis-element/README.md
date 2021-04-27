@@ -45,3 +45,11 @@ module.exports = {
     - 触发时机
       - 登录成功触发判断权限
     - 实现思路
+
+## 组件通信
+
+- 父子通信
+
+- 兄弟通信 eventbus
+
+- attrs/ \$listeners

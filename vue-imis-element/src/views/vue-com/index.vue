@@ -13,7 +13,21 @@
           <m-parent></m-parent>
         </el-card>
       </el-col>
-      <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="12">
+        <el-card>
+          <el-button type="success" @click="passMsg"
+            >事件总线eventbus传值child</el-button
+          >
+          <m-parent></m-parent>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row :gutter="10">
+      <el-col :span="6">
+        <el-card>
+          <m-father :message="a" :messageb="b" :messagec="c"></m-father>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -21,10 +35,29 @@
 <script>
 import MParent from "./Parent.vue";
 
+// 事件总线
+import bus from "@/utils/bus.js";
+
+// atters
+import MFather from "./Father";
+
 export default {
   name: "VueCom",
   components: {
     MParent,
+    MFather,
+  },
+  data() {
+    return {
+      a: "消息a",
+      b: "消息b",
+      c: "消息c",
+    };
+  },
+  methods: {
+    passMsg() {
+      bus.$emit("acceptMsg", "我是使用eventsbus传值");
+    },
   },
 };
 </script>
