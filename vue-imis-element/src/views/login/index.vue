@@ -224,11 +224,16 @@ export default {
             message: `恭喜你，登录成功, vip: ${username}`,
             type: "success"
           });
+
+          window.localStorage.setItem("username", username);
+
           // 路由跳转
           // this.$router.push("/");
+
           this.$router.push({
             name: "index"
           });
+
         } else if (code === "-999") {
           this.loginloading = false;
           this.$message.error(`${message}`);

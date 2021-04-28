@@ -17,7 +17,7 @@
 </template>
 
 <script>
-let url = "ws:localhost:9999";
+let url = "ws:localhost:8888";
 const ws = new WebSocket(url);
 export default {
   name: "Chatroom",

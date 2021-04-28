@@ -10,11 +10,10 @@ import MSon from "./Son";
 export default {
   name: "Father",
   components: {
-    MSon,
+    MSon
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

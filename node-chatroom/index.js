@@ -1,7 +1,7 @@
 const Ws = require("ws");
 
 (function (Ws) {
-    const server = new Ws.Server({ port: 9999 })
+    const server = new Ws.Server({ port: 8888 })
     console.log("server start");
     console.log(111)
 
@@ -42,7 +42,7 @@ const Ws = require("ws");
     }
 
     init()
-    var port = process.env.PORT || 7777
-    app.listen(port)
+    // var port = process.env.PORT || 7777
+    // app.listen(port)
 
 })(Ws)

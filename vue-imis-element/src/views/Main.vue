@@ -32,19 +32,19 @@ export default {
       isCollapse: false,
       // 数组对象控制css
       // containerActive: "container-active",
-      commonContainer: "common-container",
+      commonContainer: "common-container"
     };
   },
   components: {
     CommonHeader,
-    CommonAside,
+    CommonAside
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    },
-  },
+    }
+  }
 };
 </script>
 

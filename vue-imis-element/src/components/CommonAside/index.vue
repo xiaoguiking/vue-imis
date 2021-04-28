@@ -55,7 +55,7 @@ export default {
     return {
       asideMenu: [],
       menu: [],
-      isCollapse: true,
+      isCollapse: true
     };
   },
 
@@ -68,12 +68,12 @@ export default {
   },
   computed: {
     noChildren() {
-      return this.asideMenu.filter((item) => !item.children);
+      return this.asideMenu.filter(item => !item.children);
     },
     hasChildren() {
-      return this.asideMenu.filter((item) => item.children);
-    },
-  },
+      return this.asideMenu.filter(item => item.children);
+    }
+  }
 };
 </script>
 

@@ -20,12 +20,18 @@ const routes = [
       {
         path: "/",
         name: "index",
-        component: () => import("@/views/home-page/index")
+        component: () => import("@/views/home-page/index"),
+        meta: {
+          needLogin: false
+        }
       },
       {
         path: "/css",
         name: "csscluster",
-        component: () => import("@/views/css-cluster/index")
+        component: () => import("@/views/css-cluster/index"),
+        meta: {
+          needLogin: true
+        }
       },
       {
         path: "/vue",

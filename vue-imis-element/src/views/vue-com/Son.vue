@@ -14,7 +14,7 @@ export default {
     return {
       a: "",
       b: "",
-      c: "",
+      c: ""
     };
   },
   mounted() {
@@ -22,9 +22,8 @@ export default {
     this.a = this.$attrs.message;
     this.b = this.$attrs.messageb;
     this.c = this.$attrs.messagec;
-  },
+  }
 };
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>
