@@ -33,11 +33,11 @@ export default {
     },
 
     loginOut() {
-      window.localStorage.removeItem('username');
+      window.localStorage.removeItem("username");
       this.$message({
-            message: `恭喜你，已经注销`,
-            type: "success"
-          });
+        message: `恭喜你，已经注销`,
+        type: "success"
+      });
       this.$router.push("/login");
     }
   }

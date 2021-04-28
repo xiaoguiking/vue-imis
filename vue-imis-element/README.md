@@ -53,3 +53,15 @@ module.exports = {
 - 兄弟通信 eventbus
 
 - attrs/ \$listeners
+
+  ```
+  $attr将父组件中不包含props的属性传入子组件，
+  $listener 监听子组件中数据变化，传递给父组件
+  ```
+
+## vue -router
+
+```
+name ---------> params
+path ---------> query
+```

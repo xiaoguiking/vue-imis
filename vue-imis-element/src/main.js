@@ -28,27 +28,25 @@ Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   // let hasLogin = false
   /* 路由发生变化修改页面title */
-  let flag = window.localStorage.getItem("username"); 
+  let flag = window.localStorage.getItem("username");
 
-  console.log("===========>flag",flag)
+  console.log("===========>flag", flag);
   if (flag) {
-    if (to.path === '/login') {
-      console.log("===========>username 直接登录")
+    if (to.path === "/login") {
+      console.log("===========>username 直接登录");
       // 登录状态下，访问login.vue,会跳转到index.vue
-      next({path: '/'})
+      next({ path: "/" });
     } else {
-      next()
+      next();
     }
   } else {
     // 如果没有local,访问如何页面都会跳转到index.vue
-    if(to.path ==='/login') {
+    if (to.path === "/login") {
       next();
     } else {
-      next({path: '/login'})
+      next({ path: "/login" });
     }
   }
-
-
 
   if (to.name) {
     document.title = to.name + "-Vue-imis-element";

@@ -233,7 +233,6 @@ export default {
           this.$router.push({
             name: "index"
           });
-
         } else if (code === "-999") {
           this.loginloading = false;
           this.$message.error(`${message}`);
