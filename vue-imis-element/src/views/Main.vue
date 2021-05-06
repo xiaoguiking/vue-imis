@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <!-- 侧边栏 -->
-    <el-aside :width="isCollapse ? '220px' : '50px'">
+    <el-aside :width="isCollapse ? '210px' : '50px'">
       <!-- <el-aside width="auto"> -->
       <!-- <common-aside :is-collapse="isCollapse"></common-aside> -->
       <common-aside></common-aside>
@@ -32,19 +32,19 @@ export default {
       isCollapse: false,
       // 数组对象控制css
       // containerActive: "container-active",
-      commonContainer: "common-container",
+      commonContainer: "common-container"
     };
   },
   components: {
     CommonHeader,
-    CommonAside,
+    CommonAside
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -99,7 +99,9 @@ sticky属性仅在以下几个条件都满足时有效：
 .el-main {
   overflow: visible;
   background: #f0f0f0;
+  padding: 0;
 }
+
 .el-footer {
   width: 100%;
   position: fixed;

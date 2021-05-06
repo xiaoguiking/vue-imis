@@ -10,6 +10,13 @@ import Res from "@/views/test/Res";
 
 Vue.use(VueRouter);
 
+/**
+ *  Avoided redundant navigation to current location: "/"。先说一下是怎么触发这个报错的，就是博主用element ui写得侧边导航栏中用到了路由，然后重复点击这个路由就出现这个报错了
+ */
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
 const routes = [
   {
     path: "/",

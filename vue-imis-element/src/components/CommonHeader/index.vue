@@ -2,8 +2,17 @@
   <div class="header-container">
     <div class="header-left">
       <div class="toggle-button el-icon-s-fold" @click="toggleSide"></div>
-      <div class="header-imis orange">welcome vue-imis-element</div>
+      <!-- <div class="header-imis orange">welcome vue-imis-element</div> -->
+      <div class="breadcrumb">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="current.path" v-if="current">{{
+            current.title
+          }}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
     </div>
+
     <div class="header-user">
       <el-dropdown size="small" split-button type="primary">
         {{ "admin" }}
@@ -21,6 +30,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "CommonHeader",
   data() {
@@ -40,6 +50,13 @@ export default {
       });
       this.$router.push("/login");
     }
+  },
+  computed: {
+    ...mapState({
+      current: state => {
+        return state.tab.currentMenu;
+      }
+    })
   }
 };
 </script>
@@ -51,11 +68,18 @@ export default {
   align-items: center;
 
   .header-left {
+    display: flex;
+    align-items: center;
     .toggle-button {
       cursor: pointer;
       padding-left: 5px;
       font-size: 20px;
       color: whitesmoke;
+    }
+
+    .breadcrumb {
+      margin-left: 20px;
+      color: #fff;
     }
 
     .orange {
@@ -94,5 +118,12 @@ export default {
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff5722,
       0 0 35px #ff5722, 0 0 40px #ff5722, 0 0 50px #ff5722, 0 0 75px #ff5722;
   }
+}
+</style>
+
+<style lang="less">
+.el-breadcrumb__inner a,
+.el-breadcrumb__inner.is-link {
+  color: #9a9fa7;
 }
 </style>
