@@ -14,6 +14,7 @@
         <common-header @showSide="handleSide"></common-header>
       </el-header>
       <!-- 右侧内容主题 -->
+      <v-tags></v-tags>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -25,6 +26,8 @@
 <script>
 import CommonHeader from "@/components/CommonHeader";
 import CommonAside from "@/components/CommonAside";
+import vTags from "@/components/Tags";
+
 export default {
   name: "Main",
   data() {
@@ -37,7 +40,8 @@ export default {
   },
   components: {
     CommonHeader,
-    CommonAside
+    CommonAside,
+    vTags
   },
   methods: {
     handleSide() {

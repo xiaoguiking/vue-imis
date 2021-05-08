@@ -125,6 +125,22 @@ const sideMenu = [
         icon: "data"
       }
     ]
+  },
+  {
+    title: "错误处理",
+    path: "/file",
+    icon: "goods",
+    children: [
+      {
+        title: "权限测试",
+        path: "/index/add/:id",
+        icon: "platform-eleme"
+      },
+      {
+        title: "404页面",
+        path: "/index/list"
+      }
+    ],
   }
 ];
 
