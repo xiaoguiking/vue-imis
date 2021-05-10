@@ -13,6 +13,7 @@
       <el-header style="height: 40px">
         <common-header @showSide="handleSide"></common-header>
       </el-header>
+      <common-tab></common-tab>
       <!-- 右侧内容主题 -->
       <el-main>
         <router-view></router-view>
@@ -25,6 +26,8 @@
 <script>
 import CommonHeader from "@/components/CommonHeader";
 import CommonAside from "@/components/CommonAside";
+import CommonTab from "@/components/CommonTab";
+
 export default {
   name: "Main",
   data() {
@@ -37,7 +40,8 @@ export default {
   },
   components: {
     CommonHeader,
-    CommonAside
+    CommonAside,
+    CommonTab
   },
   methods: {
     handleSide() {
@@ -94,7 +98,7 @@ sticky属性仅在以下几个条件都满足时有效：
 .container-active {
   -webkit-transition: margin-left 0.28s;
   transition: margin-left 0.28s;
-  margin-left: 60px;
+  margin-left: 50px;
 }
 .el-main {
   overflow: visible;
