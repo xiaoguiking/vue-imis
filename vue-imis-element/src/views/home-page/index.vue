@@ -45,6 +45,9 @@
 
 <script>
 import axios from "axios";
+// import adver from "@/assets/img/adver.jpg";
+import adver from "@/assets/img/adver2.jpg";
+
 export default {
   name: "Home",
   data() {
@@ -52,8 +55,7 @@ export default {
     return {
       homelist: [],
       // 头像
-      circleUrl:
-        "https://img2.baidu.com/it/u=196908930,1441537649&fm=26&fmt=auto&gp=0.jpg",
+      circleUrl: adver,
       time: time
     };
   },

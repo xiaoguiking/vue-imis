@@ -30,10 +30,8 @@ router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
   let flag = window.localStorage.getItem("username");
 
-  console.log("===========>flag", flag);
   if (flag) {
     if (to.path === "/login") {
-      console.log("===========>username 直接登录");
       // 登录状态下，访问login.vue,会跳转到index.vue
       next({ path: "/" });
     } else {

@@ -24,9 +24,9 @@ export default {
 
     // 关闭标签tags
     closeTags(state, val) {
-      let result = state.tabsList.findIndex(item => item.title === val.title)
-      console.log(result, "=========>")
-      state.tabsList.splice(result, 1)
+      let result = state.tabsList.findIndex(item => item.title === val.title);
+      console.log(result, "=========>");
+      state.tabsList.splice(result, 1);
     }
   },
   actions: {},

@@ -79,6 +79,16 @@ const routes = [
         name: "loginCopy"
       },
       {
+        path: "permission",
+        component: () => import("@/views/chatroom/index"),
+        name: "chatroom"
+      },
+      {
+        path: "404",
+        component: () => import("@/views/chatroom/index"),
+        name: "chatroom"
+      },
+      {
         path: "chatroom",
         component: () => import("@/views/chatroom/index"),
         name: "chatroom"

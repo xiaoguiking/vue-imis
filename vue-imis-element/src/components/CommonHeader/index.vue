@@ -6,9 +6,9 @@
       <div class="breadcrumb">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="current.path" v-if="current">{{
-            current.title
-          }}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="current.path" v-if="current">
+            {{ current.title }}
+          </el-breadcrumb-item>
         </el-breadcrumb>
       </div>
     </div>
@@ -54,6 +54,7 @@ export default {
   computed: {
     ...mapState({
       current: state => {
+        console.log(state.tab.currentMenu, "===========>menu");
         return state.tab.currentMenu;
       }
     })
@@ -124,6 +125,10 @@ export default {
 <style lang="less">
 .el-breadcrumb__inner a,
 .el-breadcrumb__inner.is-link {
-  color: #9a9fa7;
+  color: #fff;
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: #fff;
 }
 </style>

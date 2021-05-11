@@ -15,6 +15,7 @@
       </el-header>
       <common-tab></common-tab>
       <!-- 右侧内容主题 -->
+      <v-tags></v-tags>
       <el-main>
         <router-view></router-view>
       </el-main>
