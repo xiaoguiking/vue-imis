@@ -20,7 +20,6 @@
 - types 类型定义文件更改
 - wip 开发中
 
-
 ## vue-imis-element 规范备忘录
 
 ```
@@ -28,5 +27,5 @@
 
  - views  命名： 单文件夹 login   复杂文件夹： css-cluster
 
- - components 组件文件夹命名： CommonHeader   
+ - components 组件文件夹命名： CommonHeader
 ```

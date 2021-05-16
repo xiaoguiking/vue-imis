@@ -78,6 +78,8 @@ export default {
   },
   methods: {
     clickMenu(item) {
+      console.log("item=================>", item);
+      this.$router.push({ path: item.path });
       return this.$store.commit("selectMenu", item);
     }
   }

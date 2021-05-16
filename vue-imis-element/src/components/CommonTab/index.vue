@@ -3,9 +3,10 @@
     <el-tag
       :key="tag.path"
       v-for="tag in tags"
-      closable
+      :closable="tag.title !== '系统首页'"
       :disable-transitions="false"
       @close="handleClose(tag)"
+      @click="changeMenu(tag)"
     >
       {{ tag.title }}
     </el-tag>
@@ -47,6 +48,11 @@ export default {
       this.close(tag);
     },
 
+    changeMenu(tag) {
+      this.$router.push({ path: tag.path });
+      this.$store.commit("selectMenu", tag);
+    },
+
     showInput() {
       this.inputVisible = true;
       //   this.$nextTick(_ => {
@@ -74,6 +80,7 @@ export default {
 <style lang="less" scoped>
 .el-tag + .el-tag {
   margin-left: 10px;
+  cursor: pointer;
 }
 .button-new-tag {
   margin-left: 10px;

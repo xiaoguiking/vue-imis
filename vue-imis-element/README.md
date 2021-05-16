@@ -65,3 +65,10 @@ module.exports = {
 name ---------> params
 path ---------> query
 ```
+
+## 使用 vuex 实现切换 tab 功能
+
+- 1.在 Main.vue 中引入 Commontab.vue 组件
+- 2.在 vuex 定义存取标签的 tagList, 方便非父子间的数据传递
+- 3.定义 vuex 中点击菜单加入到 taglist 中
+- 4.vuex 点击标签删除对应的菜单标签
