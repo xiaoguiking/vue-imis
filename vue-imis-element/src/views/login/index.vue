@@ -227,12 +227,15 @@ export default {
 
           window.localStorage.setItem("username", username);
 
+          this.$store.commit("clearMenu");
+          this.$store.commit("setMenu", menu);
+          this.$store.commit("addMenu", this.$router);
           // 路由跳转
-          // this.$router.push("/");
+          this.$router.push("/");
 
-          this.$router.push({
-            name: "index"
-          });
+          // this.$router.push({
+          //   name: "index",
+          // });
         } else if (code === "-999") {
           this.loginloading = false;
           this.$message.error(`${message}`);

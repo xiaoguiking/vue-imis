@@ -140,7 +140,16 @@ export default {
                 name: "所有用户",
                 label: "用户管理",
                 icon: "user",
-                url: "UserManage/AllUser"
+                url: "UserManage/AllUser",
+                children: [
+                  {
+                    path: "/user1",
+                    name: "编辑用户",
+                    label: "编辑用户",
+                    icon: "user",
+                    url: "user/edit"
+                  }
+                ]
               },
               {
                 path: "/adminproject",
