@@ -44,6 +44,9 @@ export default {
 
     loginOut() {
       window.localStorage.removeItem("username");
+      this.$store.commit("clearToken");
+      this.$store.commit("clearMenu");
+      location.reload();
       this.$message({
         message: `恭喜你，已经注销`,
         type: "success"

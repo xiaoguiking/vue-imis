@@ -210,13 +210,13 @@ export default {
         // 接口封装
         const {
           data: {
-            data: { menu, message },
+            data: { menu, message, token },
             code,
             type
           }
         } = await login({ username, password });
 
-        console.log(menu, message, code, type, "数据");
+        console.log(menu, message, code, type, token, "数据");
 
         if (code === "20000") {
           this.loginloading = false;
@@ -228,6 +228,7 @@ export default {
           window.localStorage.setItem("username", username);
 
           this.$store.commit("clearMenu");
+          this.$store.commit("setToken", token);
           this.$store.commit("setMenu", menu);
           this.$store.commit("addMenu", this.$router);
           // 路由跳转

@@ -72,3 +72,24 @@ path ---------> query
 - 2.在 vuex 定义存取标签的 tagList, 方便非父子间的数据传递
 - 3.定义 vuex 中点击菜单加入到 taglist 中
 - 4.vuex 点击标签删除对应的菜单标签
+
+## 权限管理之路由守卫判断用户登录状态
+
+- permission.js 返回 token
+- 登录时保存 token
+  - 保存在 vuex 里面
+  - 保存在 cookie 里面
+- 路由守卫判断 token 是否存在，判断用户页面跳转
+
+```
+router.beforeEach((to, from, next) => {
+  <!-- 从cookie里面获取token，防止刷新后token丢失 -->
+  store.commit("getToken")
+  let token = store.state.user.token;
+  if(!token || to.name !== "login") {
+    next({name: login})
+  } else {
+    next()
+  }
+})
+```

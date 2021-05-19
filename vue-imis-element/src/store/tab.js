@@ -23,10 +23,10 @@ export default {
       Cookie.remove("menu");
     },
     addMenu(state, router) {
-      let menu = JSON.parse(Cookie.get("menu"));
-      if (!menu) {
+      if (!Cookie.get("menu")) {
         return;
       }
+      let menu = JSON.parse(Cookie.get("menu"));
       state.menu = menu;
       let currentMenu = [
         {
@@ -41,13 +41,13 @@ export default {
             item.component = () => import(`@/views/${item.url}`);
             return item;
           });
-          currentMenu[0].children.push(...item.children)
+          currentMenu[0].children.push(...item.children);
         } else {
           item.component = () => import(`@/views/${item.url}`);
         }
       });
-      console.log(currentMenu, "currentMenu")
-      router.addRoutes(currentMenu)
+      console.log(currentMenu, "currentMenu");
+      router.addRoutes(currentMenu);
       console.log(menu);
     },
     selectMenu(state, val) {
