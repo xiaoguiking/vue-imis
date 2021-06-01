@@ -20,8 +20,50 @@
       <el-col :span="16"
         ><div class="grid-content bg-purple">
           <el-card>
-            <div slot="header"></div>
-            <div>待办事项</div>
+            <div slot="header" class="clearfix">
+              待办事项
+              <span></span>
+              <el-button
+                style="float: right; padding: 3px 0"
+                type="text"
+                @click="addItem()"
+                >添加</el-button
+              >
+            </div>
+            <!-- <div class="todo">待办事项</div> -->
+            <el-table :show-header="false" :data="todoList" style="width: 100%">
+              <el-table-column width="40">
+                <template slot-scope="scope">
+                  <el-checkbox v-model="scope.row.status"></el-checkbox>
+                </template>
+              </el-table-column>
+              <el-table-column>
+                <template slot-scope="scope">
+                  <div
+                    class="todo-item"
+                    :class="{ 'todo-item-del': scope.row.status }"
+                  >
+                    {{ scope.row.title }}
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column width="60">
+                <template slot-scope="scope">
+                  <i
+                    class="el-icon-edit"
+                    style="margin-right: 10px"
+                    @click.prevent="editRow(scope.$index, scope.row)"
+                  ></i>
+                  <el-button
+                    @click.native.prevent="deleteRow(scope.$index, scope.row)"
+                    type="text"
+                    size="small"
+                  >
+                    <i class="el-icon-delete"></i>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
           </el-card>
         </div>
       </el-col>
@@ -40,6 +82,21 @@
         <a class="index-bottom">查看</a>
       </el-card>
     </div>
+    <!-- 编辑弹出框 -->
+    <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
+      <el-form ref="form" :model="form" label-width="70px">
+        <el-form-item label="id">
+          <el-input v-model="form.id"></el-input>
+        </el-form-item>
+        <el-form-item label="title">
+          <el-input v-model="form.title"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveEdit">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -56,7 +113,28 @@ export default {
       homelist: [],
       // 头像
       circleUrl: adver,
-      time: time
+      time: time,
+      editVisible: false,
+      form: {
+        id: "",
+        title: ""
+      },
+      idx: -1,
+      todoList: [
+        {
+          id: 1,
+          title: "我喝过很烈的酒,也放过不该放的手,从前不会回头,往后不会将就."
+        },
+        {
+          id: 2,
+          title:
+            "什么叫喜欢一个人?那就是见到对方之前,不知情为何物,错过之后,更不知情为何物。"
+        },
+        {
+          id: 3,
+          title: "故事故事，便是故去的事情了，多说无益。"
+        }
+      ]
     };
   },
 
@@ -73,6 +151,43 @@ export default {
       const { data } = await axios.get("/home/getData");
       const { videoData } = data.data;
       this.homelist = videoData;
+    },
+
+    deleteRow(index, rows) {
+      console.log(index, rows, "===============>");
+      this.todoList.splice(index, 1);
+    },
+
+    // 编辑操作
+    editRow(index, rows) {
+      console.log(index, rows, "=============>edit");
+      this.form = rows;
+      this.editVisible = true;
+    },
+
+    // 编辑操作
+    handleEdit(index, row) {
+      this.idx = index;
+      this.form = row;
+      this.editVisible = true;
+    },
+    // 保存编辑
+    saveEdit() {
+      this.editVisible = false;
+      this.$message.success(`修改第 ${this.idx + 1} 行成功`);
+      this.$set(this.todoList, this.id, this.form);
+    },
+
+    //  添加todo
+    addItem() {
+      this.editVisible = true;
+      console.log(this.form.id, "id");
+      console.log(
+        this.todoList.push({
+          id: this.form.id,
+          title: this.form.title
+        })
+      );
     },
 
     // 获取地址位置

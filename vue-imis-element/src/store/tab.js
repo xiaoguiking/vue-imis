@@ -41,13 +41,13 @@ export default {
             item.component = () => import(`@/views/${item.url}`);
             return item;
           });
-          currentMenu[0].children.push(...item.children)
+          currentMenu[0].children.push(...item.children);
         } else {
           item.component = () => import(`@/views/${item.url}`);
         }
       });
-      console.log(currentMenu, "currentMenu")
-      router.addRoutes(currentMenu)
+      console.log(currentMenu, "currentMenu");
+      router.addRoutes(currentMenu);
       console.log(menu);
     },
     selectMenu(state, val) {

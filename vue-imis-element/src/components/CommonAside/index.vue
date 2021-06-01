@@ -49,10 +49,6 @@ import { sideMenu } from "@/mock/menuList.js";
 
 export default {
   name: "CommonAside",
-  // props: {
-  //   // isCollapse: Boolean,
-  //   // "is-collapse": Boolean,
-  // },
   data() {
     return {
       asideMenu: [],

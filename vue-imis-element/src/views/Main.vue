@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <!-- 侧边栏 -->
-    <el-aside :width="isCollapse ? '210px' : '50px'">
+    <el-aside :width="isCollapse ? '210px' : '60px'">
       <!-- <el-aside width="auto"> -->
       <!-- <common-aside :is-collapse="isCollapse"></common-aside> -->
       <common-aside></common-aside>
