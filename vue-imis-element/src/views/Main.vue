@@ -1,11 +1,9 @@
 <template>
   <el-container>
     <!-- 侧边栏 -->
-    <el-aside :width="isCollapse ? '210px' : '60px'">
-      <!-- <el-aside width="auto"> -->
-      <!-- <common-aside :is-collapse="isCollapse"></common-aside> -->
-      <common-aside></common-aside>
-    </el-aside>
+    <common-aside
+      :style="{ width: isCollapse ? '210px' : '50px' }"
+    ></common-aside>
     <!-- 页面主题区域 -->
     <el-container :class="isCollapse ? 'common-container' : 'container-active'">
       <!-- <el-container :class=[{containeractive:isCollapse},commonContainer]> -->
@@ -35,20 +33,20 @@ export default {
       isCollapse: false,
       // 数组对象控制css
       // containerActive: "container-active",
-      commonContainer: "common-container"
+      commonContainer: "common-container",
     };
   },
   components: {
     CommonHeader,
     CommonAside,
-    CommonTab
+    CommonTab,
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -74,19 +72,6 @@ sticky属性仅在以下几个条件都满足时有效：
   line-height: 40px;
 }
 
-.el-aside {
-  transition: width 0.28s;
-  background-color: #304156;
-  height: 100%;
-  position: fixed;
-  font-size: 0;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1001;
-  overflow-y: scroll;
-}
-
 .common-container {
   min-height: 100%;
   -webkit-transition: margin-left 0.28s;
@@ -98,7 +83,7 @@ sticky属性仅在以下几个条件都满足时有效：
 .container-active {
   -webkit-transition: margin-left 0.28s;
   transition: margin-left 0.28s;
-  margin-left: 50px;
+  margin-left: 60px;
 }
 .el-main {
   overflow: visible;
@@ -121,7 +106,7 @@ sticky属性仅在以下几个条件都满足时有效：
   100% {
     width: 400px;
     height: 400px;
-    margin: -50px;
+    margin: -60px;
   }
 }
 </style>

@@ -15,13 +15,21 @@ Mock.setup({
 
 // 首页相关  拦截/home/getData
 Mock.mock(/\/home\/getData/, "get", homeApi.getHomeData);
-// 用户相关
-Mock.mock(/\/user\/getUser/, "get", userApi.getUserList);
+// // 用户相关
+// // Mock.mock(/\/user\/getUser/, "get", permissionApi.getUserInfo);
+// Mock.mock(/\/user\/getUser/, "get", permissionApi.getUserInfo);
+
 Mock.mock(/\/user\/del/, "get", userApi.deleteUser);
+
 Mock.mock(/\/user\/batchremove/, "get", userApi.batchremove);
+
 Mock.mock(/\/user\/add/, "post", userApi.createUser);
+
 Mock.mock(/\/user\/edit/, "post", userApi.updateUser);
 // Mock.mock(/\/home\/getData/, 'get', homeApi.getStatisticalData)
 
 // 权限相关
 Mock.mock(/\/permission\/getMenu/, "post", permissionApi.getMenu);
+// 用户相关
+// Mock.mock(/\/user\/getUser/, "get", permissionApi.getUserInfo);
+Mock.mock(/\/permission\/profile/, "get", permissionApi.getUserInfo);

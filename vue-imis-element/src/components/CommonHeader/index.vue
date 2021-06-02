@@ -98,7 +98,7 @@ export default {
   computed: {
     ...mapState({
       current: state => {
-        console.log(state.tab.currentMenu, "===========>menu");
+        // console.log(state.tab.currentMenu, "===========>menu");
         return state.tab.currentMenu;
       }
     })

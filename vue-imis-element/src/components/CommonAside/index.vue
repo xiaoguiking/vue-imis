@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sidebar">
     <el-menu
       default-active="/"
       class="el-menu-vertical-demo"
@@ -85,5 +85,19 @@ export default {
 <style lang="less" scoped>
 .el-menu {
   border: 0;
+}
+.sidebar {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    bottom: 0;
+    overflow-y: scroll;
+}
+.sidebar::-webkit-scrollbar {
+    width: 0;
+}
+.sidebar > ul {
+    height: 100%;
 }
 </style>

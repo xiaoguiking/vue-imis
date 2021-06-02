@@ -16,7 +16,13 @@ export const login = data => {
 export const getUserInfo = () => {
   return request({
     method: "GET",
-    url: ""
+    url: "/api/permission/profile",
+    // 后端要求把需要授权用户的身份放到请求头
+    // axios可以通过headers放到请求头
+    // 属性值 Bereara token
+    headers: {
+      Authorization: "Bereara token"
+    }
   });
 };
 

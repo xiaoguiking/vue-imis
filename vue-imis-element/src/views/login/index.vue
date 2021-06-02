@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { login } from "@/api/user.js";
+import { login, getUserInfo } from "@/api/user.js";
 
 export default {
   name: "Login",
@@ -93,7 +93,7 @@ export default {
     //   }, 1000);
     // };
     var validateUsername = (rule, value, callback) => {
-      console.log("userName=================>", value);
+      // console.log("userName=================>", value);
       if (value === "") {
         callback(new Error("请输入用户名"));
       } else {
@@ -209,14 +209,23 @@ export default {
 
         // 接口封装
         const {
+          data,
           data: {
-            data: { menu, message },
+            data: { menu, message, token },
             code,
             type
           }
         } = await login({ username, password });
 
-        console.log(menu, message, code, type, "数据");
+        // console.log(data,menu, message, code, type, "数据");
+        console.log(code, data, token, type, "================>data");
+
+        async function getInfo() {
+          const { data } = await getUserInfo();
+          console.log(data, "========>");
+        }
+
+        getInfo();
 
         if (code === "20000") {
           this.loginloading = false;
