@@ -46,6 +46,16 @@ const routes = [
         component: () => import("@/views/vue-com/index")
       },
       {
+        path: "/content",
+        name: "content",
+        component: () => import("@/views/content-page/index")
+      },
+      {
+        path: "/source",
+        name: "source",
+        component: () => import("@/views/source-page/index")
+      },
+      {
         path: "/test",
         name: "test",
         component: () => import("@/views/test"),
@@ -80,13 +90,8 @@ const routes = [
       },
       {
         path: "permission",
-        component: () => import("@/views/chatroom/index"),
-        name: "chatroom"
-      },
-      {
-        path: "404",
-        component: () => import("@/views/chatroom/index"),
-        name: "chatroom"
+        // component: () => import("@/views/chatroom/index"),
+        name: "permission"
       },
       {
         path: "chatroom",

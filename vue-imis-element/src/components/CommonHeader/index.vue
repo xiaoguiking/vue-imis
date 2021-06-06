@@ -1,7 +1,17 @@
 <template>
   <div class="header-container">
     <div class="header-left">
-      <div class="toggle-button el-icon-s-fold" @click="toggleSide"></div>
+      <!-- <div :class="toggle-button el-icon-s-fold" @click="toggleSide"></div> -->
+      <div class="toggle-button">
+        <i
+          :class="{
+            'el-icon-s-fold': isCollapse,
+            'el-icon-s-unfold': !isCollapse
+          }"
+          @click="toggleSide"
+        >
+        </i>
+      </div>
       <!-- <div class="header-imis orange">welcome vue-imis-element</div> -->
       <div class="breadcrumb">
         <el-breadcrumb separator="/">
@@ -14,6 +24,18 @@
     </div>
 
     <div class="header-user">
+      <!-- 全屏显示 -->
+      <div class="btn-fullscreen" @click="handleFullScreen">
+        <el-tooltip
+          effect="dark"
+          :content="fullscreen ? `取消全屏` : `全屏`"
+          placement="bottom"
+        >
+          全屏
+          <i class="el-icon-rank"></i>
+        </el-tooltip>
+      </div>
+      <!-- 个人下拉展示 -->
       <el-dropdown size="small" split-button type="primary">
         {{ "admin" }}
         <el-dropdown-menu slot="dropdown">
@@ -33,8 +55,11 @@
 import { mapState } from "vuex";
 export default {
   name: "CommonHeader",
+  props: ["is-collapse"],
   data() {
-    return {};
+    return {
+      fullscreen: false
+    };
   },
   created() {},
   methods: {
@@ -42,22 +67,53 @@ export default {
       this.$emit("showSide");
     },
 
+    // 退出按钮
     loginOut() {
       window.localStorage.removeItem("username");
       this.$store.commit("clearToken");
       this.$store.commit("clearMenu");
-      location.reload();
+      // location.reload();
       this.$message({
         message: `恭喜你，已经注销`,
         type: "success"
       });
       this.$router.push("/login");
+      console.log(this.$router.push("/login"), "==========>")
+    },
+
+    // 全屏
+    handleFullScreen() {
+      console.log("click me");
+      let element = document.documentElement;
+      if (this.fullscreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      } else {
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.webkitRequestFullScreen) {
+          element.webkitRequestFullScreen();
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen();
+        } else if (element.msRequestFullscreen) {
+          // IE11
+          element.msRequestFullscreen();
+        }
+      }
+      this.fullscreen = !this.fullscreen;
     }
   },
   computed: {
     ...mapState({
       current: state => {
-        console.log(state.tab.currentMenu, "===========>menu");
+        // console.log(state.tab.currentMenu, "===========>menu");
         return state.tab.currentMenu;
       }
     })
@@ -102,6 +158,21 @@ export default {
   }
 
   .header-user {
+    .btn-fullscreen {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      border-radius: 15px;
+      cursor: pointer;
+      right: 10px;
+      top: 5px;
+      display: inline-block;
+      color: white;
+      font-size: 24px;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
     .header-user-title {
       color: #000;
       padding-right: 10px;

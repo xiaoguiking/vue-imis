@@ -28,7 +28,7 @@ Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   // let hasLogin = false
   /* 路由发生变化修改页面title */
-  store.commit.commit("getToken");
+  store.commit("getToken");
   let token = store.state.user.token;
   let flag = window.localStorage.getItem("username");
 

@@ -1,25 +1,54 @@
 const sideMenu = [
   {
-    title: "系统首页", // 菜单名称
-    path: "/", // 对应path
-    icon: "platform-eleme" // 对应图标
-    // icon: "iconelectronics" // 对应图标
+    title: "系统首页", //  菜单名称
+    path: "/", //  对应path
+    icon: "platform-eleme" //  对应图标
+    // icon: "iconelectronics" //  对应图标
   },
   {
-    title: "css集群", // 菜单名称
-    path: "/css", // 对应path
-    icon: "picture" // 对应图标
+    title: "vue组件化",
+    path: "/vue",
+    icon: "warning"
   },
   {
-    title: "vue组件化", // 菜单名称
-    path: "/vue", // 对应path
-    icon: "warning" // 对应图标
+    title: "css集群",
+    path: "/css",
+    icon: "picture"
   },
-
   {
-    title: "测试路由", // 菜单名称
-    path: "/test", // 对应path
-    icon: "warning" // 对应图标
+    title: "内容管理",
+    path: "/content",
+    icon: "picture-outline-round"
+  },
+  {
+    title: "素材管理",
+    path: "/source",
+    icon: "s-shop"
+  },
+  {
+    title: "发布文章",
+    path: "/public",
+    icon: "s-flag"
+  },
+  {
+    title: "评论管理",
+    path: "/comment",
+    icon: "s-comment"
+  },
+  {
+    title: "粉丝管理",
+    path: "/fans",
+    icon: "present"
+  },
+  {
+    title: "个人设置",
+    path: "/guide",
+    icon: "guide"
+  },
+  {
+    title: "测试路由",
+    path: "/test",
+    icon: "warning"
   },
   {
     title: "系统管理",

@@ -73,6 +73,7 @@
 <script>
 import { login } from "@/api/user.js";
 
+// getUserInfo
 export default {
   name: "Login",
   data() {
@@ -93,7 +94,7 @@ export default {
     //   }, 1000);
     // };
     var validateUsername = (rule, value, callback) => {
-      console.log("userName=================>", value);
+      // console.log("userName=================>", value);
       if (value === "") {
         callback(new Error("请输入用户名"));
       } else {
@@ -209,6 +210,7 @@ export default {
 
         // 接口封装
         const {
+          data,
           data: {
             data: { menu, message, token },
             code,
@@ -216,7 +218,7 @@ export default {
           }
         } = await login({ username, password });
 
-        console.log(menu, message, code, type, token, "数据");
+        console.log(data, menu, message, code, type, token, "数据");
 
         if (code === "20000") {
           this.loginloading = false;

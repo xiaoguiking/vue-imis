@@ -1,5 +1,6 @@
 import Mock from "mockjs";
 export default {
+  // 请求用户列表接口
   getMenu: config => {
     const { username, password } = JSON.parse(config.body);
     console.log(JSON.parse(config.body));
@@ -207,5 +208,18 @@ export default {
         }
       };
     }
+  },
+
+  // 请求个人资料接口
+  getUserInfo: () => {
+    return {
+      code: "20000",
+      message: "ok",
+      data: {
+        name: "admin",
+        photo: "头像",
+        mobile: "1234567890"
+      }
+    };
   }
 };
