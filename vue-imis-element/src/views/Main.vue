@@ -1,17 +1,24 @@
 <template>
   <el-container>
     <!-- 侧边栏 -->
-    <common-aside
-      :style="{ width: isCollapse ? '210px' : '50px' }"
-    ></common-aside>
+    <el-aside class="aside" width="auto">
+      <common-aside class="aside-menu" :is-collapse="isCollapse"></common-aside>
+    </el-aside>
+
+    <!-- :style="{ width: isCollapse ? '210px' : '50px' }" -->
     <!-- 页面主题区域 -->
     <el-container :class="isCollapse ? 'common-container' : 'container-active'">
       <!-- <el-container :class=[{containeractive:isCollapse},commonContainer]> -->
+
       <!-- 头部区域 -->
       <el-header style="height: 40px">
-        <common-header @showSide="handleSide"></common-header>
+        <common-header
+          @showSide="handleSide"
+          :is-collapse="isCollapse"
+        ></common-header>
       </el-header>
       <common-tab></common-tab>
+
       <!-- 右侧内容主题 -->
       <el-main>
         <router-view></router-view>
@@ -30,23 +37,23 @@ export default {
   name: "Main",
   data() {
     return {
-      isCollapse: false,
+      isCollapse: false, // 当前侧边栏的状态显示
       // 数组对象控制css
       // containerActive: "container-active",
-      commonContainer: "common-container",
+      commonContainer: "common-container"
     };
   },
   components: {
     CommonHeader,
     CommonAside,
-    CommonTab,
+    CommonTab
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -62,7 +69,6 @@ sticky属性仅在以下几个条件都满足时有效：
 
 .el-header {
   overflow: hidden;
-  // position: relative;
   position: sticky;
   top: 0px;
   z-index: 999;
@@ -76,21 +82,27 @@ sticky属性仅在以下几个条件都满足时有效：
   min-height: 100%;
   -webkit-transition: margin-left 0.28s;
   transition: margin-left 0.2s;
-  margin-left: 210px;
+  margin-left: 64px;
   position: relative;
   overflow: hidden;
 }
 .container-active {
   -webkit-transition: margin-left 0.28s;
   transition: margin-left 0.28s;
-  margin-left: 60px;
+  margin-left: 180px;
 }
 .el-main {
   overflow: visible;
   background: #f0f0f0;
   padding: 0;
 }
-
+.aside {
+  // position: fixed;
+  // top: 0;
+  .aside-menu {
+    // height: 100%;
+  }
+}
 .el-footer {
   width: 100%;
   position: fixed;

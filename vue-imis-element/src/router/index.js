@@ -90,13 +90,8 @@ const routes = [
       },
       {
         path: "permission",
-        component: () => import("@/views/chatroom/index"),
-        name: "chatroom"
-      },
-      {
-        path: "404",
-        component: () => import("@/views/chatroom/index"),
-        name: "chatroom"
+        // component: () => import("@/views/chatroom/index"),
+        name: "permission"
       },
       {
         path: "chatroom",

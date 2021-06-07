@@ -28,9 +28,11 @@ Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   // let hasLogin = false
   /* 路由发生变化修改页面title */
+  store.commit("getToken");
+  let token = store.state.user.token;
   let flag = window.localStorage.getItem("username");
 
-  if (flag) {
+  if (flag || !token) {
     if (to.path === "/login") {
       // 登录状态下，访问login.vue,会跳转到index.vue
       next({ path: "/" });

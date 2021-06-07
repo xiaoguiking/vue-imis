@@ -6,6 +6,7 @@
       background-color="#002033"
       text-color="#fff"
       active-text-color="#ffd04b"
+      :collapse="isCollapse"
     >
       <el-menu-item
         :index="item.path"
@@ -15,7 +16,8 @@
       >
         <i :class="'el-icon-' + item.icon"></i>
         <span slot="title">
-          <router-link :to="item.path">{{ item.title }}</router-link>
+          <!-- <router-link :to="item.path">{{ item.title }}</router-link> -->
+          {{ item.title }}
         </span>
       </el-menu-item>
       <el-submenu
@@ -36,7 +38,8 @@
             unique-opened
             @click="clickMenu(subItem)"
           >
-            <router-link :to="subItem.path">{{ subItem.title }}</router-link>
+            <!-- <router-link :to="subItem.path">{{ subItem.title }}</router-link> -->
+             {{ subItem.title }}
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
@@ -49,16 +52,18 @@ import { sideMenu } from "@/mock/menuList.js";
 
 export default {
   name: "CommonAside",
+  props: ['is-collapse'],
   data() {
     return {
       asideMenu: [],
       menu: [],
-      isCollapse: true
+      // isCollapse: true
     };
   },
 
   created() {
-    this.asideMenu = sideMenu;
+    // this.asideMenu = sideMenu;
+    console.log(this.asideMenu, "=======>")
   },
 
   mounted() {
@@ -74,7 +79,6 @@ export default {
   },
   methods: {
     clickMenu(item) {
-      console.log("item=================>", item);
       this.$router.push({ path: item.path });
       return this.$store.commit("selectMenu", item);
     }
@@ -87,17 +91,17 @@ export default {
   border: 0;
 }
 .sidebar {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0px;
-    bottom: 0;
-    overflow-y: scroll;
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0px;
+  bottom: 0;
+  overflow-y: scroll;
 }
 .sidebar::-webkit-scrollbar {
-    width: 0;
+  width: 0;
 }
 .sidebar > ul {
-    height: 100%;
+  height: 100%;
 }
 </style>

@@ -71,8 +71,9 @@
 </template>
 
 <script>
-import { login, getUserInfo } from "@/api/user.js";
+import { login } from "@/api/user.js";
 
+// getUserInfo
 export default {
   name: "Login",
   data() {
@@ -239,6 +240,7 @@ export default {
           window.localStorage.setItem("username", username);
 
           this.$store.commit("clearMenu");
+          this.$store.commit("setToken", token);
           this.$store.commit("setMenu", menu);
           this.$store.commit("addMenu", this.$router);
           // 路由跳转

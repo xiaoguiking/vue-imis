@@ -1,7 +1,17 @@
 <template>
   <div class="header-container">
     <div class="header-left">
-      <div class="toggle-button el-icon-s-fold" @click="toggleSide"></div>
+      <!-- <div :class="toggle-button el-icon-s-fold" @click="toggleSide"></div> -->
+      <div class="toggle-button">
+        <i
+          :class="{
+            'el-icon-s-fold': isCollapse,
+            'el-icon-s-unfold': !isCollapse
+          }"
+          @click="toggleSide"
+        >
+        </i>
+      </div>
       <!-- <div class="header-imis orange">welcome vue-imis-element</div> -->
       <div class="breadcrumb">
         <el-breadcrumb separator="/">
@@ -45,6 +55,7 @@
 import { mapState } from "vuex";
 export default {
   name: "CommonHeader",
+  props: ["is-collapse"],
   data() {
     return {
       fullscreen: false
@@ -59,11 +70,15 @@ export default {
     // 退出按钮
     loginOut() {
       window.localStorage.removeItem("username");
+      this.$store.commit("clearToken");
+      this.$store.commit("clearMenu");
+      // location.reload();
       this.$message({
         message: `恭喜你，已经注销`,
         type: "success"
       });
       this.$router.push("/login");
+      console.log(this.$router.push("/login"), "==========>")
     },
 
     // 全屏
