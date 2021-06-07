@@ -102,9 +102,11 @@
 
 <script>
 import axios from "axios";
+// import service from "../../api/config";
+
 // import adver from "@/assets/img/adver.jpg";
 
-// import adver from "@/assets/img/adver2.jpg";
+import adver from "@/assets/img/adver2.jpg";
 
 export default {
   name: "Home",
@@ -113,8 +115,8 @@ export default {
     return {
       homelist: [],
       // 头像
-      // circleUrl: adver,
-      circleUrl: "https://gitee.com/king8686/web-images/blob/master/vue-imis/Garden%20of%20Words/ChMkJlbKyUOIbjJjACM9DhzAtPkAALILgPbML8AIz0m847.png",
+      circleUrl: adver,
+      // circleUrl: "https://gitee.com/king8686/web-images/blob/master/vue-imis/Garden%20of%20Words/ChMkJlbKyUOIbjJjACM9DhzAtPkAALILgPbML8AIz0m847.png",
       time: time,
       editVisible: false,
       form: {

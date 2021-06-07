@@ -46,9 +46,9 @@ export default {
           item.component = () => import(`@/views/${item.url}`);
         }
       });
-      console.log(currentMenu, "currentMenu");
+      // console.log(currentMenu, "currentMenu");
       router.addRoutes(currentMenu);
-      console.log(menu);
+      // console.log(menu);
     },
     selectMenu(state, val) {
       // val.path === "/" ? (state.currentMenu = null) : (state.currentMenu = val);

@@ -14,6 +14,9 @@ export const login = data => {
 };
 // 获取用户信息
 export const getUserInfo = () => {
+  const {data: {token}} = JSON.parse(window.localStorage.getItem("user"))
+
+  console.log(token, "===========>token")
   return request({
     method: "GET",
     url: "/api/permission/profile",
@@ -21,7 +24,7 @@ export const getUserInfo = () => {
     // axios可以通过headers放到请求头
     // 属性值 Bereara token
     headers: {
-      Authorization: "Bereara token"
+      Authorization: "Bereara" + token
     }
   });
 };

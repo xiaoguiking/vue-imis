@@ -220,6 +220,8 @@ export default {
         // console.log(data,menu, message, code, type, "数据");
         console.log(code, data, token, type, "================>data");
 
+        window.localStorage.setItem("user", JSON.stringify(data));
+
         async function getInfo() {
           const { data } = await getUserInfo();
           console.log(data, "========>");
