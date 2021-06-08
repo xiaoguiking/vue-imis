@@ -95,6 +95,7 @@ sticky属性仅在以下几个条件都满足时有效：
   overflow: visible;
   background: #f0f0f0;
   padding: 0;
+  height: 100%;
 }
 .aside {
   // position: fixed;

@@ -72,8 +72,9 @@
 
 <script>
 import { login } from "@/api/user.js";
+// import { login, getUserInfo } from "@/api/user.js";
 
-// getUserInfo
+//
 export default {
   name: "Login",
   data() {
@@ -223,12 +224,12 @@ export default {
 
         window.localStorage.setItem("user", JSON.stringify(data));
 
-        async function getInfo() {
-          const { data } = await getUserInfo();
-          console.log(data, "========>");
-        }
+        // async function getInfo() {
+        //   const { data } = await getUserInfo();
+        //   console.log(data, "========>");
+        // }
 
-        getInfo();
+        // getInfo();
 
         if (code === "20000") {
           this.loginloading = false;

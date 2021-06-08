@@ -27,7 +27,7 @@ const sideMenu = [
   },
   {
     title: "发布文章",
-    path: "/public",
+    path: "/publish",
     icon: "s-flag"
   },
   {

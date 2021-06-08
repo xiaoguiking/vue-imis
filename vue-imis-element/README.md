@@ -1,9 +1,40 @@
 # vue-imis-element
 
+[TOC]
 ## project init
 
 - yarn add axios
 - yarn add element-ui
+
+
+
+
+
+## 项目bug 点
+
+### 1.sidebar 导航使用
+```
+element Ui 原有组件中写入router-link 跳转，导致张开缩小时候存在问题
+
+删除router-link
+```
+
+### 2.`Error: Redirected when going from “/login” to “/home” via a navigation guard.`
+
+```
+
+```
+
+### 3. `Avoided redundant navigation to current location: "/"。先说一下是怎么触发这个报错的，就是博主用element ui写得侧边导航栏中用到了路由，然后重复点击这个路由就出现这个报错了`
+
+```
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
+
+```
+
 
 ### 主页布局
 

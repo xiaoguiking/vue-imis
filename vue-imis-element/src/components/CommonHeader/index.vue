@@ -78,7 +78,7 @@ export default {
         type: "success"
       });
       this.$router.push("/login");
-      console.log(this.$router.push("/login"), "==========>")
+      console.log(this.$router.push("/login"), "==========>");
     },
 
     // 全屏

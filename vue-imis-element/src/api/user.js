@@ -14,9 +14,11 @@ export const login = data => {
 };
 // 获取用户信息
 export const getUserInfo = () => {
-  const {data: {token}} = JSON.parse(window.localStorage.getItem("user"))
+  const {
+    data: { token }
+  } = JSON.parse(window.localStorage.getItem("user"));
 
-  console.log(token, "===========>token")
+  console.log(token, "===========>token");
   return request({
     method: "GET",
     url: "/api/permission/profile",

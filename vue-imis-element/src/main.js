@@ -32,8 +32,9 @@ router.beforeEach((to, from, next) => {
   let token = store.state.user.token;
   let flag = window.localStorage.getItem("username");
 
-  if (flag || !token) {
+  if (flag || token) {
     if (to.path === "/login") {
+      console.log("登录");
       // 登录状态下，访问login.vue,会跳转到index.vue
       next({ path: "/" });
     } else {

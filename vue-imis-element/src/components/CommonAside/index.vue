@@ -39,7 +39,7 @@
             @click="clickMenu(subItem)"
           >
             <!-- <router-link :to="subItem.path">{{ subItem.title }}</router-link> -->
-             {{ subItem.title }}
+            {{ subItem.title }}
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
@@ -52,18 +52,18 @@ import { sideMenu } from "@/mock/menuList.js";
 
 export default {
   name: "CommonAside",
-  props: ['is-collapse'],
+  props: ["is-collapse"],
   data() {
     return {
       asideMenu: [],
-      menu: [],
+      menu: []
       // isCollapse: true
     };
   },
 
   created() {
     // this.asideMenu = sideMenu;
-    console.log(this.asideMenu, "=======>")
+    console.log(this.asideMenu, "=======>");
   },
 
   mounted() {

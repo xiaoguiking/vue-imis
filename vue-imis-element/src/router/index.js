@@ -17,6 +17,7 @@ const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err);
 };
+
 const routes = [
   {
     path: "/",
@@ -54,6 +55,11 @@ const routes = [
         path: "/source",
         name: "source",
         component: () => import("@/views/source-page/index")
+      },
+      {
+        path: "/publish",
+        name: "publish",
+        component: () => import("@/views/publish-article/index")
       },
       {
         path: "/test",
@@ -124,14 +130,6 @@ const routes = [
     // component: () => import('@/views/login/index'),
     component: Login
   },
-
-  {
-    path: "/about",
-    name: "About",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  },
-
   // 动态路径参数 以冒号开头
   // {
   //   path: "/test/:id",
