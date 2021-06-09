@@ -5,6 +5,9 @@
     <el-card class="box-card">
       <div>
         <el-form ref="form" :model="form" label-width="80px">
+          <el-form-item label="活动名称">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
           <el-form-item label="状态">
             <el-radio-group v-model="form.resource" ref="resource">
               <el-radio label="全部"></el-radio>
@@ -40,7 +43,9 @@
             </el-col>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
+            <el-button type="primary" @click="onSubmit('form')"
+              >立即创建</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
@@ -53,6 +58,10 @@
         <el-table-column prop="name" label="姓名" width="180">
         </el-table-column>
         <el-table-column prop="address" label="地址"> </el-table-column>
+        <el-table-column prop="city" label="城市"> </el-table-column>
+        <el-table-column prop="province" label="省市"> </el-table-column>
+        <el-table-column prop="zip" label="zip"> </el-table-column>
+        <el-table-column prop="id" label="id"> </el-table-column>
       </el-table>
       <el-pagination background layout="prev, pager, next" :total="1000">
       </el-pagination>
@@ -61,6 +70,7 @@
 </template>
 
 <script>
+import { getArticlesList } from "@/api/article.js";
 export default {
   name: "ContentPage",
   data() {
@@ -70,10 +80,7 @@ export default {
         channel: "",
         date1: "",
         date2: "",
-        delivery: false,
-        type: [],
         resource: "",
-        desc: ""
       },
       pickerOptions: {
         shortcuts: [
@@ -84,7 +91,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近一个月",
@@ -93,7 +100,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近三个月",
@@ -102,54 +109,69 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
 
       tableData: [
         {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
           date: "2016-05-01",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1519 弄",
+          zip: 200333,
         },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ]
+      ],
     };
   },
-
+  mounted() {
+    this.getArticleslist();
+  },
   methods: {
     onSubmit(formName) {
-      console.log("submit!", this.$refs[formName].channel);
-      // this.$refs[formName]
-    }
-  }
+      console.log("submit!", this.form);
+      this.$refs[formName];
+    },
+
+    // 请求列表数据
+    async getArticleslist() {
+      const {
+        data: {
+          data: { list },
+        },
+      } = await getArticlesList();
+
+      this.uniqueArr(list);
+      this.tableData = list;
+    },
+
+    uniqueArr(data) {
+      let hasArr = [];
+      let hasObj = {};
+      data.forEach((item) => {
+        console.log(item, "=====================< tiem")
+        if (hasObj[item.name]) {
+          hasArr.push(item);
+          if (hasObj[item.name].length === 0) return;
+          hasArr.push(hasObj[item.name]);
+          hasObj[item.name] = [];
+          console.log(hasArr)
+        } else {
+          hasObj[item.name] = item;
+        }
+      });
+      hasObj = {};
+      console.log(data, hasArr, "=======>");
+    },
+  },
 };
 </script>
 
 <style lang="less" scoped>
 .el-pagination {
   text-align: right;
-}
-</style>
-
-<style lang="less">
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 180px;
 }
 </style>

@@ -1,11 +1,13 @@
 /**
  * mockjs
+ * 请求拦截替换
  */
 
 import Mock from "mockjs";
 import homeApi from "./home.js";
 import userApi from "./user";
 import permissionApi from "./permission";
+import articlesApi from "./articles";
 
 // 设置200 -2000 延时
 
@@ -33,3 +35,6 @@ Mock.mock(/\/permission\/getMenu/, "post", permissionApi.getMenu);
 // 用户相关
 // Mock.mock(/\/user\/getUser/, "get", permissionApi.getUserInfo);
 Mock.mock(/\/permission\/profile/, "get", permissionApi.getUserInfo);
+
+// 文章内容相关模块
+Mock.mock(/\/articles\/list/, "get", articlesApi.getArticles);

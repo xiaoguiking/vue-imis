@@ -105,3 +105,8 @@ export default {
   height: 100%;
 }
 </style>
+<style lang="less">
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 180px;
+}
+</style>

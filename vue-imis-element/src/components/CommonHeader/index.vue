@@ -13,6 +13,7 @@
         </i>
       </div>
       <!-- <div class="header-imis orange">welcome vue-imis-element</div> -->
+      <!-- tag 标签导航 -->
       <div class="breadcrumb">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -78,12 +79,10 @@ export default {
         type: "success"
       });
       this.$router.push("/login");
-      console.log(this.$router.push("/login"), "==========>");
     },
 
-    // 全屏
+    // 是否全屏
     handleFullScreen() {
-      console.log("click me");
       let element = document.documentElement;
       if (this.fullscreen) {
         if (document.exitFullscreen) {

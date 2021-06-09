@@ -4,12 +4,8 @@
     <el-aside class="aside" width="auto">
       <common-aside class="aside-menu" :is-collapse="isCollapse"></common-aside>
     </el-aside>
-
-    <!-- :style="{ width: isCollapse ? '210px' : '50px' }" -->
     <!-- 页面主题区域 -->
     <el-container :class="isCollapse ? 'common-container' : 'container-active'">
-      <!-- <el-container :class=[{containeractive:isCollapse},commonContainer]> -->
-
       <!-- 头部区域 -->
       <el-header style="height: 40px">
         <common-header
@@ -18,10 +14,11 @@
         ></common-header>
       </el-header>
       <common-tab></common-tab>
-
       <!-- 右侧内容主题 -->
       <el-main>
+        <!-- <keep-alive> -->
         <router-view></router-view>
+        <!-- </keep-alive> -->
       </el-main>
       <!-- <el-footer>Footer</el-footer> -->
     </el-container>
@@ -80,8 +77,8 @@ sticky属性仅在以下几个条件都满足时有效：
 
 .common-container {
   min-height: 100%;
-  -webkit-transition: margin-left 0.28s;
-  transition: margin-left 0.2s;
+  -webkit-transition: margin-left 0.4s;
+  transition: margin-left 0.4s;
   margin-left: 64px;
   position: relative;
   overflow: hidden;

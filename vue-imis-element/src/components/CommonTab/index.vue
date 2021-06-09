@@ -5,6 +5,7 @@
       v-for="tag in tags"
       :closable="tag.title !== '系统首页'"
       :disable-transitions="false"
+      effect="dark"
       @close="handleClose(tag)"
       @click="changeMenu(tag)"
     >
@@ -43,7 +44,6 @@ export default {
       close: "closeTags"
     }),
     handleClose(tag) {
-      console.log(tag, "=======>");
       //   this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
       this.close(tag);
     },
@@ -78,6 +78,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.tabs {
+  margin: 5px 0 5px 5px;
+}
 .el-tag + .el-tag {
   margin-left: 10px;
   cursor: pointer;

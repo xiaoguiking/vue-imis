@@ -36,6 +36,20 @@ VueRouter.prototype.push = function push(location) {
 ```
 
 
+### 创建页面和编辑页面用同一个component，如何触发重新渲染？
+
+
+```html
+{path: 'create', component: PostCreate, name: '发表文章'}
+{path: 'edit/:id(\\d+)', component: PostEdit, name: '编辑文章'}
+
+默认情况下两个页面的切换不会触发vue created 和mounted 钩子，官方方法： watch $route  监听路由实现
+
+简单解决： 
+<router-view :key="key"></router-view>
+```
+
+
 ### 主页布局
 
 ### 杂项记录

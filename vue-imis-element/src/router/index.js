@@ -11,12 +11,28 @@ import Res from "@/views/test/Res";
 Vue.use(VueRouter);
 
 /**
- *  Avoided redundant navigation to current location: "/"。先说一下是怎么触发这个报错的，就是博主用element ui写得侧边导航栏中用到了路由，然后重复点击这个路由就出现这个报错了
+ *  Avoided redundant navigation to current location: "/"。
+ * 先说一下是怎么触发这个报错的，就是博主用element ui写得侧边导航栏中用到了路由，然后重复点击这个路由就出现这个报错了
  */
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err);
 };
+
+/**
+ * 路由规则
+ * 
+ * // 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
+     hidden: true // (默认 false)
+ * 
+ *meta: {
+ *   roles: ["admin", "edit"]  多个路由权限   
+ *    
+ * 
+ * }
+ * 
+ * 
+ */
 
 const routes = [
   {
@@ -157,3 +173,23 @@ const router = new VueRouter({
 });
 
 export default router;
+
+// {
+//   path: '/permission',
+//   component: Layout,
+//   redirect: '/permission/index', //重定向地址，在面包屑中点击会重定向去的地址
+//   hidden: true, // 不在侧边栏显示
+//   alwaysShow: true, //一直显示根路由
+//   meta: { roles: ['admin','editor'] }, //你可以在根路由设置权限，这样它下面所有的子路由都继承了这个权限
+//   children: [{
+//     path: 'index',
+//     component: ()=>import('permission/index'),
+//     name: 'permission',
+//     meta: {
+//       title: 'permission',
+//       icon: 'lock', //图标
+//       roles: ['admin','editor'], //或者你可以给每一个子路由设置自己的权限
+//       noCache: true // 不会被 <keep-alive> 缓存
+//     }
+//   }]
+// }
