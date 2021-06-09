@@ -63,7 +63,7 @@ export default {
 
   created() {
     // this.asideMenu = sideMenu;
-    console.log(this.asideMenu, "=======>");
+    // console.log(this.asideMenu, "=======>");
   },
 
   mounted() {

@@ -144,27 +144,30 @@ export default {
         },
       } = await getArticlesList();
 
-      this.uniqueArr(list);
       this.tableData = list;
+      this.uniqueArr(list);
     },
 
     uniqueArr(data) {
       let hasArr = [];
       let hasObj = {};
+
       data.forEach((item) => {
-        console.log(item, "=====================< tiem")
+
         if (hasObj[item.name]) {
           hasArr.push(item);
+          console.log(hasArr, "11111")
           if (hasObj[item.name].length === 0) return;
           hasArr.push(hasObj[item.name]);
+          console.log(hasArr, "222222")
           hasObj[item.name] = [];
-          console.log(hasArr)
         } else {
           hasObj[item.name] = item;
         }
       });
+
       hasObj = {};
-      console.log(data, hasArr, "=======>");
+      return hasArr;
     },
   },
 };
