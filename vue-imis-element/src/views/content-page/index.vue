@@ -80,7 +80,7 @@ export default {
         channel: "",
         date1: "",
         date2: "",
-        resource: "",
+        resource: ""
       },
       pickerOptions: {
         shortcuts: [
@@ -91,7 +91,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
               picker.$emit("pick", [start, end]);
-            },
+            }
           },
           {
             text: "最近一个月",
@@ -100,7 +100,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit("pick", [start, end]);
-            },
+            }
           },
           {
             text: "最近三个月",
@@ -109,9 +109,9 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit("pick", [start, end]);
-            },
-          },
-        ],
+            }
+          }
+        ]
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
 
@@ -122,9 +122,9 @@ export default {
           province: "上海",
           city: "普陀区",
           address: "上海市普陀区金沙江路 1519 弄",
-          zip: 200333,
-        },
-      ],
+          zip: 200333
+        }
+      ]
     };
   },
   mounted() {
@@ -140,26 +140,32 @@ export default {
     async getArticleslist() {
       const {
         data: {
-          data: { list },
-        },
+          data: { list }
+        }
       } = await getArticlesList();
 
-      this.tableData = list;
       this.uniqueArr(list);
+      this.tableData = list;
+    },
+
+    split_array(arr, len) {
+      const a_len = arr.length;
+      const result = [];
+      for (let i = 0; i < a_len; i += len) {
+        result.push(arr.slice(i, i + len));
+      }
+      return result;
     },
 
     uniqueArr(data) {
       let hasArr = [];
       let hasObj = {};
 
-      data.forEach((item) => {
-
+      data.forEach(item => {
         if (hasObj[item.name]) {
           hasArr.push(item);
-          console.log(hasArr, "11111")
           if (hasObj[item.name].length === 0) return;
           hasArr.push(hasObj[item.name]);
-          console.log(hasArr, "222222")
           hasObj[item.name] = [];
         } else {
           hasObj[item.name] = item;
@@ -167,9 +173,26 @@ export default {
       });
 
       hasObj = {};
-      return hasArr;
-    },
-  },
+
+      if (hasArr.length !== 0) {
+        const uniqueName = Array.from(new Set(hasArr.map(i => i.name)));
+        const uniqueId = Array.from(hasArr.map(i => i.id));
+        const id = this.split_array(uniqueId, 20).map(item => {
+          return item + "<br>";
+        });
+        this.$message({
+          duration: 10000,
+          dangerouslyUseHTMLString: true,
+          message: `警告哦，这是一条警告消息: <br/> 重复的name: ${uniqueName}, 重复的id： ${id} `,
+          type: "warning"
+        });
+      }
+
+      return {
+        hasArr
+      };
+    }
+  }
 };
 </script>
 
