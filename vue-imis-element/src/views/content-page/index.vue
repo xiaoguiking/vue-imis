@@ -1,6 +1,5 @@
 <template>
   <div class="content-page">
-    <h1>content-page</h1>
     <!-- form 表单 -->
     <el-card class="box-card">
       <div>
@@ -38,7 +37,10 @@
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
                 align="right"
+                format="yyyy 年 MM 月 dd 日"
+                value-format="yyyy-MM-dd"
               >
+                >
               </el-date-picker>
             </el-col>
           </el-form-item>
@@ -52,7 +54,15 @@
     </el-card>
     <!-- list 列表 -->
     <el-card class="box-card" style="margin-top: 20px">
-      <el-table :data="tableData" stripe style="width: 100%">
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+        height="250"
+        :row-class-name="tableRowClassName"
+        ref="multipleTable"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column prop="date" label="日期" width="180">
         </el-table-column>
         <el-table-column prop="name" label="姓名" width="180">
@@ -80,7 +90,7 @@ export default {
         channel: "",
         date1: "",
         date2: "",
-        resource: ""
+        resource: "",
       },
       pickerOptions: {
         shortcuts: [
@@ -91,7 +101,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近一个月",
@@ -100,7 +110,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近三个月",
@@ -109,12 +119,19 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-
+      rules: {
+        telphone: [
+          { required: true, message: "请输入手机号", trigger: "blur" },
+        ],
+        cardnum: [
+          { required: true, message: "请输入买受人身份证号", trigger: "blur" },
+        ],
+      },
       tableData: [
         {
           date: "2016-05-01",
@@ -122,9 +139,9 @@ export default {
           province: "上海",
           city: "普陀区",
           address: "上海市普陀区金沙江路 1519 弄",
-          zip: 200333
-        }
-      ]
+          zip: 200333,
+        },
+      ],
     };
   },
   mounted() {
@@ -132,16 +149,20 @@ export default {
   },
   methods: {
     onSubmit(formName) {
-      console.log("submit!", this.form);
-      this.$refs[formName];
+      console.log("submit!", this.form, "this========", formName);
+      alert("功能待开发");
+      const data = { ...this.form };
+      console.log(data, "data");
+      console.table(data);
+      // this.$refs.name;
     },
 
     // 请求列表数据
     async getArticleslist() {
       const {
         data: {
-          data: { list }
-        }
+          data: { list },
+        },
       } = await getArticlesList();
 
       this.uniqueArr(list);
@@ -161,7 +182,7 @@ export default {
       let hasArr = [];
       let hasObj = {};
 
-      data.forEach(item => {
+      data.forEach((item) => {
         if (hasObj[item.name]) {
           hasArr.push(item);
           if (hasObj[item.name].length === 0) return;
@@ -175,29 +196,56 @@ export default {
       hasObj = {};
 
       if (hasArr.length !== 0) {
-        const uniqueName = Array.from(new Set(hasArr.map(i => i.name)));
-        const uniqueId = Array.from(hasArr.map(i => i.id));
-        const id = this.split_array(uniqueId, 20).map(item => {
-          return item + "<br>";
-        });
-        this.$message({
-          duration: 10000,
-          dangerouslyUseHTMLString: true,
-          message: `警告哦，这是一条警告消息: <br/> 重复的name: ${uniqueName}, 重复的id： ${id} `,
-          type: "warning"
-        });
+        // const uniqueName = Array.from(new Set(hasArr.map(i => i.name)));
+        // const uniqueId = Array.from(hasArr.map(i => i.id));
+        // const id = this.split_array(uniqueId, 20).map(item => {
+        //   return item + "<br>";
+        // });
+        // this.$message({
+        //   duration: 10000,
+        //   showClose: true,
+        //   dangerouslyUseHTMLString: true,
+        //   message: `警告哦，这是一条警告消息: <br/> 重复的name: ${uniqueName}, 重复的id： ${id} `,
+        //   type: "warning"
+        // });
       }
 
       return {
-        hasArr
+        hasArr,
       };
-    }
-  }
+    },
+
+    // 指定行变色  row,
+    tableRowClassName({ rowIndex }) {
+      console.log(rowIndex, "=========================>");
+      if (rowIndex % 5 === 0) {
+        console.log("111");
+        return "warning-row";
+      } else if (rowIndex === 3) {
+        return "success-row";
+      }
+      return "";
+    },
+
+    // 选择
+    handleSelectionChange() {
+      console.log("choose");
+    },
+  },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less" scoped></style>
+
+<style>
 .el-pagination {
   text-align: right;
+}
+.el-table .warning-row {
+  background-color: rgb(201, 136, 16);
+}
+
+.el-table .success-row {
+  background-color: #0baff0;
 }
 </style>

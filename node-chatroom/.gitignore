@@ -12,6 +12,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+node-geo-api-0.pid*
 
 # Editor directories and files
 .idea
