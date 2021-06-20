@@ -7,7 +7,7 @@ import Mock from "mockjs";
 import homeApi from "./home.js";
 import userApi from "./user";
 import permissionApi from "./permission";
-import articlesApi from "./articles";
+// import articlesApi from "./articles";
 
 // 设置200 -2000 延时
 
@@ -37,4 +37,4 @@ Mock.mock(/\/permission\/getMenu/, "post", permissionApi.getMenu);
 Mock.mock(/\/permission\/profile/, "get", permissionApi.getUserInfo);
 
 // 文章内容相关模块
-Mock.mock(/\/articles\/list/, "get", articlesApi.getArticles);
+// Mock.mock(/\/articles\/list/, "get", articlesApi.getArticles);

@@ -14,11 +14,13 @@
 import request from "@/api/config";
 
 // 获取文章列表
-export const getArticlesList = params => {
+export const getArticlesList = data => {
   return request({
-    method: "GET",
-    url: "/api/articles/list",
-    params
+    method: "post",
+    // url: "/api/articles/list",
+    // url: "/api/food/getInfoByPage",
+    url: "/api/food/getInfoByPage",
+    data
   });
 };
 

@@ -1,6 +1,16 @@
 module.exports = {
   devServer: {
     port: 8096,
-    open: true
+    open: true,
+    proxy: {
+      // proxy all requests starting with /api to jsonplaceholder
+      '/api': {
+        target: 'http://localhost:3000',   //代理接口
+        changeOrigin: true,   // 是否跨域
+        pathRewrite: {
+          '^/api': '/api'    //代理的路径
+        }
+      }
+    }
   }
 };

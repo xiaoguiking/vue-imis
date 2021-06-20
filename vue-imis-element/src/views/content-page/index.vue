@@ -52,16 +52,63 @@
     </el-card>
     <!-- list 列表 -->
     <el-card class="box-card" style="margin-top: 20px">
+      <div slot="header" class="clearfix">
+        <span>根据搜索条件查询到111111条数据</span>
+      </div>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="date" label="日期" width="180">
+        <el-table-column prop="time" label="出版日期" width="180">
         </el-table-column>
-        <el-table-column prop="name" label="姓名" width="180">
+        <el-table-column prop="name" label="书籍名称" width="140">
         </el-table-column>
-        <el-table-column prop="address" label="地址"> </el-table-column>
-        <el-table-column prop="city" label="城市"> </el-table-column>
-        <el-table-column prop="province" label="省市"> </el-table-column>
-        <el-table-column prop="zip" label="zip"> </el-table-column>
+        <el-table-column prop="price" label="价格" width="50px"> </el-table-column>
+        <el-table-column prop="desc" label="描述" width="200px">
+        </el-table-column>
+        <el-table-column prop="typename" label="书籍类型"> </el-table-column>
+        <el-table-column prop="typeid" label="书籍id" width="50px"> </el-table-column>
+        <el-table-column prop="status" label="文章状态"> 
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.status===0">草稿</el-tag>
+            <el-tag v-if="scope.row.status===1" type="info">待审核 </el-tag>
+            <el-tag v-if="scope.row.status===2" type="success">审核通过</el-tag>
+            <el-tag v-if="scope.row.status===3" type="danger">审核失败</el-tag>
+            <el-tag v-if="scope.row.status===4" >已删除</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="img" label="图片" width="180" align="center">
+          <template slot-scope="scope">
+            <el-popover
+              placement="right"
+              :title="scope.row.img + scope.row.name"
+              trigger="hover"
+            >
+              <img
+                :src="'http://localhost:3000' + scope.row.img"
+                width="150px"
+                height="150px"
+              />
+              <img
+                slot="reference"
+                :src="'http://localhost:3000' + scope.row.img"
+                style="width: 150px; height: 150px"
+              />
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column prop="id" label="id"> </el-table-column>
+        <el-table-column label="操作" width="100px">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+            type="primary" icon="el-icon-edit" circle
+              ></el-button
+            >
+            <el-button
+              size="mini"
+              @click="handleDelete(scope.$index, scope.row)"
+              type="danger" icon="el-icon-delete" circle
+              ></el-button
+            >
+          </template>
+        </el-table-column>
       </el-table>
       <el-pagination background layout="prev, pager, next" :total="1000">
       </el-pagination>
@@ -70,6 +117,7 @@
 </template>
 
 <script>
+// 文章状态 0草稿 1待审核 2审核通过 3审核失败 4已删除 5不传为全部
 import { getArticlesList } from "@/api/article.js";
 export default {
   name: "ContentPage",
@@ -80,7 +128,7 @@ export default {
         channel: "",
         date1: "",
         date2: "",
-        resource: ""
+        resource: "",
       },
       pickerOptions: {
         shortcuts: [
@@ -91,7 +139,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近一个月",
@@ -100,7 +148,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近三个月",
@@ -109,9 +157,9 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
 
@@ -122,9 +170,9 @@ export default {
           province: "上海",
           city: "普陀区",
           address: "上海市普陀区金沙江路 1519 弄",
-          zip: 200333
-        }
-      ]
+          zip: 200333,
+        },
+      ],
     };
   },
   mounted() {
@@ -139,11 +187,12 @@ export default {
     // 请求列表数据
     async getArticleslist() {
       const {
-        data: {
-          data: { list }
-        }
-      } = await getArticlesList();
-
+        data: { list },
+      } = await getArticlesList({
+        page: 1,
+        pageSize: 15,
+      });
+      console.log(list);
       this.uniqueArr(list);
       this.tableData = list;
     },
@@ -161,7 +210,7 @@ export default {
       let hasArr = [];
       let hasObj = {};
 
-      data.forEach(item => {
+      data.forEach((item) => {
         if (hasObj[item.name]) {
           hasArr.push(item);
           if (hasObj[item.name].length === 0) return;
@@ -175,24 +224,24 @@ export default {
       hasObj = {};
 
       if (hasArr.length !== 0) {
-        const uniqueName = Array.from(new Set(hasArr.map(i => i.name)));
-        const uniqueId = Array.from(hasArr.map(i => i.id));
-        const id = this.split_array(uniqueId, 20).map(item => {
+        const uniqueName = Array.from(new Set(hasArr.map((i) => i.name)));
+        const uniqueId = Array.from(hasArr.map((i) => i.id));
+        const id = this.split_array(uniqueId, 20).map((item) => {
           return item + "<br>";
         });
         this.$message({
           duration: 10000,
           dangerouslyUseHTMLString: true,
           message: `警告哦，这是一条警告消息: <br/> 重复的name: ${uniqueName}, 重复的id： ${id} `,
-          type: "warning"
+          type: "warning",
         });
       }
 
       return {
-        hasArr
+        hasArr,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
