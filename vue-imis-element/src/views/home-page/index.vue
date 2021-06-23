@@ -17,16 +17,14 @@
           </el-card>
         </div></el-col
       >
+      <!-- 待办事项本地版 -->
       <el-col :span="16"
         ><div class="grid-content bg-purple">
           <el-card>
             <div slot="header" class="clearfix">
               待办事项
               <span></span>
-              <el-button
-                style="float: right; padding: 3px 0"
-                type="text"
-                @click="addItem()"
+              <el-button style="float: right; padding: 3px 0" type="text"
                 >添加</el-button
               >
             </div>
@@ -82,19 +80,66 @@
         <a class="index-bottom">查看</a>
       </el-card>
     </div>
+    <!-- 待办事项axios -->
+    <el-col :span="16" style="margin-bottom: 20px"
+      ><div class="grid-content bg-purple">
+        <el-card>
+          <div slot="header" class="clearfix">
+            待办事项axios
+            <span></span>
+            <el-button
+              style="float: right; padding: 3px 0"
+              type="text"
+              @click="addTodo()"
+              >添加</el-button
+            >
+          </div>
+          <el-table :show-header="false" :data="todoAxios" style="width: 100%">
+            <el-table-column width="40">
+              <template slot-scope="scope">
+                <el-checkbox v-model="scope.row.status"></el-checkbox>
+              </template>
+            </el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <div
+                  class="todo-item"
+                  :class="{ 'todo-item-del': scope.row.status }"
+                >
+                  {{ scope.row.title }}
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column width="60">
+              <template slot-scope="scope">
+                <i
+                  class="el-icon-edit"
+                  style="margin-right: 10px"
+                  @click.prevent="patchTodo(scope.$index, scope.row)"
+                ></i>
+                <el-button
+                  @click.native.prevent="deleteTodo(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  <i class="el-icon-delete"></i>
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </div>
+    </el-col>
     <!-- 编辑弹出框 -->
     <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
       <el-form ref="form" :model="form" label-width="70px">
-        <el-form-item label="id">
-          <el-input v-model="form.id"></el-input>
-        </el-form-item>
         <el-form-item label="title">
           <el-input v-model="form.title"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveEdit">确 定</el-button>
+        <el-button type="primary" @click="saveEditTodo">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -102,6 +147,8 @@
 
 <script>
 import axios from "axios";
+// import {getTodoList, getTodoId, addTodo, patchTodo,  deleteTodo } from "@/api/todo.js"
+import { getTodoList, deleteTodoList, addTodoList } from "@/api/todo.js";
 // import service from "../../api/config";
 
 // import adver from "@/assets/img/adver.jpg";
@@ -138,7 +185,8 @@ export default {
           id: 3,
           title: "故事故事，便是故去的事情了，多说无益。"
         }
-      ]
+      ],
+      todoAxios: []
     };
   },
 
@@ -148,6 +196,7 @@ export default {
     //   console.log(res.data);
     // });
     this.getData();
+    this.getTodo();
     // this.getLocation();
   },
   methods: {
@@ -176,13 +225,21 @@ export default {
       this.editVisible = true;
     },
     // 保存编辑
-    saveEdit() {
+    saveEditTodo() {
       this.editVisible = false;
-      this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-      this.$set(this.todoList, this.id, this.form);
+      console.log(this.form.title, "title");
+       const {data} = addTodoList({title:this.form.title})
+      console.log(data);
+      if (data.error === 1) {
+        this.$notify({
+          title: '提示',
+          message: data.message,
+          duration: 0
+        });
+      }
     },
 
-    //  添加todo
+    //  添加item
     addItem() {
       this.editVisible = true;
       console.log(this.form.id, "id");
@@ -192,6 +249,51 @@ export default {
           title: this.form.title
         })
       );
+    },
+
+    // 获取todo
+    async getTodo() {
+      const {
+        data: { data }
+      } = await getTodoList();
+      console.log(data, "todoList=================");
+      this.todoAxios = data;
+    },
+    // 获取指定id的todo
+
+    // 添加todo
+    addTodo() {
+      this.editVisible = true;
+      console.log(this.form.title, "title");
+    },
+    // 修改todo
+    patchTodo() {},
+
+    // 删除todo
+    async deleteTodo(row) {
+      console.log(row.id);
+
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(async () => {
+          const { data } = await deleteTodoList(row.id);
+          this.getTodo();
+          if (data.error === 0) {
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
 
     // 获取地址位置

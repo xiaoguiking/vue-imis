@@ -285,11 +285,11 @@ export default {
     },
 
     handleEdit(index, row) {
-      alert("编辑")
+      alert("编辑");
       console.log(index, row);
     },
     handleDelete(index, row) {
-      alert("删除")
+      alert("删除");
       console.log(index, row);
     }
   }
