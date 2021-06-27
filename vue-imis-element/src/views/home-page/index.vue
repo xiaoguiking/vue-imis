@@ -139,7 +139,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveEditTodo">确 定</el-button>
+        <el-button type="primary" @click.native="saveEditTodo">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -225,18 +225,19 @@ export default {
       this.editVisible = true;
     },
     // 保存编辑
-    saveEditTodo() {
+    async saveEditTodo() {
       this.editVisible = false;
       console.log(this.form.title, "title");
-       const {data} = addTodoList({title:this.form.title})
+      const { data } = await addTodoList({ title: this.form.title });
       console.log(data);
-      if (data.error === 1) {
-        this.$notify({
-          title: '提示',
-          message: data.message,
-          duration: 0
-        });
-      }
+      this.getTodo();
+      // if (data.error === 1) {
+      //   this.$notify({
+      //     title: '提示',
+      //     message: data.message,
+      //     duration: 0
+      //   });
+      // }
     },
 
     //  添加item
@@ -264,6 +265,7 @@ export default {
     // 添加todo
     addTodo() {
       this.editVisible = true;
+      this.form.title = "";
       console.log(this.form.title, "title");
     },
     // 修改todo

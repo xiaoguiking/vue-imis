@@ -12,6 +12,13 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use(config => {
   // 任何请求都会经过的配置的信息对象
+  config.headers = {
+    Accept: "*/*"
+  };
+  console.log(config);
+  // config.headers = {
+  //   "Content-Type": "application/x-www-form-urlencoded"
+  // };
   return config;
 });
 err => {

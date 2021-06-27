@@ -84,13 +84,13 @@
               trigger="hover"
             >
               <img
-                :src="'http://localhost:8096' + scope.row.img"
+                :src="'http://localhost:3000' + scope.row.img"
                 width="150px"
                 height="150px"
               />
               <img
                 slot="reference"
-                :src="'http://localhost:8096' + scope.row.img"
+                :src="'http://localhost:3000' + scope.row.img"
                 style="width: 150px; height: 150px"
               />
             </el-popover>
@@ -116,7 +116,15 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination background layout="prev, pager, next" :total="1000">
+      <!-- 分页组件  total 设置总数据的条数 默认每页十条数据-->
+      <el-pagination
+        style="margin-top: 20px"
+        background
+        layout="prev, pager, next"
+        :total="totalCount"
+        @current-change="changePage"
+        :page-size="pageSize"
+      >
       </el-pagination>
     </el-card>
   </div>
@@ -209,12 +217,14 @@ export default {
         { status: 2, text: "审核通过", type: "success" },
         { status: 3, text: "审核失败", type: "warning" },
         { status: 4, text: "已删除", type: "danger" }
-      ]
+      ],
       // articleStatus: ["草稿", "待审核", "审核通过", "审核失败", "已删除"],
+      totalCount: 0,  // 数据总数
+      pageSize: 8,
     };
   },
   mounted() {
-    // this.getArticleslist();
+    this.getArticleslist();
   },
   methods: {
     onSubmit(formName) {
@@ -223,22 +233,35 @@ export default {
       const data = { ...this.form };
       console.log(data, "data");
       console.table(data);
+
       // this.$refs.name;
     },
 
     // 请求列表数据
-    async getArticleslist() {
+    async getArticleslist(page = 1,) {
       const {
-        data: { list }
+        data: { list, total }, 
       } = await getArticlesList({
-        page: 1,
-        pageSize: 15
+        page,
+        pageSize: this.pageSize,
+        status: 0
       });
-      console.log(list);
+      console.log(total)
       this.uniqueArr(list);
       this.tableData = list;
+      this.totalCount = total;
     },
 
+    // 第几页
+    changePage(page) {
+      console.log(page);
+      this.getArticleslist(page);
+    },
+    // 每页条数
+    // changePageSize(pageSize) {
+    //   console.log(pageSize);
+    //   this.getArticleslist(pageSize);
+    // },
     split_array(arr, len) {
       const a_len = arr.length;
       const result = [];

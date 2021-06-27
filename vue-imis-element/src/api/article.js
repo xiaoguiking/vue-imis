@@ -16,10 +16,12 @@ import request from "@/api/config";
 // 获取文章列表
 export const getArticlesList = data => {
   return request({
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     method: "post",
     // url: "/api/articles/list",
-    // url: "/api/food/getInfoByPage",
-    url: "/api/food/getInfoByPage",
+    url: "/api/book/getInfoByPage",
     data
   });
 };
