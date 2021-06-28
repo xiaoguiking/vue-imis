@@ -30,5 +30,16 @@ export const getArticlesList = data => {
 export const addArticleList = () => {};
 
 // 删除文章
-
 export const deleteArticleList = () => {};
+
+// 获取文章频道
+export const getChannels = () => {
+  return request({
+    // headers: {
+    //   "Content-Type": "application/x-www-form-urlencoded"
+    // },
+    method: "get",
+    // url: "/api/articles/list",
+    url: "/api/book/getChannels"
+  });
+};

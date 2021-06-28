@@ -4,27 +4,37 @@
     <el-card class="box-card">
       <div>
         <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="活动名称">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
           <el-form-item label="状态">
-            <el-radio-group v-model="form.resource" ref="resource">
-              <el-radio label="全部"></el-radio>
-              <el-radio label="草稿"></el-radio>
-              <el-radio label="待审核"></el-radio>
-              <el-radio label="审核通过"></el-radio>
-              <el-radio label="审核失败"></el-radio>
-              <el-radio label="已删除"></el-radio>
+            <!-- <el-radio-group v-model="form.resource" ref="resource"> -->
+            <el-radio-group v-model="status" ref="resource">
+              <el-radio :label="null">全部</el-radio>
+              <el-radio :label="0">草稿</el-radio>
+              <el-radio :label="1">待审核</el-radio>
+              <el-radio :label="2">审核通过</el-radio>
+              <el-radio :label="3">审核失败</el-radio>
+              <el-radio :label="4">已删除</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="频道">
             <el-select
-              v-model="form.channel"
-              placeholder="请选择活动区域"
+              v-model="channelId"
+              placeholder="请选择文章频道"
               ref="channel"
+
+              clearable
             >
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+              <el-option
+                label="全部"
+                :value="null"
+              >
+              </el-option>
+              <el-option
+                v-for="channel in channels"
+                :key="channel.id"
+                :label="channel.name"
+                :value="channel.id"
+              >
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="日期">
@@ -45,8 +55,11 @@
             </el-col>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit('form')"
-              >立即创建</el-button
+            <!-- <el-button type="primary" @click="onSubmit('form')"
+              >立即查询</el-button
+            > -->
+            <el-button type="primary" @click="getArticleslist(1)"
+              >立即查询</el-button
             >
           </el-form-item>
         </el-form>
@@ -55,7 +68,7 @@
     <!-- list 列表 -->
     <el-card class="box-card" style="margin-top: 20px">
       <div slot="header" class="clearfix">
-        <span>根据搜索条件查询到111111条数据</span>
+        <span>根据搜索条件查询到{{ totalCount }}条数据</span>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="time" label="出版日期" width="180" fixed>
@@ -133,6 +146,7 @@
 <script>
 // 文章状态 0草稿 1待审核 2审核通过 3审核失败 4已删除 5不传为全部
 import { getArticlesList } from "@/api/article.js";
+// getChannels
 import img2 from "@/assets/img/2.jpeg";
 import img1 from "@/assets/img/1.jpeg";
 
@@ -145,7 +159,7 @@ export default {
         channel: "",
         date1: "",
         date2: "",
-        resource: ""
+        resource: "",
       },
       pickerOptions: {
         shortcuts: [
@@ -156,7 +170,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近一个月",
@@ -165,7 +179,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近三个月",
@@ -174,18 +188,18 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       rules: {
         telphone: [
-          { required: true, message: "请输入手机号", trigger: "blur" }
+          { required: true, message: "请输入手机号", trigger: "blur" },
         ],
         cardnum: [
-          { required: true, message: "请输入买受人身份证号", trigger: "blur" }
-        ]
+          { required: true, message: "请输入买受人身份证号", trigger: "blur" },
+        ],
       },
       tableData: [
         {
@@ -197,7 +211,7 @@ export default {
           typeid: 5,
           status: 3,
           address: "上海市普陀区金沙江路 1519 弄",
-          img: img2
+          img: img2,
         },
         {
           time: "2016-03-01",
@@ -208,23 +222,56 @@ export default {
           typeid: 5,
           status: 1,
           address: "上海市普陀区金沙江路 1519 弄",
-          img: img1
-        }
+          img: img1,
+        },
       ],
       articleStatusList: [
         { status: 0, text: "草稿", type: "info" },
         { status: 1, text: "待审核", type: "" },
         { status: 2, text: "审核通过", type: "success" },
         { status: 3, text: "审核失败", type: "warning" },
-        { status: 4, text: "已删除", type: "danger" }
+        { status: 4, text: "已删除", type: "danger" },
       ],
       // articleStatus: ["草稿", "待审核", "审核通过", "审核失败", "已删除"],
-      totalCount: 0,  // 数据总数
-      pageSize: 8,
+      totalCount: 0, // 数据总数
+      pageSize: 8, // 每页展示条数
+      status: "", // 文章状态
+      channels: [
+        {
+          id: 1,
+          name: "数码",
+        },
+        {
+          id: 2,
+          name: "科技",
+        },
+        {
+          id: 3,
+          name: "思想",
+        },
+        {
+          id: 4,
+          name: "军事",
+        },
+        {
+          id: 5,
+          name: "言情",
+        },
+        {
+          id: 6,
+          name: "水文",
+        },
+        {
+          id: 7,
+          name: "游记",
+        },
+      ],
+      channel_id: null, // 查询文章频道
     };
   },
   mounted() {
     this.getArticleslist();
+    // this.getChannelsList();
   },
   methods: {
     onSubmit(formName) {
@@ -238,15 +285,18 @@ export default {
     },
 
     // 请求列表数据
-    async getArticleslist(page = 1,) {
+    async getArticleslist(page = 1) {
       const {
-        data: { list, total }, 
+        data: { list, total },
       } = await getArticlesList({
         page,
         pageSize: this.pageSize,
-        status: 0
+        // status: this.status
+        channel_id: this.channelId,
+        // createTime
+        // updateTime
       });
-      console.log(total)
+      console.log(total);
       this.uniqueArr(list);
       this.tableData = list;
       this.totalCount = total;
@@ -271,11 +321,17 @@ export default {
       return result;
     },
 
+    // 获取文章频道
+    // async getChannelsList () {
+    //   const {data} = await getChannels();
+    //   this.channels = data;
+    // },
+
     uniqueArr(data) {
       let hasArr = [];
       let hasObj = {};
 
-      data.forEach(item => {
+      data.forEach((item) => {
         if (hasObj[item.name]) {
           hasArr.push(item);
           if (hasObj[item.name].length === 0) return;
@@ -289,21 +345,21 @@ export default {
       hasObj = {};
 
       if (hasArr.length !== 0) {
-        const uniqueName = Array.from(new Set(hasArr.map(i => i.name)));
-        const uniqueId = Array.from(hasArr.map(i => i.id));
-        const id = this.split_array(uniqueId, 20).map(item => {
+        const uniqueName = Array.from(new Set(hasArr.map((i) => i.name)));
+        const uniqueId = Array.from(hasArr.map((i) => i.id));
+        const id = this.split_array(uniqueId, 20).map((item) => {
           return item + "<br>";
         });
         this.$message({
           duration: 10000,
           dangerouslyUseHTMLString: true,
           message: `警告哦，这是一条警告消息: <br/> 重复的name: ${uniqueName}, 重复的id： ${id} `,
-          type: "warning"
+          type: "warning",
         });
       }
 
       return {
-        hasArr
+        hasArr,
       };
     },
 
@@ -314,8 +370,8 @@ export default {
     handleDelete(index, row) {
       alert("删除");
       console.log(index, row);
-    }
-  }
+    },
+  },
 };
 </script>
 
