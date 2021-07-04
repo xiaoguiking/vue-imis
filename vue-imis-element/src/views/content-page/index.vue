@@ -20,14 +20,9 @@
               v-model="channelId"
               placeholder="请选择文章频道"
               ref="channel"
-
               clearable
             >
-              <el-option
-                label="全部"
-                :value="null"
-              >
-              </el-option>
+              <el-option label="全部" :value="null"> </el-option>
               <el-option
                 v-for="channel in channels"
                 :key="channel.id"
@@ -40,7 +35,7 @@
           <el-form-item label="日期">
             <el-col :span="11">
               <el-date-picker
-                v-model="form.date1"
+                v-model="rangeDate"
                 type="datetimerange"
                 :picker-options="pickerOptions"
                 range-separator="至"
@@ -58,9 +53,12 @@
             <!-- <el-button type="primary" @click="onSubmit('form')"
               >立即查询</el-button
             > -->
-            <el-button type="primary" @click="getArticleslist(1)"
-              >立即查询</el-button
-            >
+            <el-button
+              type="primary"
+              :disabled="loading"
+              @click="getArticleslist(1)"
+              >立即查询
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -70,7 +68,12 @@
       <div slot="header" class="clearfix">
         <span>根据搜索条件查询到{{ totalCount }}条数据</span>
       </div>
-      <el-table :data="tableData" stripe style="width: 100%">
+      <el-table
+        :data="tableData"
+        stripe
+        style="width: 100%"
+        v-loading="loading"
+      >
         <el-table-column prop="time" label="出版日期" width="180" fixed>
         </el-table-column>
         <el-table-column prop="name" label="书籍名称" width="140">
@@ -135,8 +138,9 @@
         background
         layout="prev, pager, next"
         :total="totalCount"
-        @current-change="changePage"
         :page-size="pageSize"
+        :disabled="loading"
+        @current-change="changePage"
       >
       </el-pagination>
     </el-card>
@@ -145,8 +149,8 @@
 
 <script>
 // 文章状态 0草稿 1待审核 2审核通过 3审核失败 4已删除 5不传为全部
-import { getArticlesList } from "@/api/article.js";
-// getChannels
+import { getArticlesList, deleteArticleList } from "@/api/article.js";
+// getChannels deleteArticleList
 import img2 from "@/assets/img/2.jpeg";
 import img1 from "@/assets/img/1.jpeg";
 
@@ -159,7 +163,7 @@ export default {
         channel: "",
         date1: "",
         date2: "",
-        resource: "",
+        resource: ""
       },
       pickerOptions: {
         shortcuts: [
@@ -170,7 +174,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
               picker.$emit("pick", [start, end]);
-            },
+            }
           },
           {
             text: "最近一个月",
@@ -179,7 +183,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit("pick", [start, end]);
-            },
+            }
           },
           {
             text: "最近三个月",
@@ -188,18 +192,18 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit("pick", [start, end]);
-            },
-          },
-        ],
+            }
+          }
+        ]
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       rules: {
         telphone: [
-          { required: true, message: "请输入手机号", trigger: "blur" },
+          { required: true, message: "请输入手机号", trigger: "blur" }
         ],
         cardnum: [
-          { required: true, message: "请输入买受人身份证号", trigger: "blur" },
-        ],
+          { required: true, message: "请输入买受人身份证号", trigger: "blur" }
+        ]
       },
       tableData: [
         {
@@ -211,7 +215,7 @@ export default {
           typeid: 5,
           status: 3,
           address: "上海市普陀区金沙江路 1519 弄",
-          img: img2,
+          img: img2
         },
         {
           time: "2016-03-01",
@@ -222,51 +226,53 @@ export default {
           typeid: 5,
           status: 1,
           address: "上海市普陀区金沙江路 1519 弄",
-          img: img1,
-        },
+          img: img1
+        }
       ],
       articleStatusList: [
         { status: 0, text: "草稿", type: "info" },
         { status: 1, text: "待审核", type: "" },
         { status: 2, text: "审核通过", type: "success" },
         { status: 3, text: "审核失败", type: "warning" },
-        { status: 4, text: "已删除", type: "danger" },
+        { status: 4, text: "已删除", type: "danger" }
       ],
       // articleStatus: ["草稿", "待审核", "审核通过", "审核失败", "已删除"],
       totalCount: 0, // 数据总数
-      pageSize: 8, // 每页展示条数
-      status: "", // 文章状态
+      pageSize: 15, // 每页展示条数
+      status: null, // 文章状态
       channels: [
         {
           id: 1,
-          name: "数码",
+          name: "数码"
         },
         {
           id: 2,
-          name: "科技",
+          name: "科技"
         },
         {
           id: 3,
-          name: "思想",
+          name: "思想"
         },
         {
           id: 4,
-          name: "军事",
+          name: "军事"
         },
         {
           id: 5,
-          name: "言情",
+          name: "言情"
         },
         {
           id: 6,
-          name: "水文",
+          name: "水文"
         },
         {
           id: 7,
-          name: "游记",
-        },
+          name: "游记"
+        }
       ],
-      channel_id: null, // 查询文章频道
+      channelId: null, // 查询文章频道
+      rangeDate: null,
+      loading: true
     };
   },
   mounted() {
@@ -286,17 +292,19 @@ export default {
 
     // 请求列表数据
     async getArticleslist(page = 1) {
+      this.loading = true;
       const {
-        data: { list, total },
+        data: { list, total }
       } = await getArticlesList({
         page,
         pageSize: this.pageSize,
-        // status: this.status
+        status: this.status,
         channel_id: this.channelId,
-        // createTime
-        // updateTime
+        createTime: this.rangeDate ? this.rangeDate[0] : null,
+        updateTime: this.rangeDate ? this.rangeDate[1] : null
       });
       console.log(total);
+      this.loading = false;
       this.uniqueArr(list);
       this.tableData = list;
       this.totalCount = total;
@@ -304,7 +312,6 @@ export default {
 
     // 第几页
     changePage(page) {
-      console.log(page);
       this.getArticleslist(page);
     },
     // 每页条数
@@ -331,7 +338,7 @@ export default {
       let hasArr = [];
       let hasObj = {};
 
-      data.forEach((item) => {
+      data.forEach(item => {
         if (hasObj[item.name]) {
           hasArr.push(item);
           if (hasObj[item.name].length === 0) return;
@@ -345,21 +352,21 @@ export default {
       hasObj = {};
 
       if (hasArr.length !== 0) {
-        const uniqueName = Array.from(new Set(hasArr.map((i) => i.name)));
-        const uniqueId = Array.from(hasArr.map((i) => i.id));
-        const id = this.split_array(uniqueId, 20).map((item) => {
+        const uniqueName = Array.from(new Set(hasArr.map(i => i.name)));
+        const uniqueId = Array.from(hasArr.map(i => i.id));
+        const id = this.split_array(uniqueId, 20).map(item => {
           return item + "<br>";
         });
         this.$message({
           duration: 10000,
           dangerouslyUseHTMLString: true,
           message: `警告哦，这是一条警告消息: <br/> 重复的name: ${uniqueName}, 重复的id： ${id} `,
-          type: "warning",
+          type: "warning"
         });
       }
 
       return {
-        hasArr,
+        hasArr
       };
     },
 
@@ -367,16 +374,36 @@ export default {
       alert("编辑");
       console.log(index, row);
     },
-    handleDelete(index, row) {
-      alert("删除");
-      console.log(index, row);
-    },
-  },
+    async handleDelete(index, row) {
+      console.log(index, row._id, "========");
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(async () => {
+          const { data } = await deleteArticleList({ _id: row._id });
+          console.log(data, "==========>");
+          this.getArticleslist();
+          if (data.error === 0) {
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped></style>
-
 <style>
 .el-pagination {
   text-align: right;

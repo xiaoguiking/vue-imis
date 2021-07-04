@@ -30,7 +30,16 @@ export const getArticlesList = data => {
 export const addArticleList = () => {};
 
 // 删除文章
-export const deleteArticleList = () => {};
+export const deleteArticleList = data => {
+  return request({
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    method: "post",
+    url: "api/book/delete",
+    data
+  });
+};
 
 // 获取文章频道
 export const getChannels = () => {
