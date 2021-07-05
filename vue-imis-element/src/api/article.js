@@ -26,8 +26,17 @@ export const getArticlesList = data => {
   });
 };
 
-// 增加文章
-export const addArticleList = () => {};
+// 增加文章 发布文章
+export const addArticleList = (data) => {
+  return request({
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    method: "post",
+    url: "api/book/add",
+    data
+  });
+};
 
 // 删除文章
 export const deleteArticleList = data => {

@@ -140,6 +140,7 @@
         :total="totalCount"
         :page-size="pageSize"
         :disabled="loading"
+        :current-page.sync="page"
         @current-change="changePage"
       >
       </el-pagination>
@@ -196,7 +197,6 @@ export default {
           }
         ]
       },
-      value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       rules: {
         telphone: [
           { required: true, message: "请输入手机号", trigger: "blur" }
@@ -272,7 +272,8 @@ export default {
       ],
       channelId: null, // 查询文章频道
       rangeDate: null,
-      loading: true
+      loading: true,
+      page: 1,
     };
   },
   mounted() {
@@ -384,7 +385,7 @@ export default {
         .then(async () => {
           const { data } = await deleteArticleList({ _id: row._id });
           console.log(data, "==========>");
-          this.getArticleslist();
+          this.getArticleslist(this.page);
           if (data.error === 0) {
             this.$message({
               type: "success",
