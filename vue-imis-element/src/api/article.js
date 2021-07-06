@@ -26,14 +26,17 @@ export const getArticlesList = data => {
   });
 };
 
-// 增加文章 发布文章
-export const addArticleList = (data) => {
+// 增加文章 发布文章 (存取草稿)
+export const addArticleList = (data, draft=false) => {
   return request({
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     method: "post",
     url: "api/book/add",
+    params: {
+      draft  // 是否为草稿 draft =true 存为草稿
+    },
     data
   });
 };

@@ -1,17 +1,17 @@
 <template>
   <div class="publish-article">
-    publish-article
     <el-card>
-      <div slot="header"></div>
+      <div slot="header">
+        发布文章
+      </div>
       <div>
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="article" :model="article" label-width="80px">
           <el-form-item label="标题">
-            <el-input v-model="form.title"></el-input>
+            <el-input v-model="article.name"></el-input>
           </el-form-item>
           <el-form-item label="内容">
-            <el-input type="textarea" v-model="form.desc"></el-input>
+            <el-input type="textarea" v-model="article.desc"></el-input>
           </el-form-item>
-、
             <!-- <el-form-item label="活动时间">
             <el-col :span="11">
               <el-date-picker
@@ -30,20 +30,6 @@
               ></el-time-picker>
             </el-col>
           </el-form-item> -->
-            <el-form-item label="即时配送">
-              <el-switch v-model="form.delivery"></el-switch>
-            </el-form-item>
-            <el-form-item label="活动性质">
-              <el-checkbox-group v-model="form.type">
-                <el-checkbox
-                  label="美食/餐厅线上活动"
-                  name="type"
-                ></el-checkbox>
-                <el-checkbox label="地推活动" name="type"></el-checkbox>
-                <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-              </el-checkbox-group>
-            </el-form-item>
             <el-form-item label="频道">
               <el-select v-model="channelId" placeholder="请选择文章频道">
                 <el-option label="全部" :value="null"> </el-option>
@@ -57,13 +43,15 @@
               </el-select>
             </el-form-item>
             <el-form-item label="封面">
-              <el-radio-group v-model="form.resource">
-                <el-radio label="线上品牌商赞助"></el-radio>
-                <el-radio label="线下场地免费"></el-radio>
+              <el-radio-group v-model="article.cover.type">
+                <el-radio :label="-1">自动</el-radio>
+                <el-radio :label="0">无图</el-radio>
+                <el-radio :label="1">1张</el-radio>
+                <el-radio :label="3">三张</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-button type="primary" @click="onSubmit">发布文章</el-button>
-            <el-button>存入草稿</el-button>
+            <el-button type="primary" @click="onPublish(false)">发布文章</el-button>
+            <el-button @click="onPublish(true)">存入草稿</el-button>
         </el-form>
       </div>
     </el-card>
@@ -71,7 +59,7 @@
 </template>
 
 <script>
-// import {addArticleList} from "@/api/article.js"
+// import {addArticleList, getChannels,} from "@/api/article.js"
 
 export default {
   name: "PublishArticle",
@@ -91,10 +79,16 @@ export default {
         name: "",
         price: "",
         desc:"",
+
         typename:"",
         typeid:"",
         img:"",
-        status:""
+        status:"",
+        cover: {
+          images: [],
+          type: 0,  // 封面类型 -1自动 0 无图  11张 3张
+        }
+
       },
       channels: [
         {
@@ -129,10 +123,28 @@ export default {
       channelId: null, // 查询文章频道
     };
   },
+  created () {
+    this.loadChannels();
+  },
   methods: {
     onSubmit() {
       console.log("submit!");
     },
+
+    // 加载频道
+    async loadChannels () {
+      // const {data} = await getChannels;
+      // this.channels = data;
+    },
+
+    // 发布文章
+    async onPublish (draft=false) {
+      console.log(this.article,draft, "art")
+      this.$message({
+        type: "success",
+        message: "发布成功"
+      })
+    }
   },
 };
 </script>
