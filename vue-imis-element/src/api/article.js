@@ -26,21 +26,6 @@ export const getArticlesList = data => {
   });
 };
 
-// 增加文章 发布文章 (存取草稿)
-export const addArticleList = (data, draft=false) => {
-  return request({
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    method: "post",
-    url: "api/book/add",
-    params: {
-      draft  // 是否为草稿 draft =true 存为草稿
-    },
-    data
-  });
-};
-
 // 删除文章
 export const deleteArticleList = data => {
   return request({
@@ -62,5 +47,39 @@ export const getChannels = () => {
     method: "get",
     // url: "/api/articles/list",
     url: "/api/book/getChannels"
+  });
+};
+
+// 获取指定文章内容
+export const getArticleById = bookId => {
+  return request({
+    method: "get",
+    url: `/api/book/${bookId}`
+  });
+};
+
+// 增加文章 发布文章 (存取草稿)
+export const addArticleList = (data, draft = false) => {
+  return request({
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    method: "post",
+    url: "api/book/add",
+    params: {
+      draft // 是否为草稿 draft =true 存为草稿
+    },
+    data
+  });
+};
+// 编辑文章
+export const updateArticle = (bookId, data, draft = false) => {
+  return request({
+    method: "put",
+    url: `/api/book/${bookId}`,
+    params: {
+      draft
+    },
+    data
   });
 };

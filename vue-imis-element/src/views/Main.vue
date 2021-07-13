@@ -87,6 +87,7 @@ sticky属性仅在以下几个条件都满足时有效：
   -webkit-transition: margin-left 0.28s;
   transition: margin-left 0.28s;
   margin-left: 180px;
+  overflow: hidden;
 }
 .el-main {
   overflow: visible;

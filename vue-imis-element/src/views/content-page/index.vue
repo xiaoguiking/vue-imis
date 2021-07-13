@@ -87,8 +87,8 @@
         </el-table-column>
         <el-table-column prop="status" label="文章状态">
           <template slot-scope="scope">
-            <el-tag :type="articleStatusList[scope.row.status].type">{{
-              articleStatusList[scope.row.status].text
+            <el-tag :type="articleStatusList[Number(scope.row.status)].type">{{
+              articleStatusList[Number(scope.row.status)].text
             }}</el-tag>
           </template>
         </el-table-column>
@@ -112,16 +112,17 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column prop="id" label="id"> </el-table-column>
+        <el-table-column prop="_id" label="_id"> </el-table-column>
         <el-table-column label="操作" width="100px" fixed="right">
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="handleEdit(scope.$index, scope.row)"
               type="primary"
               icon="el-icon-edit"
               circle
+              @click="$router.push('/publish?id=' + scope.row._id)"
             ></el-button>
+            <!-- @click="handleEdit(scope.$index, scope.row)" -->
             <el-button
               size="mini"
               @click="handleDelete(scope.$index, scope.row)"
@@ -151,9 +152,9 @@
 <script>
 // 文章状态 0草稿 1待审核 2审核通过 3审核失败 4已删除 5不传为全部
 import { getArticlesList, deleteArticleList } from "@/api/article.js";
-// getChannels deleteArticleList
-import img2 from "@/assets/img/2.jpeg";
-import img1 from "@/assets/img/1.jpeg";
+// getChannels deleteArticleList updateArticle getArticleById
+// import img2 from "@/assets/img/2.jpeg";
+// import img1 from "@/assets/img/1.jpeg";
 
 export default {
   name: "ContentPage",
@@ -205,30 +206,7 @@ export default {
           { required: true, message: "请输入买受人身份证号", trigger: "blur" }
         ]
       },
-      tableData: [
-        {
-          time: "2016-05-01",
-          name: "诛仙",
-          price: "99999999",
-          desc: "可怜当时月朦胧",
-          typename: "武侠",
-          typeid: 5,
-          status: 3,
-          address: "上海市普陀区金沙江路 1519 弄",
-          img: img2
-        },
-        {
-          time: "2016-03-01",
-          name: "帝霸",
-          price: "99999999",
-          desc: "直捣黄龙",
-          typename: "武侠",
-          typeid: 5,
-          status: 1,
-          address: "上海市普陀区金沙江路 1519 弄",
-          img: img1
-        }
-      ],
+      tableData: [],
       articleStatusList: [
         { status: 0, text: "草稿", type: "info" },
         { status: 1, text: "待审核", type: "" },
@@ -273,7 +251,7 @@ export default {
       channelId: null, // 查询文章频道
       rangeDate: null,
       loading: true,
-      page: 1,
+      page: 1
     };
   },
   mounted() {
@@ -304,10 +282,14 @@ export default {
         createTime: this.rangeDate ? this.rangeDate[0] : null,
         updateTime: this.rangeDate ? this.rangeDate[1] : null
       });
-      console.log(total);
+
       this.loading = false;
       this.uniqueArr(list);
       this.tableData = list;
+      console.log("tableData============>", this.tableData);
+
+      this.tableData.map(i => i.status);
+
       this.totalCount = total;
     },
 
@@ -371,10 +353,10 @@ export default {
       };
     },
 
-    handleEdit(index, row) {
-      alert("编辑");
-      console.log(index, row);
-    },
+    // handleEdit(index, row) {
+    //   alert("编辑");
+    //   console.log(index, row);
+    // },
     async handleDelete(index, row) {
       console.log(index, row._id, "========");
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
@@ -386,6 +368,7 @@ export default {
           const { data } = await deleteArticleList({ _id: row._id });
           console.log(data, "==========>");
           this.getArticleslist(this.page);
+          window.location.reload();
           if (data.error === 0) {
             this.$message({
               type: "success",
@@ -399,7 +382,7 @@ export default {
             message: "已取消删除"
           });
         });
-    }
+    },
   }
 };
 </script>
