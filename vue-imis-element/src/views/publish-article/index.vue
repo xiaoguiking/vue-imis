@@ -75,9 +75,9 @@
 </template>
 
 <script>
-// import {addArticleList, getChannels, updateArticle} from "@/api/article.js"
+// getChannels
 import {
-  // addArticleList,
+  addArticleList,
   getArticleById,
   updateArticle
 } from "@/api/article.js";
@@ -90,8 +90,8 @@ export default {
         name: "",
         price: "",
         desc: "",
-        typename: "",
-        typeid: "",
+        typename: "思想",
+        typeid: 2,
         img: "",
         status: 0,
         cover: {
@@ -183,25 +183,53 @@ export default {
 
     // 发布文章或者编辑文章
     async onPublish(draft = false) {
-      // console.log(this.article, draft, "art");
-      console.log(draft, "article");
+      console.log("发布");
       const bookId = this.$route.query.id;
-      console.log(bookId, "article")
       if (bookId) {
         // 编辑文章
-        const { data } = await updateArticle(bookId, {
+        const {
+          data: { error, message }
+        } = await updateArticle(bookId, {
           book: {
             name: this.article.name,
             desc: this.article.desc
+          },
+          draft
+        });
+        if (error == "0") {
+          this.$message({
+            type: "success",
+            message: message
+          });
+        }
+        console.log(error,message, "编辑");
+      } else {
+        // 添加文章
+        addArticleList({
+          book: {
+            name: this.article.name,
+            desc: this.article.desc,
+            price: this.article.price,
+            typename: this.article.typename,
+            typeid: this.article.typeid,
+            img: "/images/book13.jpg",
+            status: this.article.status
+          }
+        }).then(res => {
+          const {
+            data: { error, message }
+          } = res;
+          if (error == "0") {
+            this.$message({
+              type: "success",
+              message: message
+            });
           }
         });
-        console.log(data, "===========>data");
       }
-      // 添加文章
-      // async function addArticle() {
-      //   const { data } = await addArticleList();
-      //   console.log(data);
-      // }
+      setTimeout(() => {
+        this.$router.push("/content");
+      }, 1000 * 3);
     }
   }
 };

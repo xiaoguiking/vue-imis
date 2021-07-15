@@ -49,6 +49,9 @@
       <el-table-column prop="address" label="地址" width="400">
       </el-table-column>
       <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
+      <el-table-column prop="time" label="时间" width="120"> </el-table-column>
+      <el-table-column prop="status" label="status" width="120">
+      </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <el-button
@@ -93,8 +96,22 @@ export default {
     }
   },
   created() {
-    const listData = tableData.map((item, index) => {
+    // 非当前且之后时间 + status: 8
+    const arrId = [];
+    const timestamp = new Date().valueOf();
+    let listData = tableData.map((item, index) => {
       item["id"] = index;
+      if (item.time - timestamp > 0 && item.status == 8) {
+        arrId.push(item.id);
+        console.log(arrId, "status");
+        this.$alert(
+          `非当前且之后的时间并且状态为status为8的, id: ${arrId}`,
+          "警告",
+          {
+            confirmButtonText: "确定"
+          }
+        );
+      }
       return item;
     });
     this.tableData = listData;

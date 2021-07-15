@@ -5,16 +5,7 @@ const sideMenu = [
     icon: "platform-eleme" //  对应图标
     // icon: "iconelectronics" //  对应图标
   },
-  {
-    title: "vue组件化",
-    path: "/vue",
-    icon: "warning"
-  },
-  {
-    title: "css集群",
-    path: "/css",
-    icon: "picture"
-  },
+
   {
     title: "内容管理",
     path: "/content",
@@ -44,6 +35,16 @@ const sideMenu = [
     title: "个人设置",
     path: "/guide",
     icon: "guide"
+  },
+  {
+    title: "vue组件化",
+    path: "/vue",
+    icon: "warning"
+  },
+  {
+    title: "css集群",
+    path: "/css",
+    icon: "picture"
   },
   {
     title: "测试路由",
