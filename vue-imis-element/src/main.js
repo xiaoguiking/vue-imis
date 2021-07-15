@@ -11,11 +11,12 @@ import "@/styles/index.less"; // global css
 import "element-ui/lib/theme-chalk/index.css";
 
 // rich text
-import { ElementTiptapPlugin } from 'element-tiptap';
-import 'element-tiptap/lib/index.css';
+import { ElementTiptapPlugin } from "element-tiptap";
+import "element-tiptap/lib/index.css";
 // 安装 element-tiptap 插件
-Vue.use(ElementTiptapPlugin, { /* 插件配置项 */ });
-
+Vue.use(ElementTiptapPlugin, {
+  /* 插件配置项 */
+});
 
 // 全局挂载请求函数
 // import axios from "axios";

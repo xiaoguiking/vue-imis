@@ -9,8 +9,13 @@
           <el-form-item label="标题">
             <el-input v-model="article.name"></el-input>
           </el-form-item>
-          <el-form-item label="内容">
+          <!-- <el-form-item label="内容">
             <el-input type="textarea" v-model="article.desc"></el-input>
+          </el-form-item> -->
+          <el-form-item label="内容">
+            <div>
+              <el-tiptap v-model="article.desc" :extensions="extensions" />
+            </div>
           </el-form-item>
           <el-form-item label="price">
             <el-input type="input" v-model="article.price"></el-input>
@@ -79,8 +84,23 @@
 import {
   addArticleList,
   getArticleById,
-  updateArticle
+  updateArticle,
 } from "@/api/article.js";
+import { ElementTiptap } from "element-tiptap";
+import {
+  // 需要的 extensions
+  Doc,
+  Text,
+  Paragraph,
+  Heading,
+  Bold,
+  Underline,
+  Italic,
+  Strike,
+  ListItem,
+  BulletList,
+  OrderedList,
+} from "element-tiptap";
 
 export default {
   name: "PublishArticle",
@@ -96,63 +116,79 @@ export default {
         status: 0,
         cover: {
           images: [],
-          type: 0 // 封面类型 -1自动 0 无图  11张 3张
-        }
+          type: 0, // 封面类型 -1自动 0 无图  11张 3张
+        },
       },
       articleStatusList: [
         {
           id: 0,
-          name: "草稿"
+          name: "草稿",
         },
         {
           id: 1,
-          name: "待审核"
+          name: "待审核",
         },
         {
           id: 2,
-          name: "审核通过"
+          name: "审核通过",
         },
         {
           id: 3,
-          name: "审核失败"
+          name: "审核失败",
         },
         {
           id: 4,
-          name: "已删除"
-        }
+          name: "已删除",
+        },
       ],
       channels: [
         {
           id: 1,
-          name: "数码"
+          name: "数码",
         },
         {
           id: 2,
-          name: "科技"
+          name: "科技",
         },
         {
           id: 3,
-          name: "思想"
+          name: "思想",
         },
         {
           id: 4,
-          name: "军事"
+          name: "军事",
         },
         {
           id: 5,
-          name: "言情"
+          name: "言情",
         },
         {
           id: 6,
-          name: "水文"
+          name: "水文",
         },
         {
           id: 7,
-          name: "游记"
-        }
+          name: "游记",
+        },
       ],
-      channelId: null // 查询文章频道
+      channelId: null, // 查询文章频道
+      extensions: [
+        new Doc(),
+        new Text(),
+        new Paragraph(),
+        new Heading({ level: 5 }),
+        new Bold({ bubble: true }), // 在气泡菜单中渲染菜单按钮
+        new Underline({ bubble: true, menubar: false }), // 在气泡菜单而不在菜单栏中渲染菜单按钮
+        new Italic(),
+        new Strike(),
+        new ListItem(),
+        new BulletList(),
+        new OrderedList(),
+      ],
     };
+  },
+  components: {
+    "el-tiptap": ElementTiptap,
   },
   created() {
     this.loadChannels();
@@ -176,7 +212,7 @@ export default {
     // 加载指定id对应内容
     async loadArticle() {
       const {
-        data: { book }
+        data: { book },
       } = await getArticleById(this.$route.query.id);
       this.article = book;
     },
@@ -188,21 +224,21 @@ export default {
       if (bookId) {
         // 编辑文章
         const {
-          data: { error, message }
+          data: { error, message },
         } = await updateArticle(bookId, {
           book: {
             name: this.article.name,
-            desc: this.article.desc
+            desc: this.article.desc,
           },
-          draft
+          draft,
         });
         if (error == "0") {
           this.$message({
             type: "success",
-            message: message
+            message: message,
           });
         }
-        console.log(error,message, "编辑");
+        console.log(error, message, "编辑");
       } else {
         // 添加文章
         addArticleList({
@@ -213,16 +249,16 @@ export default {
             typename: this.article.typename,
             typeid: this.article.typeid,
             img: "/images/book13.jpg",
-            status: this.article.status
-          }
-        }).then(res => {
+            status: this.article.status,
+          },
+        }).then((res) => {
           const {
-            data: { error, message }
+            data: { error, message },
           } = res;
           if (error == "0") {
             this.$message({
               type: "success",
-              message: message
+              message: message,
             });
           }
         });
@@ -230,8 +266,8 @@ export default {
       setTimeout(() => {
         this.$router.push("/content");
       }, 1000 * 3);
-    }
-  }
+    },
+  },
 };
 </script>
 
