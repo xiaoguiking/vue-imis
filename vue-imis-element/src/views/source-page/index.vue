@@ -8,7 +8,7 @@
           <el-radio-button :label="true">收藏</el-radio-button>
         </el-radio-group>
         <el-button type="success" @click="dialogUpload = true"
-          >上次素材</el-button
+          >上传素材</el-button
         >
       </div>
       <!-- 素材列表 -->
@@ -20,6 +20,7 @@
           :xs="12"
           v-for="(item, index) of imageList"
           :key="index"
+          v-loading="loading"
         >
           <el-image
             style="height: 200px"
@@ -28,21 +29,33 @@
           ></el-image>
         </el-col>
       </el-row>
+      <el-pagination 
+        background
+        layout="prev, pager, next"
+        :current-page.sync="page"
+        :total="total"
+        style="margin-top: 20px"
+        @current-change="changePage"
+        :disabled="loading"
+        >
+      </el-pagination>
     </el-card>
     <el-dialog
       :visible.sync="dialogUpload"
-      title="上次素材"
+      title="上传素材"
       :append-to-body="true"
       width="500px"
     >
       <el-upload
+        v-if="dialogUpload"
         class="upload-demo"
         drag
         name="avatar"
         action="http://127.0.0.1:3000/file/profile"
         multiple
+        :on-success="handleUpload"
       >
-      <!-- headers="uploadHeaders" -->
+        <!-- headers="uploadHeaders" -->
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip" slot="tip">
@@ -64,28 +77,48 @@ export default {
       url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       imageList: [],
       dialogUpload: false,
-      uploadHeaders: ""
+      uploadHeaders: "",
+      loading: true,
+      page: 1,
+      total: null
     };
   },
   created() {
-    this.loadImages();
+    this.loadImages(this.page, false);
   },
   methods: {
     // 触发两次请求
-    async loadImages(isCollected) {
+    async loadImages(page,isCollected = false) {
+      this.loading = true;
       const {
-        data: { list },
+        data: { list, total },
       } = await getImages({
         isCollected,
+        page,
+        pageSize: 18
       });
+      console.table(list);
+      this.loading = false;
       this.imageList = list;
+      this.total = total;
     },
 
     // 使用change事件注册在 el-radio-group
     onChangeCollect(value) {
       console.log(value);
-      this.loadImages(value);
+      this.loadImages(this.page,value);
     },
+
+    handleUpload(response, file, fileList) {
+      console.log(response, file, fileList);
+      this.dialogUpload = false;
+      this.loadImages(this.page, false);
+    },
+
+    changePage(page) {
+      console.log(page, "page")
+      this.loadImages(page)
+    }
   },
 };
 </script>
@@ -96,5 +129,10 @@ export default {
     display: flex;
     justify-content: space-between;
   }
+}
+</style>
+<style>
+.el-pagination {
+  text-align: right;
 }
 </style>
