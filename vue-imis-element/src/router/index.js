@@ -73,6 +73,11 @@ const routes = [
         component: () => import("@/views/source-page/index")
       },
       {
+        path: "/comment",
+        name: "comment",
+        component: () => import("@/views/comment-page/index")
+      },
+      {
         path: "/publish",
         name: "publish",
         component: () => import("@/views/publish-article/index")

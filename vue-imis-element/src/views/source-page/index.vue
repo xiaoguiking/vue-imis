@@ -33,13 +33,22 @@
             @click="onClickImage(item.url)"
           ></el-image>
           <div class="image-action">
-            <i
-              :class = "[collect ? 'el-icon-star-on' : 'el-icon-star-off', ]"
-              @click="onCollectImage(item._id)"
-            >
-             <!-- :class="el-icon-star-off"  -->
-            </i>
-            <i class="el-icon-delete" @click="onDeleteImage(item._id)"></i>
+            <el-button 
+              type="success" 
+              :icon="item.isCollected?'el-icon-star-on':'el-icon-star-off'"
+              circle
+              size="mini"
+              @click="onCollectImage(item)"
+              :loading="item.loading"
+            ></el-button>
+            <el-button 
+              type="danger" 
+              icon="el-icon-delete-solid"
+              circle
+              size="mini"
+              @click="onCollectImage(item)"
+               :loading="item.loading"
+            ></el-button>
           </div>
         </el-col>
       </el-row>
@@ -81,7 +90,6 @@
 </template>
 
 <script>
-// import { getImages } from "@/api/image.js";
 import { getImages, collectImage, deleteImage } from "@/api/image.js";
 
 export default {
@@ -115,6 +123,10 @@ export default {
         pageSize: 18,
       });
       this.loading = false;
+      list.forEach(img => {
+          console.log(img)
+          img.loading = false;
+      });
       this.imageList = list;
       this.total = total;
     },
@@ -145,10 +157,12 @@ export default {
       console.log(this.srcList, "data");
     },
 
-    async onCollectImage(_id) {
-      const { data} = await collectImage({
+    async onCollectImage(item) {
+      const {_id ,isCollected} = item;
+      item.loading = true;
+      const { data } = await collectImage({
         _id,
-        isCollected: true,
+        isCollected: !isCollected,
       });
       if (data.code == "0") {
         this.$message({
@@ -156,10 +170,13 @@ export default {
           message: data.message,
         });
       }
+      item.loading = false;
       this.loadImages(1, this.collect);
     },
 
-    async onDeleteImage(_id) {
+    async onDeleteImage(item) {
+      const {_id} = item;
+      item.loading = true;
       const { data } = await deleteImage(_id);
       if (data.code == "0") {
         this.$message({
@@ -167,7 +184,8 @@ export default {
           message: data.message,
         });
       }
-       this.loadImages(1, this.collect);
+      item.loading = false;
+      this.loadImages(1, this.collect);
     },
   },
 };
@@ -184,7 +202,7 @@ export default {
     position: relative;
 
     .image-action {
-      height: 30px;
+      height: 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -200,6 +218,10 @@ export default {
         color: cornflowerblue;
       }
       .el-icon-delete:hover {
+        color: cornflowerblue;
+        cursor: pointer;
+      }
+      .el-icon-delete-solid:hover {
         color: cornflowerblue;
         cursor: pointer;
       }
