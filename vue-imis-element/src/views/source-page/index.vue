@@ -11,6 +11,8 @@
           >上传素材</el-button
         >
       </div>
+      <!-- 分割线 -->
+      <el-divider></el-divider>
       <!-- 素材列表 -->
       <el-row :gutter="20">
         <el-col
@@ -21,15 +23,27 @@
           v-for="(item, index) of imageList"
           :key="index"
           v-loading="loading"
+          class="image-item"
         >
           <el-image
             style="height: 200px"
             :src="item.url"
             fit="cover"
+            :preview-src-list="srcList"
+            @click="onClickImage(item.url)"
           ></el-image>
+          <div class="image-action">
+            <i
+              :class = "[collect ? 'el-icon-star-on' : 'el-icon-star-off', ]"
+              @click="onCollectImage(item._id)"
+            >
+             <!-- :class="el-icon-star-off"  -->
+            </i>
+            <i class="el-icon-delete" @click="onDeleteImage(item._id)"></i>
+          </div>
         </el-col>
       </el-row>
-      <el-pagination 
+      <el-pagination
         background
         layout="prev, pager, next"
         :current-page.sync="page"
@@ -37,7 +51,7 @@
         style="margin-top: 20px"
         @current-change="changePage"
         :disabled="loading"
-        >
+      >
       </el-pagination>
     </el-card>
     <el-dialog
@@ -67,7 +81,8 @@
 </template>
 
 <script>
-import { getImages } from "@/api/image.js";
+// import { getImages } from "@/api/image.js";
+import { getImages, collectImage, deleteImage } from "@/api/image.js";
 
 export default {
   name: "SourcePage",
@@ -80,7 +95,8 @@ export default {
       uploadHeaders: "",
       loading: true,
       page: 1,
-      total: null
+      total: null,
+      srcList: [],
     };
   },
   created() {
@@ -88,16 +104,16 @@ export default {
   },
   methods: {
     // 触发两次请求
-    async loadImages(page,isCollected = false) {
+    async loadImages(page, isCollected = false) {
+      this.page = page;
       this.loading = true;
       const {
         data: { list, total },
       } = await getImages({
         isCollected,
         page,
-        pageSize: 18
+        pageSize: 18,
       });
-      console.table(list);
       this.loading = false;
       this.imageList = list;
       this.total = total;
@@ -106,19 +122,53 @@ export default {
     // 使用change事件注册在 el-radio-group
     onChangeCollect(value) {
       console.log(value);
-      this.loadImages(this.page,value);
+      this.loadImages(this.page, value);
     },
 
-    handleUpload(response, file, fileList) {
-      console.log(response, file, fileList);
+    handleUpload() {
       this.dialogUpload = false;
       this.loadImages(this.page, false);
+      this.$message({
+        type: "success",
+        message: "图片上传成功",
+      });
     },
 
     changePage(page) {
-      console.log(page, "page")
-      this.loadImages(page)
-    }
+      console.log(page, "page");
+      this.loadImages(page, this.collect);
+    },
+
+    onClickImage(url) {
+      console.log(url, "url");
+      (this.srcList = []).push(url);
+      console.log(this.srcList, "data");
+    },
+
+    async onCollectImage(_id) {
+      const { data} = await collectImage({
+        _id,
+        isCollected: true,
+      });
+      if (data.code == "0") {
+        this.$message({
+          type: "success",
+          message: data.message,
+        });
+      }
+      this.loadImages(1, this.collect);
+    },
+
+    async onDeleteImage(_id) {
+      const { data } = await deleteImage(_id);
+      if (data.code == "0") {
+        this.$message({
+          type: "success",
+          message: data.message,
+        });
+      }
+       this.loadImages(1, this.collect);
+    },
   },
 };
 </script>
@@ -128,6 +178,36 @@ export default {
   .image-control {
     display: flex;
     justify-content: space-between;
+  }
+
+  .image-item {
+    position: relative;
+
+    .image-action {
+      height: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      right: 10px;
+      box-sizing: border-box;
+      background-color: rgba(204, 204, 204, 0.5);
+
+      .el-icon-star-on {
+        color: cornflowerblue;
+      }
+      .el-icon-delete:hover {
+        color: cornflowerblue;
+        cursor: pointer;
+      }
+      .el-icon-star-off:hover {
+        color: cornflowerblue;
+        cursor: pointer;
+      }
+    }
   }
 }
 </style>

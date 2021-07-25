@@ -283,7 +283,7 @@ export default {
         .then(async () => {
           const { data } = await deleteTodoList(row.id);
           this.getTodo();
-          if (data.error === 0) {
+          if (data.code === 0) {
             this.$message({
               type: "success",
               message: "删除成功!"

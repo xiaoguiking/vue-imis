@@ -17,7 +17,24 @@ import request from "@/api/config";
 export const getImages = params => {
   return request({
     method: "get",
-    url: "api/book/getImages",
+    url: "api/image/getImages",
     params
+  });
+};
+
+// 收藏图片
+export const collectImage = params => {
+  return request({
+    method: "get",
+    url: "api/image/collectImage",
+    params
+  });
+};
+
+// 删除图片
+export const deleteImage = imageId => {
+  return request({
+    method: "delete",
+    url: `api/image/${imageId}`,
   });
 };

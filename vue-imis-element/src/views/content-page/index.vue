@@ -369,7 +369,7 @@ export default {
           console.log(data, "==========>");
           this.getArticleslist(this.page);
           window.location.reload();
-          if (data.error === 0) {
+          if (data.code === 0) {
             this.$message({
               type: "success",
               message: "删除成功!"
