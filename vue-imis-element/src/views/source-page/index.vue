@@ -33,21 +33,21 @@
             @click="onClickImage(item.url)"
           ></el-image>
           <div class="image-action">
-            <el-button 
-              type="success" 
-              :icon="item.isCollected?'el-icon-star-on':'el-icon-star-off'"
+            <el-button
+              type="success"
+              :icon="item.isCollected ? 'el-icon-star-on' : 'el-icon-star-off'"
               circle
               size="mini"
               @click="onCollectImage(item)"
               :loading="item.loading"
             ></el-button>
-            <el-button 
-              type="danger" 
+            <el-button
+              type="danger"
               icon="el-icon-delete-solid"
               circle
               size="mini"
               @click="onCollectImage(item)"
-               :loading="item.loading"
+              :loading="item.loading"
             ></el-button>
           </div>
         </el-col>
@@ -97,14 +97,15 @@ export default {
   data() {
     return {
       collect: false, // 获取全部的图片素材
-      url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      url:
+        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       imageList: [],
       dialogUpload: false,
       uploadHeaders: "",
       loading: true,
       page: 1,
       total: null,
-      srcList: [],
+      srcList: []
     };
   },
   created() {
@@ -116,16 +117,16 @@ export default {
       this.page = page;
       this.loading = true;
       const {
-        data: { list, total },
+        data: { list, total }
       } = await getImages({
         isCollected,
         page,
-        pageSize: 18,
+        pageSize: 18
       });
       this.loading = false;
       list.forEach(img => {
-          console.log(img)
-          img.loading = false;
+        console.log(img);
+        img.loading = false;
       });
       this.imageList = list;
       this.total = total;
@@ -142,7 +143,7 @@ export default {
       this.loadImages(this.page, false);
       this.$message({
         type: "success",
-        message: "图片上传成功",
+        message: "图片上传成功"
       });
     },
 
@@ -158,16 +159,16 @@ export default {
     },
 
     async onCollectImage(item) {
-      const {_id ,isCollected} = item;
+      const { _id, isCollected } = item;
       item.loading = true;
       const { data } = await collectImage({
         _id,
-        isCollected: !isCollected,
+        isCollected: !isCollected
       });
       if (data.code == "0") {
         this.$message({
           type: "success",
-          message: data.message,
+          message: data.message
         });
       }
       item.loading = false;
@@ -175,19 +176,19 @@ export default {
     },
 
     async onDeleteImage(item) {
-      const {_id} = item;
+      const { _id } = item;
       item.loading = true;
       const { data } = await deleteImage(_id);
       if (data.code == "0") {
         this.$message({
           type: "success",
-          message: data.message,
+          message: data.message
         });
       }
       item.loading = false;
       this.loadImages(1, this.collect);
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="index-container">
     <!-- <header class="index-title">welcome vue-imis</header> -->
-    <el-row :gutter="20">
+    <el-row :gutter="20" style="margin-top: 20px">
       <el-col :span="8"
         ><div class="grid-content bg-purple">
           <el-card>
@@ -10,10 +10,10 @@
               <div class="user-info-cont">admin</div>
             </div>
             <div class="user-info-list">
-              <span>时间：{{ time }}</span>
+              <span>时间:{{ time }}</span>
               <span></span>
             </div>
-            <div class="user-info-list">位置： {{ "北京" }}</div>
+            <div class="user-info-list">位置:{{ city }}</div>
           </el-card>
         </div></el-col
       >
@@ -149,8 +149,9 @@
 import axios from "axios";
 // import {getTodoList, getTodoId, addTodo, patchTodo,  deleteTodo } from "@/api/todo.js"
 import { getTodoList, deleteTodoList, addTodoList } from "@/api/todo.js";
-// import service from "../../api/config";
+import { getIpInfo, getWeather } from "@/api/other.js";
 
+// import service from "../../api/config";
 // import adver from "@/assets/img/adver.jpg";
 
 import adver from "@/assets/img/adver2.jpg";
@@ -166,6 +167,8 @@ export default {
       // circleUrl: "https://gitee.com/king8686/web-images/blob/master/vue-imis/Garden%20of%20Words/ChMkJlbKyUOIbjJjACM9DhzAtPkAALILgPbML8AIz0m847.png",
       time: time,
       editVisible: false,
+      city: "",
+      adcode: "",
       form: {
         id: "",
         title: ""
@@ -197,7 +200,8 @@ export default {
     // });
     this.getData();
     this.getTodo();
-    // this.getLocation();
+    this.getLocation();
+    this.getWeatherInfo();
   },
   methods: {
     async getData() {
@@ -206,14 +210,13 @@ export default {
       this.homelist = videoData;
     },
 
-    deleteRow(index, rows) {
-      console.log(index, rows, "===============>");
+    deleteRow(index) {
       this.todoList.splice(index, 1);
     },
 
     // 编辑操作
     editRow(index, rows) {
-      console.log(index, rows, "=============>edit");
+      console.log(index)
       this.form = rows;
       this.editVisible = true;
     },
@@ -257,7 +260,6 @@ export default {
       const {
         data: { data }
       } = await getTodoList();
-      console.log(data, "todoList=================");
       this.todoAxios = data;
     },
     // 获取指定id的todo
@@ -299,28 +301,26 @@ export default {
     },
 
     // 获取地址位置
-    getLocation() {
+    async getLocation() {
       console.log("地址位置");
-      navigator.geolocation.getCurrentPosition(
-        function(position) {
-          let coords = position.coords;
-          // 获取精度
-          console.log(coords.longitude);
-          // 获取纬度
-          console.log(coords.latitude);
-          // 获取经度或者纬度的精度(以米为单位)
-          console.log(coords.accuracy);
-        },
-        function(error) {
-          // 错误的回调函数
-          let errorTypes = {
-            1: "位置服务被拒绝",
-            2: "获取不到位置信息",
-            3: "获取信息超时"
-          };
-          alert(errorTypes[error.code]);
-        }
-      );
+      const { data: {city, adcode} } = await getIpInfo({
+        key: "153e8c7841cb60d5376f06eec53c7567",
+        // ip: "123.112.16.140"
+      });
+      console.log( city, "data");
+      this.city = city;
+      this.adcode = adcode;
+    },
+
+    async getWeatherInfo () {
+      const {data} = await getWeather({
+        key: "2d0823d5f3aaa21fadffd3205ab4944b",
+        city: "110000",
+        extensions: "base",
+        output: "json"
+      })
+
+      console.log(data, "data=======>")
     }
   }
 };

@@ -35,6 +35,6 @@ export const collectImage = params => {
 export const deleteImage = imageId => {
   return request({
     method: "delete",
-    url: `api/image/${imageId}`,
+    url: `api/image/${imageId}`
   });
 };

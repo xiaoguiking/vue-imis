@@ -83,6 +83,11 @@ const routes = [
         component: () => import("@/views/publish-article/index")
       },
       {
+        path: "/person",
+        name: "person",
+        component: () => import("@/views/person-setting/index")
+      },
+      {
         path: "/test",
         name: "test",
         component: () => import("@/views/test"),

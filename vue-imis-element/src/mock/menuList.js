@@ -33,7 +33,7 @@ const sideMenu = [
   },
   {
     title: "个人设置",
-    path: "/guide",
+    path: "/person",
     icon: "guide"
   },
   {
