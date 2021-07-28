@@ -32,6 +32,9 @@
       </el-form-item>
 
       <el-form-item label="密码" prop="password">
+        <!-- <span class="svg-container">
+            <svg-icon icon-class="password" />
+          </span> -->
         <el-input
           ref="password"
           type="password"
@@ -39,6 +42,11 @@
           autocomplete="off"
           placeholder="Password"
         ></el-input>
+        <!-- <span class="show-pwd" @click="showPwd">
+            <svg-icon
+              :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+            />
+          </span> -->
       </el-form-item>
 
       <el-form-item label="确认密码" prop="checkPass">
@@ -50,6 +58,9 @@
           @keyup.enter.native="submitForm('ruleForm')"
         ></el-input>
       </el-form-item>
+      <!-- <el-form-item label="年龄" prop="age">
+        <el-input v-model.number="ruleForm.age"></el-input>
+      </el-form-item> -->
       <el-form-item prop="agree">
         <el-checkbox v-model="ruleForm.agree"
           >我已经阅读并同意用户协议和隐私条款</el-checkbox
@@ -76,6 +87,22 @@ import { login } from "@/api/user.js";
 export default {
   name: "Login",
   data() {
+    // var checkAge = (rule, value, callback) => {
+    //   if (!value) {
+    //     return callback(new Error("年龄不能为空"));
+    //   }
+    //   setTimeout(() => {
+    //     if (!Number.isInteger(value)) {
+    //       callback(new Error("请输入数字值"));
+    //     } else {
+    //       if (value < 18) {
+    //         callback(new Error("必须年满18岁"));
+    //       } else {
+    //         callback();
+    //       }
+    //     }
+    //   }, 1000);
+    // };
     var validateUsername = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入用户名"));
@@ -127,7 +154,8 @@ export default {
         passwordType: "password",
         userName: "",
         email: "",
-        agree: false, // 是否同意协议
+        agree: false // 是否同意协议
+        // age: "",
       },
       rules: {
         userName: [{ validator: validateUsername, trigger: "blur" }],
@@ -138,13 +166,20 @@ export default {
         agree: [
           {
             validator: validateAgree,
-            trigger: "blur",
-          },
-        ],
-      },
+            trigger: "blur"
+          }
+        ]
+        // age: [{ validator: checkAge, trigger: "blur" }],
+      }
     };
   },
-  mounted() {},
+  mounted() {
+    if (this.ruleForm.userName === "") {
+      this.$refs.username.focus();
+    } else if (this.mounted().password === "") {
+      this.$refs.password.focus();
+    }
+  },
   methods: {
     /**
      *  配置Form表单验证
@@ -157,52 +192,84 @@ export default {
      * 2.通过ref获取el-form组件，调用组件的valiate进行验证
      */
     submitForm(formName) {
-      this.$refs[formName].validate(async (valid) => {
+      this.$refs[formName].validate(async valid => {
         if (!valid) {
           console.log("error submit!!");
           return false;
         }
         this.loginloading = true;
-        const { userName, password, email } = this.ruleForm;
-        console.log(email, "email");
-        const { data } = await login({
-          userName,
-          password,
-          email,
+
+        // 解构学习
+        // const {
+        //   data: {
+        //     data: { menu, message },
+        //     code,
+        //     type,
+        //   },
+        // } = await this.$axios.post("/api/permission/getMenu", {
+        //   username,
+        //   password,
+        // });
+
+        // 接口封装
+        // const {
+        //   data,
+        //   data: {
+        //     data: { menu, message, token },
+        //     code,
+        //     type
+        //   }
+        // } = await login({ username, password });
+        // console.log(code, data, token, type, "================>data");
+
+        const { data  } = await login({
+          userName: this.userName,
+          password: this.password,
+          email: this.email
         });
-        const { code, msg, user } = data;
-        window.localStorage.setItem("user", JSON.stringify(user));
 
-        if (code === "0") {
-          this.loginloading = false;
-          this.$message({
-            message: `${msg}, ${user.userName}`,
-            type: "success",
-          });
+        console.log(data, "data");
 
-          window.localStorage.setItem("username", user.userName);
+        // window.localStorage.setItem("user", JSON.stringify(data));
 
-          this.$store.commit("clearMenu");
-          this.$store.commit("setToken", user.token);
+        // async function getInfo() {
+        //   const { data } = await getUserInfo();
+        //   console.log(data, "========>");
+        // }
+
+        // getInfo();
+
+        // if (code === "0") {
+        //   this.loginloading = false;
+        //   this.$message({
+        //     message: `恭喜你，登录成功`,
+        //     type: "success"
+        //   });
+
+          // window.localStorage.setItem("username", username);
+
+          // this.$store.commit("clearMenu");
+          // this.$store.commit("setToken", token);
           // this.$store.commit("setMenu", menu);
-          //   // this.$store.commit("addMenu", this.$router);
-          //   // 路由跳转
+          // this.$store.commit("addMenu", this.$router);
+          // 路由跳转
           this.$router.push("/");
 
-          this.$router.push({
-            name: "index",
-          });
-        } else {
-          this.loginloading = false;
-          this. this.$message.error(`${msg}`);
-          return;
-        }
+          // this.$router.push({
+          //   name: "index",
+          // });
+    
+        // } else if (code === "-999") {
+        //   this.loginloading = false;
+        //   this.$message.error(`${message}`);
+        //   return;
+        // }
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -32,8 +32,13 @@
           </el-form>
         </el-col>
         <el-col :span="8">
-            <el-avatar shape="square" :size="300" fit="contain" :src="url"></el-avatar>
-            <p>点击修改头像</p>
+          <el-avatar
+            shape="square"
+            :size="300"
+            fit="contain"
+            :src="url"
+          ></el-avatar>
+          <p>点击修改头像</p>
         </el-col>
       </el-row>
     </el-card>
@@ -41,6 +46,8 @@
 </template>
 
 <script>
+import { getUserInfo } from "@/api/user.js";
+
 export default {
   name: "PersonSetting",
   data() {
@@ -50,28 +57,30 @@ export default {
         _id: "",
         userName: "",
         img: "",
-        email: "",
+        email: ""
       },
       rules: {
         userNamename: [
           { required: true, message: "用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         img: [
           { required: true, message: "用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         email: [
           { required: true, message: "用户邮箱", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
-        ],
-      },
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+        ]
+      }
     };
   },
-  created() {},
+  created() {
+    this.loadUserInfo();
+  },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           alert("submit!");
         } else {
@@ -83,7 +92,13 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-  },
+
+    async loadUserInfo() {
+      const { data } = await getUserInfo();
+      console.log(data.user._id)
+      this.rulePersonForm = data.user;
+    }
+  }
 };
 </script>
 

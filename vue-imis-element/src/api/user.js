@@ -4,30 +4,29 @@
 import request from "@/api/config";
 
 // 用户登录
-export const login = data => {
+export const login = params => {
   return request({
-    method: "POST",
-    url: "/api/permission/getMenu",
-    // data 用来设置post请求体
-    data
+    method: "get",
+    // url: "/api/permission/getMenu",
+    url: "/api/user/login",
+    params
   });
 };
 
 // 获取用户信息
 export const getUserInfo = () => {
-  const {
-    data: { token }
-  } = JSON.parse(window.localStorage.getItem("user"));
+ const data = JSON.parse(window.localStorage.getItem("user"));
+  console.log(data.token, "===========>token");
 
-  console.log(token, "===========>token");
   return request({
-    method: "GET",
-    url: "/api/permission/profile",
+    method: "get",
+    // url: "/api/permission/profile",
+    url: "/api/getUser",
     // 后端要求把需要授权用户的身份放到请求头
     // axios可以通过headers放到请求头
     // 属性值 Bereara token
     headers: {
-      Authorization: "Bereara" + token
+      "Authorization": "Bereara" + data.token
     }
   });
 };

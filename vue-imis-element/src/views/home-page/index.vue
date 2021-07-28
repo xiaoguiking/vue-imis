@@ -183,25 +183,25 @@ export default {
       adcode: "",
       form: {
         id: "",
-        title: "",
+        title: ""
       },
       idx: -1,
       todoList: [
         {
           id: 1,
-          title: "我喝过很烈的酒,也放过不该放的手,从前不会回头,往后不会将就.",
+          title: "我喝过很烈的酒,也放过不该放的手,从前不会回头,往后不会将就."
         },
         {
           id: 2,
           title:
-            "什么叫喜欢一个人?那就是见到对方之前,不知情为何物,错过之后,更不知情为何物。",
+            "什么叫喜欢一个人?那就是见到对方之前,不知情为何物,错过之后,更不知情为何物。"
         },
         {
           id: 3,
-          title: "故事故事，便是故去的事情了，多说无益。",
-        },
+          title: "故事故事，便是故去的事情了，多说无益。"
+        }
       ],
-      todoAxios: [],
+      todoAxios: []
     };
   },
 
@@ -261,7 +261,7 @@ export default {
       console.log(
         this.todoList.push({
           id: this.form.id,
-          title: this.form.title,
+          title: this.form.title
         })
       );
     },
@@ -269,7 +269,7 @@ export default {
     // 获取todo
     async getTodo() {
       const {
-        data: { data },
+        data: { data }
       } = await getTodoList();
       this.todoAxios = data;
     },
@@ -291,7 +291,7 @@ export default {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(async () => {
           const { data } = await deleteTodoList(row.id);
@@ -299,14 +299,14 @@ export default {
           if (data.code === 0) {
             this.$message({
               type: "success",
-              message: "删除成功!",
+              message: "删除成功!"
             });
           }
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "已取消删除"
           });
         });
     },
@@ -315,28 +315,30 @@ export default {
     async getLocation() {
       console.log("地址位置");
       const {
-        data: { city, adcode },
+        data: { city, adcode }
       } = await getIpInfo({
-        key: "153e8c7841cb60d5376f06eec53c7567",
+        key: "153e8c7841cb60d5376f06eec53c7567"
         // ip: "123.112.16.140"
       });
       this.city = city;
       this.adcode = adcode;
 
-      const { data: {lives} } = await getWeather({
+      const {
+        data: { lives }
+      } = await getWeather({
         key: "2d0823d5f3aaa21fadffd3205ab4944b",
         city: "110000",
         extensions: "base",
-        output: "json",
+        output: "json"
       });
-      const {weather, temperature, reporttime, ...rest} = lives[0];
+      const { weather, temperature, reporttime, ...rest } = lives[0];
       this.weather = weather;
       this.temperature = temperature;
       this.reporttime = reporttime;
 
       console.log(lives, rest, "data=======>");
-    },
-  },
+    }
+  }
 };
 </script>
 
