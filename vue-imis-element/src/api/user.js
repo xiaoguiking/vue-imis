@@ -15,14 +15,14 @@ export const login = params => {
 
 // 获取用户信息
 export const getUserInfo = () => {
-//  const data = JSON.parse(window.localStorage.getItem("user"));
+  //  const data = JSON.parse(window.localStorage.getItem("user"));
   // console.log(data.token, "===========>token");
   // request.defaults.headers.common['Authorization'] = "Bearer " + data.token
 
   return request({
     method: "get",
     // url: "/api/permission/profile",
-    url: "/api/getUser",
+    url: "/api/getUser"
     // 后端要求把需要授权用户的身份放到请求头
     // axios可以通过headers放到请求头
     // 属性值 Bereara token

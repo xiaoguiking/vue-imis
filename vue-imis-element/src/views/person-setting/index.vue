@@ -60,9 +60,19 @@
       :visible.sync="dialogVisible"
       width="40%"
       :before-close="handleClose"
+      @opened="onDialogImg"
+      @closed="onDialogClosed"
     >
-      <span>{{fileName}}</span>
-      <img :src="previewImage" alt="头像图片" height="300px" width="300px">
+      <span>{{ fileName }}</span>
+      <div class="privew-image-wrap">
+        <img
+          :src="previewImage"
+          class="privew-image"
+          alt="头像图片"
+          height="300px"
+          ref="privew-image"
+        />
+      </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false"
@@ -75,6 +85,8 @@
 
 <script>
 import { getUserInfo } from "@/api/user.js";
+import "cropperjs/dist/cropper.css";
+import Cropper from "cropperjs";
 
 export default {
   name: "PersonSetting",
@@ -107,12 +119,16 @@ export default {
         ],
       },
       dialogVisible: false, // 上传图片弹出框
-      previewImage:[],  // 图片预览
+      previewImage: [], // 图片预览
       fileName: "",
+      cropper: null, // 裁切器实例
     };
   },
   created() {
     this.loadUserInfo();
+  },
+  mounted() {
+    this.onDialogImg();
   },
   methods: {
     submitForm(formName) {
@@ -135,27 +151,83 @@ export default {
       this.rulePersonForm = data.user;
     },
 
+    getObjectURL(file) {
+      // this.limitUpload(file)
+      let url = null;
+      if (window.createObjectURL !== undefined) {
+        // basic
+        url = window.createObjectURL(file);
+      } else if (window.URL !== undefined) {
+        // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+      } else if (window.webkitURL !== undefined) {
+        // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+      }
+      return url;
+    },
     onChangImage() {
-      console.log("change");
       const file = this.$refs.file;
-      console.log(file.files[0], "file")
+      console.log(file.files[0], "file");
+
       this.fileName = file.files[0].name;
-      const blobData = window.URL.createObjectURL(file.files[0])
+      const blobData = window.URL.createObjectURL(file.files[0]);
       this.previewImage = blobData;
+      console.log(this.previewImage);
       this.dialogVisible = true;
       // 解决同一张图片无法重复上传问题
       this.$refs.file.value = "";
+
+      // let reader = new FileReader();
+      // reader.onload = () => {
+      //   this.cropper.replace(reader.result);
+      //   reader.onload = null;
+      // };
+      // console.log(reader, "reader");
+      // reader.readAsDataURL(this.fileName);
     },
 
     handleClose(done) {
       this.$confirm("确认关闭？")
         .then((res) => {
-          console.log(res)
+          console.log(res);
           done();
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
+    },
+
+    onDialogImg() {
+      // 图片裁剪器必须基于img进行初始化
+      // 注意: 只有img显示的状态才能完成正常的初始化
+      // 获取dom 节点
+      // 如果预览预览图片更新裁剪器
+      // 方式一: 销毁裁剪器，重新初始化
+      // 方式二: 裁剪器 .place 方法
+      // const image = document.getElementById('image');
+      if (this.cropper) {
+        this.cropper.replace(this.previewImage);
+        return;
+      }
+      const image = this.$refs["privew-image"];
+      console.log(image);
+      this.cropper = new Cropper(image, {
+        aspectRatio: 16 / 9,
+        crop(event) {
+          console.log(event.detail.x);
+          console.log(event.detail.y);
+          console.log(event.detail.width);
+          console.log(event.detail.height);
+          console.log(event.detail.rotate);
+          console.log(event.detail.scaleX);
+          console.log(event.detail.scaleY);
+        },
+      });
+    },
+    onDialogClosed() {
+      // 对话框关闭，销毁裁切器
+      this.cropper.destory();
     },
   },
 };
@@ -167,5 +239,14 @@ label {
 }
 .upload-file {
   cursor: pointer;
+}
+.privew-image-wrap {
+  /* Ensure the size of the image fit the container perfectly */
+  .privew-image {
+    display: block;
+
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
+  }
 }
 </style>

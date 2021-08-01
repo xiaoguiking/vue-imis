@@ -51,3 +51,5 @@ module.exports = {
 
     }
 }
+图片裁切
+https://www.cnblogs.com/linxiyue/archive/2019/01/18/10288490.html

@@ -222,7 +222,7 @@ export default {
         // } = await login({ username, password });
         // console.log(code, data, token, type, "================>data");
 
-        const { data  } = await login({
+        const { data } = await login({
           userName: this.userName,
           password: this.password,
           email: this.email
@@ -246,19 +246,19 @@ export default {
         //     type: "success"
         //   });
 
-          // window.localStorage.setItem("username", username);
+        // window.localStorage.setItem("username", username);
 
-          // this.$store.commit("clearMenu");
-          // this.$store.commit("setToken", token);
-          // this.$store.commit("setMenu", menu);
-          // this.$store.commit("addMenu", this.$router);
-          // 路由跳转
-          this.$router.push("/");
+        // this.$store.commit("clearMenu");
+        // this.$store.commit("setToken", token);
+        // this.$store.commit("setMenu", menu);
+        // this.$store.commit("addMenu", this.$router);
+        // 路由跳转
+        this.$router.push("/");
 
-          // this.$router.push({
-          //   name: "index",
-          // });
-    
+        // this.$router.push({
+        //   name: "index",
+        // });
+
         // } else if (code === "-999") {
         //   this.loginloading = false;
         //   this.$message.error(`${message}`);
