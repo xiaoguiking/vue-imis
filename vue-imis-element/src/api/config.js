@@ -11,32 +11,36 @@ const service = axios.create({
 
 const data = JSON.parse(window.localStorage.getItem("user"));
 console.log(data.token)
+
 // 添加请求拦截器
 service.interceptors.request.use(config => {
   // 任何请求都会经过的配置的信息对象
   config.headers = {
     Accept: "*/*",
-    "Authorization": "Bearer " + data.token
+    // "Authorization": "Bearer " + data.token
   };
   // config.headers.common['token'] = data.token;
   console.log(config.headers)
   console.log(config);
-  // config.headers = {
-  //   "Content-Type": "application/x-www-form-urlencoded"
-  // };
   return config;
 });
 err => {
   console.log(err);
 };
+
 //  响应拦截器
 service.interceptors.response.use(response => {
+
+  /**
+    * code:200,接口正常返回;
+    */
   let res = {};
   // 判断状态码
   // if (res.status) { }
 
   res.status = response.status;
   res.data = response.data;
+  console.log(res, "res")
   return res;
 });
 

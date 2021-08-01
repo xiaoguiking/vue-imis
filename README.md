@@ -35,3 +35,19 @@
 ## 服务端 node + express + mongoose + mongodb
 
 ## 2021-7-14 main merge dev
+
+/**
+ *  Eslint 代码校验文件配置
+ */
+ .eslintrc.js
+module.exports = {
+    root: true,
+    env: {
+       node: true
+    },
+    extends: ['plugin:vue/recommended', '@vue/prettier'],
+    // 自定义代码校验规范
+    rules: {
+
+    }
+}
