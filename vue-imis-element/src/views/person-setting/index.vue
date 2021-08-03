@@ -208,7 +208,7 @@ export default {
         infoTrue: false, //true为展示真实输出图片宽高，false展示看到的截图框宽高
         maxImgSize: 3000, //限制图片最大宽度和高度
         enlarge: 1, //图片根据截图框输出比例倍数
-        mode: "230px 150px", //图片默认渲染方式
+        // mode: "230px 150px", //图片默认渲染方式
       },
       previews: {},
     };

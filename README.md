@@ -1,4 +1,5 @@
 [TOC]
+
 # vue-imis-element 后台管理系统
 
 # node-chatroom 服务端聊天室
@@ -31,25 +32,32 @@
  - components 组件文件夹命名： CommonHeader
 ```
 
-
 ## 服务端 node + express + mongoose + mongodb
 
 ## 2021-7-14 main merge dev
 
-/**
- *  Eslint 代码校验文件配置
- */
- .eslintrc.js
-module.exports = {
-    root: true,
-    env: {
-       node: true
-    },
-    extends: ['plugin:vue/recommended', '@vue/prettier'],
-    // 自定义代码校验规范
-    rules: {
+/\*\*
 
-    }
-}
-图片裁切
-https://www.cnblogs.com/linxiyue/archive/2019/01/18/10288490.html
+- Eslint 代码校验文件配置
+  \*/
+  .eslintrc.js
+  module.exports = {
+  root: true,
+  env: {
+  node: true
+  },
+  extends: ['plugin:vue/recommended', '@vue/prettier'],
+  // 自定义代码校验规范
+  rules: {
+
+      }
+
+  }
+  图片裁切
+  https://www.cnblogs.com/linxiyue/archive/2019/01/18/10288490.html
+
+# linux 操作
+
+服务器文件下载： wget https://www.baidu.com.xz
+
+压缩文件(gz) 解压 tar -xzvf name.gz
