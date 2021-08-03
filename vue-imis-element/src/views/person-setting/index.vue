@@ -50,7 +50,7 @@
             id="file"
             ref="file"
             hidden
-            @change="onChangImage"
+            @change="onChangImage($event)"
           />
         </el-col>
       </el-row>
@@ -58,20 +58,86 @@
     <el-dialog
       title="修改头像"
       :visible.sync="dialogVisible"
-      width="40%"
+      width="80%"
       :before-close="handleClose"
       @opened="onDialogImg"
-      @closed="onDialogClosed"
+      class="cropper-content"
     >
       <span>{{ fileName }}</span>
-      <div class="privew-image-wrap">
-        <img
-          :src="previewImage"
-          class="privew-image"
-          alt="头像图片"
-          height="300px"
-          ref="privew-image"
-        />
+      <div class="cropper-box">
+        <div class="privew-image-wrap" style="text-align: center">
+          <vueCropper
+            ref="cropper"
+            :img="option.previewImage"
+            :outputSize="option.size"
+            :outputType="option.outputType"
+            :info="true"
+            :canScale="option.canScale"
+            :autoCrop="option.autoCrop"
+            :autoCropWidth="option.autoCropWidth"
+            :autoCropHeight="option.autoCropHeight"
+            :fixed="option.fixed"
+            :fixedNumber="option.fixedNumber"
+            :full="option.full"
+            :fixedBox="option.fixedBox"
+            :canMove="option.canMove"
+            :canMoveBox="option.canMoveBox"
+            :original="option.original"
+            :centerBox="option.centerBox"
+            :height="option.height"
+            :infoTrue="option.infoTrue"
+            :mode="option.mode"
+            @imgLoad="imgLoad"
+          ></vueCropper>
+        </div>
+        <!--底部操作工具按钮-->
+        <div class="footer-btn">
+          <div class="scope-btn">
+            <label class="label-btn el-button--small" for="uploads"
+              >选择封面</label
+            >
+            <input
+              type="file"
+              id="uploads"
+              style="position: absolute; clip: rect(0 0 0 0)"
+              accept="image/png, image/jpeg, image/gif, image/jpg"
+              @change="selectImg($event)"
+            />
+            <el-button
+              size="mini"
+              type="danger"
+              plain
+              icon="el-icon-zoom-in"
+              @click="changeScale(1)"
+              >放大</el-button
+            >
+            <el-button
+              size="mini"
+              type="danger"
+              plain
+              icon="el-icon-zoom-out"
+              @click="changeScale(-1)"
+              >缩小</el-button
+            >
+            <el-button size="mini" type="danger" plain @click="rotateLeft"
+              >↺ 左旋转</el-button
+            >
+            <el-button size="mini" type="danger" plain @click="rotateRight"
+              >↻ 右旋转</el-button
+            >
+          </div>
+          <div class="upload-btn">
+            <el-button size="mini" type="success" @click="uploadImg('blob')"
+              >上传封面 <i class="el-icon-upload"></i
+            ></el-button>
+          </div>
+        </div>
+      </div>
+      <!--预览效果图-->
+      <div class="show-preview">
+        <div :style="previews.div" class="preview">
+          <img :src="previews.url" :style="previews.img" />
+        </div>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
@@ -85,8 +151,7 @@
 
 <script>
 import { getUserInfo } from "@/api/user.js";
-import "cropperjs/dist/cropper.css";
-import Cropper from "cropperjs";
+import { VueCropper } from "vue-cropper";
 
 export default {
   name: "PersonSetting",
@@ -119,16 +184,41 @@ export default {
         ],
       },
       dialogVisible: false, // 上传图片弹出框
-      previewImage: [], // 图片预览
+      // previewImage: [], // 图片预览
       fileName: "",
-      cropper: null, // 裁切器实例
+      // 裁剪组件的基础配置option
+      option: {
+        previewImage: "", //裁剪图片的地址
+        outputSize: 1, //裁剪生成图片的质量(可选0.1 - 1)
+        outputType: "jpeg", //裁剪生成图片的格式（jpeg || png || webp）
+        info: true, //图片大小信息
+        canScale: true, //图片是否允许滚轮缩放
+        autoCrop: true, //是否默认生成截图框
+        autoCropWidth: 230, //默认生成截图框宽度
+        autoCropHeight: 150, //默认生成截图框高度
+        fixed: true, //是否开启截图框宽高固定比例
+        fixedNumber: [1.53, 1], //截图框的宽高比例
+        full: false, //false按原比例裁切图片，不失真
+        fixedBox: true, //固定截图框大小，不允许改变
+        canMove: false, //上传图片是否可以移动
+        canMoveBox: true, //截图框能否拖动
+        original: false, //上传图片按照原始比例渲染
+        centerBox: false, //截图框是否被限制在图片里面
+        height: true, //是否按照设备的dpr 输出等比例图片
+        infoTrue: false, //true为展示真实输出图片宽高，false展示看到的截图框宽高
+        maxImgSize: 3000, //限制图片最大宽度和高度
+        enlarge: 1, //图片根据截图框输出比例倍数
+        mode: "230px 150px", //图片默认渲染方式
+      },
+      previews: {},
     };
   },
   created() {
     this.loadUserInfo();
   },
-  mounted() {
-    this.onDialogImg();
+  mounted() {},
+  components: {
+    VueCropper,
   },
   methods: {
     submitForm(formName) {
@@ -166,17 +256,41 @@ export default {
       }
       return url;
     },
-    onChangImage() {
-      const file = this.$refs.file;
-      console.log(file.files[0], "file");
 
-      this.fileName = file.files[0].name;
-      const blobData = window.URL.createObjectURL(file.files[0]);
-      this.previewImage = blobData;
-      console.log(this.previewImage);
-      this.dialogVisible = true;
-      // 解决同一张图片无法重复上传问题
-      this.$refs.file.value = "";
+    onChangImage(e) {
+      console.log(e, "测试");
+      let file = e.target.files[0];
+      console.log(e.target.value);
+      if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
+        this.$message({
+          message: "图片类型要求：jpeg、jpg、png",
+          type: "error",
+        });
+        return false;
+      }
+
+      this.fileName = file.name;
+
+      this.$nextTick(() => {
+        //转化为blob
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          let data;
+          if (typeof e.target.result === "object") {
+            data = this.getObjectURL(new Blob([e.target.result]));
+          } else {
+            data = e.target.result;
+          }
+          this.option.previewImage = data;
+        };
+        //转化为base64
+        reader.readAsDataURL(file);
+
+        console.log(this.option.previewImage);
+        this.dialogVisible = true;
+        // 解决同一张图片无法重复上传问题
+        this.$refs.file.value = "";
+      });
 
       // let reader = new FileReader();
       // reader.onload = () => {
@@ -185,6 +299,28 @@ export default {
       // };
       // console.log(reader, "reader");
       // reader.readAsDataURL(this.fileName);
+    },
+
+    imgLoad(msg) {
+      console.log("imgLoad");
+      console.log(msg);
+    },
+    //图片缩放
+    changeScale(num) {
+      num = num || 1;
+      this.$refs.cropper.changeScale(num);
+    },
+    //向左旋转
+    rotateLeft() {
+      this.$refs.cropper.rotateLeft();
+    },
+    //向右旋转
+    rotateRight() {
+      this.$refs.cropper.rotateRight();
+    },
+    //实时预览函数
+    realTime(data) {
+      this.previews = data;
     },
 
     handleClose(done) {
@@ -198,37 +334,7 @@ export default {
         });
     },
 
-    onDialogImg() {
-      // 图片裁剪器必须基于img进行初始化
-      // 注意: 只有img显示的状态才能完成正常的初始化
-      // 获取dom 节点
-      // 如果预览预览图片更新裁剪器
-      // 方式一: 销毁裁剪器，重新初始化
-      // 方式二: 裁剪器 .place 方法
-      // const image = document.getElementById('image');
-      if (this.cropper) {
-        this.cropper.replace(this.previewImage);
-        return;
-      }
-      const image = this.$refs["privew-image"];
-      console.log(image);
-      this.cropper = new Cropper(image, {
-        aspectRatio: 16 / 9,
-        crop(event) {
-          console.log(event.detail.x);
-          console.log(event.detail.y);
-          console.log(event.detail.width);
-          console.log(event.detail.height);
-          console.log(event.detail.rotate);
-          console.log(event.detail.scaleX);
-          console.log(event.detail.scaleY);
-        },
-      });
-    },
-    onDialogClosed() {
-      // 对话框关闭，销毁裁切器
-      this.cropper.destory();
-    },
+    onDialogImg() {},
   },
 };
 </script>
@@ -240,13 +346,58 @@ label {
 .upload-file {
   cursor: pointer;
 }
-.privew-image-wrap {
-  /* Ensure the size of the image fit the container perfectly */
-  .privew-image {
-    display: block;
+.cropper-content {
+  display: flex;
 
-    /* This rule is very important, please don't ignore this */
-    max-width: 100%;
+  .cropper-box {
+    .privew-image-wrap {
+      width: auto;
+      height: 300px;
+    }
+
+    .footer-btn {
+      margin-top: 20px;
+      display: flex;
+      .label-btn {
+        outline: none;
+        display: inline-block;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        -webkit-appearance: none;
+        text-align: center;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        outline: 0;
+        -webkit-transition: 0.1s;
+        transition: 0.1s;
+        font-weight: 500;
+        padding: 8px 15px;
+        font-size: 12px;
+        border-radius: 3px;
+        color: #fff;
+        background-color: #409eff;
+        border-color: #409eff;
+        margin-right: 10px;
+      }
+
+      .upload-btn {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .show-preview {
+    flex: 1;
+    -webkit-flex: 1;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    .preview {
+      overflow: hidden;
+      border: 1px solid #67c23a;
+      background: #cccccc;
+    }
   }
 }
 </style>

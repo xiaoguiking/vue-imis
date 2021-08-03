@@ -2812,7 +2812,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-cropperjs@^1.5.12:
+cropperjs@^1.5.12, cropperjs@^1.5.6:
   version "1.5.12"
   resolved "https://registry.nlark.com/cropperjs/download/cropperjs-1.5.12.tgz#d9c0db2bfb8c0d769d51739e8f916bbc44e10f50"
   integrity sha1-2cDbK/uMDXadUXOej5FrvEThD1A=
@@ -8541,6 +8541,18 @@ vue-class-component@^7.0.2, vue-class-component@^7.1.0:
   version "7.2.6"
   resolved "https://registry.npm.taobao.org/vue-class-component/download/vue-class-component-7.2.6.tgz#8471e037b8e4762f5a464686e19e5afc708502e4"
   integrity sha1-hHHgN7jkdi9aRkaG4Z5a/HCFAuQ=
+
+vue-cropper@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.npm.taobao.org/vue-cropper/download/vue-cropper-0.5.6.tgz#a38c98d402da1421bd5e7535e16b9723f103cafd"
+  integrity sha1-o4yY1ALaFCG9XnU14WuXI/EDyv0=
+
+vue-cropperjs@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npm.taobao.org/vue-cropperjs/download/vue-cropperjs-5.0.0.tgz#7f8cbc460737af3831b4ded634c95905198e329e"
+  integrity sha1-f4y8Rgc3rzgxtN7WNMlZBRmOMp4=
+  dependencies:
+    cropperjs "^1.5.6"
 
 vue-eslint-parser@^7.0.0:
   version "7.6.0"

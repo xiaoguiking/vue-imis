@@ -8,7 +8,7 @@ export const login = params => {
   return request({
     method: "get",
     // url: "/api/permission/getMenu",
-    url: "/api/user/login",
+    url: "/api/users/login",
     params
   });
 };
