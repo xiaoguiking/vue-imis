@@ -105,6 +105,11 @@ const routes = [
         ]
       },
       {
+        path: "fans",
+        name: "fans",
+        component: () => import("@/views/fans-page/index")
+      },
+      {
         path: "systemmanagement",
         name: "SystemManagement",
         component: () => import("@/views/system-management/index")
@@ -157,10 +162,10 @@ const routes = [
     component: Login
   },
   // 动态路径参数 以冒号开头
-  // {
-  //   path: "/test/:id",
-  //   component: User
-  // },
+  {
+    path: "/test/:id",
+    component: User
+  },
 
   {
     path: "/user",

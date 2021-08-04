@@ -134,7 +134,6 @@ export default {
 
       console.log(dom, "dom==========>");
       dom.addEventListener("scroll", function() {
-
         //实现原理: 判断表格滚动条是否滚动到底部
         // scrollHeight: 元素的高度即表格内容的高度
         // scrollTop: 元素滚动出去的高度
@@ -144,40 +143,40 @@ export default {
         const scrollDistance =
           dom.scrollHeight - dom.scrollTop - dom.clientHeight;
         console.log("scroll", scrollDistance);
-        
-        console.log(dom.scrollHeight, "表格内容高度")
-        console.log(dom.clientHeight, "dom============> 714")
-        console.log(dom.scrollTop, "dom=============> 滚动高度")
-        console.log(scrollDistance, "剩余距离")
+
+        console.log(dom.scrollHeight, "表格内容高度");
+        console.log(dom.clientHeight, "dom============> 714");
+        console.log(dom.scrollTop, "dom=============> 滚动高度");
+        console.log(scrollDistance, "剩余距离");
         if (scrollDistance <= 0) {
-          console.log("请求")
+          console.log("请求");
           //等于0证明已经到底，可以请求接口
           // if (that.currentPage < (this.totalCount / this.page)) {
-            // console.log((this.totalCount / this.page), "计算")
-            //当前页数小于总页数就请求
-            console.log(2);
-            that.currentPage++; //当前页数自增
-            //请求接口的代码
-            // that.loadData();
-            let data = [
+          // console.log((this.totalCount / this.page), "计算")
+          //当前页数小于总页数就请求
+          console.log(2);
+          that.currentPage++; //当前页数自增
+          //请求接口的代码
+          // that.loadData();
+          let data = [
             {
-                "createTime": "2021-01-02T22:31:00.000Z",
-                "desc": "增加数据剑仙一剑，可与千古",
-                "img": "/images/book10.jpg",
-                "name": "增加数据",
-                "price": "333444",
-                "status": 2,
-                "time": "2021-06-02T22:31:00.000Z",
-                "typeid": 4,
-                "typename": "增加数据恋爱",
-                "_id": "60c4cffa69bed4173c1a228a",
-            },
-            ]
-            that.tableData = that.tableData.concat(data)
-            console.log(that.tableData, "数据")
+              createTime: "2021-01-02T22:31:00.000Z",
+              desc: "增加数据剑仙一剑，可与千古",
+              img: "/images/book10.jpg",
+              name: "增加数据",
+              price: "333444",
+              status: 2,
+              time: "2021-06-02T22:31:00.000Z",
+              typeid: 4,
+              typename: "增加数据恋爱",
+              _id: "60c4cffa69bed4173c1a228a"
+            }
+          ];
+          that.tableData = that.tableData.concat(data);
+          console.log(that.tableData, "数据");
           // }
         } else {
-            that.getArticleslist();
+          that.getArticleslist();
         }
       });
     },
@@ -186,13 +185,16 @@ export default {
       console.log("getData");
 
       this.getArticleslist();
-      console.log(this.tableData, "是否有数据")
-      let data = this.tableData.splice((this.currentPage - 1) * this.pageSize, this.pageSize)
-      console.log(data, "data")
+      console.log(this.tableData, "是否有数据");
+      let data = this.tableData.splice(
+        (this.currentPage - 1) * this.pageSize,
+        this.pageSize
+      );
+      console.log(data, "data");
       this.tableData = this.tableData.concat(data);
-      console.log("表格数据量：",this.tableData.length)
+      console.log("表格数据量：", this.tableData.length);
     },
-  
+
     async getArticleslist(page = 1) {
       this.loading = true;
       const {
@@ -204,8 +206,8 @@ export default {
         createTime: this.rangeDate ? this.rangeDate[0] : null,
         updateTime: this.rangeDate ? this.rangeDate[1] : null
       });
-      let data = list.splice(0, 15)
-      console.log(data)
+      let data = list.splice(0, 15);
+      console.log(data);
       this.loading = false;
       this.tableData = data;
       this.totalCount = total;

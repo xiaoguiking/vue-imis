@@ -46,6 +46,23 @@
               ></el-time-picker>
             </el-col>
           </el-form-item> -->
+          <el-form-item label="封面">
+            <el-radio-group v-model="article.cover.type">
+              <el-radio :label="-1">自动</el-radio>
+              <el-radio :label="0">无图</el-radio>
+              <el-radio :label="1">1张</el-radio>
+              <el-radio :label="3">三张</el-radio>
+            </el-radio-group>
+            <div class="image-cover">
+              <template v-if="article.cover.type > 0">
+                <upload-cover
+                  v-for="cover in article.cover.type"
+                  :key="cover"
+                  :class="cover"
+                />
+              </template>
+            </div>
+          </el-form-item>
           <el-form-item label="文章状态">
             <el-select v-model="article.status" placeholder="请选择文章状态">
               <el-option
@@ -69,14 +86,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <!-- <el-form-item label="封面">
-            <el-radio-group v-model="article.cover.type">
-              <el-radio :label="-1">自动</el-radio>
-              <el-radio :label="0">无图</el-radio>
-              <el-radio :label="1">1张</el-radio>
-              <el-radio :label="3">三张</el-radio>
-            </el-radio-group>
-          </el-form-item> -->
+
           <el-button type="primary" @click="onPublish(false)">
             {{ $route.query.id ? "编辑文章" : "发布文章" }}
           </el-button>
@@ -109,6 +119,8 @@ import {
   BulletList,
   OrderedList
 } from "element-tiptap";
+
+import UploadCover from "@/components/UploadCover";
 
 export default {
   name: "PublishArticle",
@@ -218,7 +230,8 @@ export default {
     };
   },
   components: {
-    "el-tiptap": ElementTiptap
+    "el-tiptap": ElementTiptap,
+    "upload-cover": UploadCover
   },
   created() {
     this.loadChannels();
@@ -308,4 +321,9 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.image-cover {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
