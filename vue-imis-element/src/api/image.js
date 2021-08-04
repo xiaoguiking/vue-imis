@@ -13,7 +13,7 @@
  */
 import request from "@/api/config";
 
-// 获取文章列表
+// 获取全部图片
 export const getImages = params => {
   return request({
     method: "get",

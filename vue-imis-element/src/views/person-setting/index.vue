@@ -55,97 +55,93 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-dialog
-      title="修改头像"
-      :visible.sync="dialogVisible"
-      width="80%"
-      :before-close="handleClose"
-      @opened="onDialogImg"
-      class="cropper-content"
-    >
-      <span>{{ fileName }}</span>
-      <div class="cropper-box">
-        <div class="privew-image-wrap" style="text-align: center">
-          <vueCropper
-            ref="cropper"
-            :img="option.previewImage"
-            :outputSize="option.size"
-            :outputType="option.outputType"
-            :info="true"
-            :canScale="option.canScale"
-            :autoCrop="option.autoCrop"
-            :autoCropWidth="option.autoCropWidth"
-            :autoCropHeight="option.autoCropHeight"
-            :fixed="option.fixed"
-            :fixedNumber="option.fixedNumber"
-            :full="option.full"
-            :fixedBox="option.fixedBox"
-            :canMove="option.canMove"
-            :canMoveBox="option.canMoveBox"
-            :original="option.original"
-            :centerBox="option.centerBox"
-            :height="option.height"
-            :infoTrue="option.infoTrue"
-            :mode="option.mode"
-            @imgLoad="imgLoad"
-          ></vueCropper>
-        </div>
-        <!--底部操作工具按钮-->
-        <div class="footer-btn">
-          <div class="scope-btn">
-            <label class="label-btn el-button--small" for="uploads"
-              >选择封面</label
-            >
-            <input
-              type="file"
-              id="uploads"
-              style="position: absolute; clip: rect(0 0 0 0)"
-              accept="image/png, image/jpeg, image/gif, image/jpg"
-              @change="selectImg($event)"
-            />
-            <el-button
-              size="mini"
-              type="danger"
-              plain
-              icon="el-icon-zoom-in"
-              @click="changeScale(1)"
-              >放大</el-button
-            >
-            <el-button
-              size="mini"
-              type="danger"
-              plain
-              icon="el-icon-zoom-out"
-              @click="changeScale(-1)"
-              >缩小</el-button
-            >
-            <el-button size="mini" type="danger" plain @click="rotateLeft"
-              >↺ 左旋转</el-button
-            >
-            <el-button size="mini" type="danger" plain @click="rotateRight"
-              >↻ 右旋转</el-button
-            >
+    <div class="dialog-cover-fix">
+      <el-dialog
+        title="修改头像"
+        :visible.sync="dialogVisible"
+        width="80%"
+        :before-close="handleClose"
+        @opened="onDialogImg"
+        class="cropper-content"
+      >
+        <div class="cropper-box">
+          <div class="privew-image-wrap" style="text-align: center">
+            <vueCropper
+              ref="cropper"
+              :img="option.previewImage"
+              :outputSize="option.size"
+              :outputType="option.outputType"
+              :info="true"
+              :canScale="option.canScale"
+              :autoCrop="option.autoCrop"
+              :autoCropWidth="option.autoCropWidth"
+              :autoCropHeight="option.autoCropHeight"
+              :fixed="option.fixed"
+              :fixedNumber="option.fixedNumber"
+              :full="option.full"
+              :fixedBox="option.fixedBox"
+              :canMove="option.canMove"
+              :canMoveBox="option.canMoveBox"
+              :original="option.original"
+              :centerBox="option.centerBox"
+              :height="option.height"
+              :infoTrue="option.infoTrue"
+              :mode="option.mode"
+              @realTime="realTime"
+              @imgLoad="imgLoad"
+            ></vueCropper>
           </div>
-          <div class="upload-btn">
-            <el-button size="mini" type="success" @click="uploadImg('blob')"
-              >上传封面 <i class="el-icon-upload"></i
-            ></el-button>
+          <!--底部操作工具按钮-->
+          <div class="footer-btn">
+            <div class="scope-btn">
+              <label class="label-btn el-button--small" for="uploads"
+                >选择封面</label
+              >
+              <input
+                type="file"
+                id="uploads"
+                style="position: absolute; clip: rect(0 0 0 0)"
+                accept="image/png, image/jpeg, image/gif, image/jpg"
+                @change="onChangImage($event)"
+              />
+              <el-button
+                size="mini"
+                type="danger"
+                plain
+                icon="el-icon-zoom-in"
+                @click="changeScale(1)"
+                >放大</el-button
+              >
+              <el-button
+                size="mini"
+                type="danger"
+                plain
+                icon="el-icon-zoom-out"
+                @click="changeScale(-1)"
+                >缩小</el-button
+              >
+              <el-button size="mini" type="danger" plain @click="rotateLeft"
+                >↺ 左旋转</el-button
+              >
+              <el-button size="mini" type="danger" plain @click="rotateRight"
+                >↻ 右旋转</el-button
+              >
+            </div>
+            <div class="upload-btn">
+              <el-button size="mini" type="success" @click="uploadImg('blob')"
+                >上传封面 <i class="el-icon-upload"></i
+              ></el-button>
+            </div>
           </div>
         </div>
-      </div>
-      <!--预览效果图-->
-      <div class="show-preview">
-        <div :style="previews.div" class="preview">
-          <img :src="previews.url" :style="previews.img" />
+        <!--预览效果图-->
+        <div class="show-preview">
+          <div :style="previews.div" class="preview">
+            <img :src="previews.url" :style="previews.img" />
+          </div>
         </div>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
-      </span>
-    </el-dialog>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -162,12 +158,12 @@ export default {
         _id: "",
         userName: "",
         img: "",
-        email: "",
+        email: ""
       },
       rules: {
         userNamename: [
           { required: true, message: "用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         img: [
           { required: true, message: "用户头像", trigger: "blur" },
@@ -175,17 +171,17 @@ export default {
             min: 3,
             max: 25,
             message: "长度在 3 到 25 个字符",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         email: [
           { required: true, message: "用户邮箱", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
-        ],
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+        ]
       },
       dialogVisible: false, // 上传图片弹出框
       // previewImage: [], // 图片预览
-      fileName: "",
+      fileName: "", // 头像名称
       // 裁剪组件的基础配置option
       option: {
         previewImage: "", //裁剪图片的地址
@@ -195,11 +191,11 @@ export default {
         canScale: true, //图片是否允许滚轮缩放
         autoCrop: true, //是否默认生成截图框
         autoCropWidth: 230, //默认生成截图框宽度
-        autoCropHeight: 150, //默认生成截图框高度
+        autoCropHeight: 200, //默认生成截图框高度
         fixed: true, //是否开启截图框宽高固定比例
         fixedNumber: [1.53, 1], //截图框的宽高比例
         full: false, //false按原比例裁切图片，不失真
-        fixedBox: true, //固定截图框大小，不允许改变
+        fixedBox: false, //固定截图框大小，不允许改变
         canMove: false, //上传图片是否可以移动
         canMoveBox: true, //截图框能否拖动
         original: false, //上传图片按照原始比例渲染
@@ -208,9 +204,9 @@ export default {
         infoTrue: false, //true为展示真实输出图片宽高，false展示看到的截图框宽高
         maxImgSize: 3000, //限制图片最大宽度和高度
         enlarge: 1, //图片根据截图框输出比例倍数
-        // mode: "230px 150px", //图片默认渲染方式
+        mode: "100% auto" //图片默认渲染方式
       },
-      previews: {},
+      previews: {}
     };
   },
   created() {
@@ -218,11 +214,11 @@ export default {
   },
   mounted() {},
   components: {
-    VueCropper,
+    VueCropper
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           alert("submit!");
         } else {
@@ -231,6 +227,7 @@ export default {
         }
       });
     },
+
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
@@ -258,13 +255,12 @@ export default {
     },
 
     onChangImage(e) {
-      console.log(e, "测试");
       let file = e.target.files[0];
       console.log(e.target.value);
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
         this.$message({
           message: "图片类型要求：jpeg、jpg、png",
-          type: "error",
+          type: "error"
         });
         return false;
       }
@@ -274,7 +270,7 @@ export default {
       this.$nextTick(() => {
         //转化为blob
         let reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = e => {
           let data;
           if (typeof e.target.result === "object") {
             data = this.getObjectURL(new Blob([e.target.result]));
@@ -291,14 +287,6 @@ export default {
         // 解决同一张图片无法重复上传问题
         this.$refs.file.value = "";
       });
-
-      // let reader = new FileReader();
-      // reader.onload = () => {
-      //   this.cropper.replace(reader.result);
-      //   reader.onload = null;
-      // };
-      // console.log(reader, "reader");
-      // reader.readAsDataURL(this.fileName);
     },
 
     imgLoad(msg) {
@@ -320,22 +308,61 @@ export default {
     },
     //实时预览函数
     realTime(data) {
+      console.log(data, "实时预览");
       this.previews = data;
+    },
+
+    // 上传封面
+    uploadImg(type) {
+      let _this = this;
+      console.log(type, _this, "this=========>");
+      if (type === "blob") {
+        //获取截图的blob数据
+        this.$refs.cropper.getCropBlob(async data => {
+          let formData = new FormData();
+          formData.append("file", data, "DX.jpg");
+          //调用axios上传
+          let { data: res } = await _this.$http.post(
+            "/api/file/imgUpload",
+            formData
+          );
+          if (res.code === 200) {
+            _this.$message({
+              message: res.msg,
+              type: "success"
+            });
+            let data = res.data
+              .replace("[", "")
+              .replace("]", "")
+              .split(",");
+            let imgInfo = {
+              name: _this.Name,
+              url: data[0]
+            };
+            _this.$emit("uploadImgSuccess", imgInfo);
+          } else {
+            _this.$message({
+              message: "文件服务异常，请联系管理员！",
+              type: "error"
+            });
+          }
+        });
+      }
     },
 
     handleClose(done) {
       this.$confirm("确认关闭？")
-        .then((res) => {
+        .then(res => {
           console.log(res);
           done();
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
 
-    onDialogImg() {},
-  },
+    onDialogImg() {}
+  }
 };
 </script>
 
@@ -399,5 +426,13 @@ label {
       background: #cccccc;
     }
   }
+}
+</style>
+
+// 正确修改element组件样式
+<style scoped>
+.dialog-cover-fix >>> .el-dialog__body {
+  display: flex;
+  flex: 1;
 }
 </style>
