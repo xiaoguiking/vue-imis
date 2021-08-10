@@ -38,3 +38,11 @@ export const deleteImage = imageId => {
     url: `api/image/${imageId}`
   });
 };
+
+// 上传图片
+export const UploadImages = () => {
+  return request({
+    method: "post",
+    url: `api/file/profile`,
+  })
+}

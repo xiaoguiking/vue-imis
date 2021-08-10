@@ -1,5 +1,6 @@
 module.exports = {
   devServer: {
+    // port: 8096,
     port: 8096,
     open: true,
     // 代理接口

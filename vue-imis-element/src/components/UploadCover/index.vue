@@ -15,7 +15,7 @@
           type="card"
           @tab-click="handleClickTab($event)"
         >
-          <el-tab-pane label="素材库" name="false">
+          <el-tab-pane label="素材库" name="first">
             <!-- 素材列表 -->
             <el-card>
               <el-row :gutter="20">
@@ -71,13 +71,14 @@
               </el-pagination>
             </el-card>
           </el-tab-pane>
-          <el-tab-pane label="上传图片素材" name="true">
-            <label for="upload-image">
+          <el-tab-pane label="上传图片素材" name="second">
+            <label for="upload-image" class="upload-image">
               <input
                 type="file"
                 name="upload-image"
                 id="upload-image"
                 @change="changeUploadImage($event)"
+                ref="file"
                 hidden
               />
               <p>上传图片素材</p>
@@ -88,9 +89,7 @@
       </div>
       <div slot="footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="onCoverConfirm">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -98,13 +97,13 @@
 
 <script>
 // import { getImages, collectImage, deleteImage } from "@/api/image.js";
-import { getImages } from "@/api/image.js";
+import { getImages,  UploadImages } from "@/api/image.js";
 export default {
   name: "UploadCover",
   data() {
     return {
       dialogVisible: false,
-      activeName: "false",
+      activeName: "first",
       loading: false,
       imageList: [],
       page: 1,
@@ -137,7 +136,6 @@ export default {
       });
       this.loading = false;
       list.forEach(img => {
-        console.log(img);
         img.loading = false;
       });
       this.imageList = list;
@@ -147,7 +145,6 @@ export default {
     // 切换状态
     handleClickTab(e) {
       const isCollect = e.name;
-      console.log(e.name, isCollect, "this");
       if (isCollect) {
         this.loadImages();
       } else {
@@ -160,13 +157,28 @@ export default {
     },
 
     changeUploadImage(e) {
-      console.log(e, "e");
       const file = e.target.files[0];
-      console.log(file);
       const blobImg = window.URL.createObjectURL(file);
       this.$refs["preview-image"].src = blobImg;
+    },
+
+    onCoverConfirm() {
+      const file = this.$refs.file.files[0];
+      // 上传图片 &&  并且有上传的文件
+      if (this.activeName === "second") {
+        if (!file) {
+          this.$message("请选择图片文件上传");
+          return;
+        }
+        // 调用接口 执行上传文件操作
+        const fd = new FormData();
+        fd.append('avatar', file)
+        UploadImages(fd).then(res => {
+          console.log(res)
+        })
+      }
     }
-  }
+  },
 };
 </script>
 
@@ -182,6 +194,17 @@ export default {
       width: 100%;
       height: 100%;
     }
+  }
+
+  .upload-image {
+    // border: 1px dashed red;
+    display: flex;
+    width: 300px;
+    height: 200px;
+    border: 1px dashed blue;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
