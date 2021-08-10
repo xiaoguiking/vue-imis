@@ -1,5 +1,7 @@
 const Ws = require("ws");
 
+const {} = require("url")
+
 (function (Ws) {
     const server = new Ws.Server({ port: 8888 })
     console.log("server start");

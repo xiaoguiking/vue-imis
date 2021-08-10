@@ -2,6 +2,7 @@
  *  封装全局请求
  */
 import axios from "axios";
+import router from "@/router"
 
 // 创建axios实例
 const service = axios.create({
@@ -28,9 +29,8 @@ err => {
 
 //  响应拦截器
 service.interceptors.response.use(response => {
-  /**
-   * code:200,接口正常返回;
-   */
+
+  // 所有状态码为2xx的进入
   let res = {};
   // 判断状态码
   // if (res.status) { }
@@ -38,6 +38,14 @@ service.interceptors.response.use(response => {
   res.status = response.status;
   res.data = response.data;
   return res;
+}, 
+// 超出2xx的状态码进入这里
+(err) => {
+  console.log("状态异常")
+  if(err.response && err.response.status === "401")
+  // 跳转到登录页
+  router.push("/login")
+  return Promise.reject(err)
 });
 
 // export default service;
