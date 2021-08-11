@@ -32,10 +32,12 @@ Vue.config.productionTip = false;
 // import http from "@/api/config";
 // Vue.prototype.$axios = http;
 
+
 // 修改 title
 router.beforeEach((to, from, next) => {
   // let hasLogin = false
   /* 路由发生变化修改页面title */
+
   store.commit("getToken");
   let token = store.state.user.token;
   let flag = window.localStorage.getItem("username");
