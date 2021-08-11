@@ -32,7 +32,6 @@ Vue.config.productionTip = false;
 // import http from "@/api/config";
 // Vue.prototype.$axios = http;
 
-
 // 修改 title
 router.beforeEach((to, from, next) => {
   // let hasLogin = false

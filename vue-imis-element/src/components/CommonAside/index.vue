@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       asideMenu: [],
-      menu: [],
+      menu: []
       // isCollapse: true
     };
   },

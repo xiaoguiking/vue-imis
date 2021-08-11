@@ -43,6 +43,6 @@ export const deleteImage = imageId => {
 export const UploadImages = () => {
   return request({
     method: "post",
-    url: `api/file/profile`,
-  })
-}
+    url: `api/file/profile`
+  });
+};

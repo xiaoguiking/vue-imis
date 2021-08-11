@@ -97,7 +97,7 @@
 
 <script>
 // import { getImages, collectImage, deleteImage } from "@/api/image.js";
-import { getImages,  UploadImages } from "@/api/image.js";
+import { getImages, UploadImages } from "@/api/image.js";
 export default {
   name: "UploadCover",
   data() {
@@ -172,13 +172,13 @@ export default {
         }
         // 调用接口 执行上传文件操作
         const fd = new FormData();
-        fd.append('avatar', file)
+        fd.append("avatar", file);
         UploadImages(fd).then(res => {
-          console.log(res)
-        })
+          console.log(res);
+        });
       }
     }
-  },
+  }
 };
 </script>
 
