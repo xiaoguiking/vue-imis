@@ -4,8 +4,7 @@
 import axios from "axios";
 import router from "@/router";
 
-import { Message } from 'element-ui';
-
+import { Message } from "element-ui";
 
 // 创建axios实例
 const service = axios.create({
@@ -45,21 +44,19 @@ service.interceptors.response.use(
   // 超出2xx的状态码进入这里
   err => {
     console.log("状态异常");
-    const {status} = err.response;
+    const { status } = err.response;
     if (err.response && status === 401) {
       // 跳转到登录页
       router.push("/login");
-      Message("登录状态无效，请重新登录")
-
+      Message("登录状态无效，请重新登录");
     } else if (status === 403) {
-        // 没有操作权限 token 未携带
-        Message("没有操作权限")
+      // 没有操作权限 token 未携带
+      Message("没有操作权限");
     } else if (status === 400) {
-      Message("请求参数错误，请检查")
-    } 
-    else if (status >= 500) {
+      Message("请求参数错误，请检查");
+    } else if (status >= 500) {
       // 服务器错误
-      Message("")
+      Message("");
     }
 
     return Promise.reject(err);
