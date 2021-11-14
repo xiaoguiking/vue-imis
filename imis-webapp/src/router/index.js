@@ -13,12 +13,66 @@ const routes = [
     path: '/',
     component: () => import('../views/layout'),
     children: [
+      // {
+      //   path: '/test',
+      //   name: 'test',
+      //   component: () =>
+      //     import('../views/test')
+      // },
       {
-        path: '/test',
-        name: 'test',
+        path: '',
+        name: 'home',
         component: () =>
-          import('../views/test')
+          import('../views/home')
+      },
+      {
+        path: '/qa',
+        name: 'qa',
+        component: () =>
+          import('../views/qa')
+      },
+      {
+        path: '/video',
+        name: 'video',
+        component: () =>
+          import('../views/video')
+      },
+      {
+        path: '/my',
+        name: 'my',
+        component: () =>
+          import('../views/my')
       }
+      // {
+      //   path: '/test',
+      //   name: 'test',
+      //   component: () =>
+      //     import('../views/test')
+      // },
+      // {
+      //   path: '/test',
+      //   name: 'test',
+      //   component: () =>
+      //     import('../views/test')
+      // },
+      // {
+      //   path: '/test',
+      //   name: 'test',
+      //   component: () =>
+      //     import('../views/test')
+      // },
+      // {
+      //   path: '/test',
+      //   name: 'test',
+      //   component: () =>
+      //     import('../views/test')
+      // },
+      // {
+      //   path: '/test',
+      //   name: 'test',
+      //   component: () =>
+      //     import('../views/test')
+      // },
     ]
   }
 ]
