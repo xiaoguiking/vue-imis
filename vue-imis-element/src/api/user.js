@@ -31,3 +31,19 @@ export const getUserInfo = () => {
 
 // 更改用户信息
 export const updateUserInfo = () => {}
+
+// 获取所有用户信息
+export const getUsers = () => {
+  return request({
+    method: 'get',
+    url: '/api/getUsers'
+  })
+}
+
+// 写库
+export const insertUsers = () => {
+  return request({
+    method: 'get',
+    url: '/api/insertUsers'
+  })
+}
