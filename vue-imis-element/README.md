@@ -131,3 +131,5 @@ router.beforeEach((to, from, next) => {
 ```
 
 ## dev 项目第一步
+
+- eslint 
