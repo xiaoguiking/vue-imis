@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import 'normalize.css'
+// 引入vant
 // vant: https://vant-contrib.gitee.io/vant/#/zh-CN/button
 import Vant from 'vant'
 import 'vant/lib/index.css'
