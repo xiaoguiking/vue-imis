@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './styles/index.less' // 全局样式
 
+import 'normalize.css'
 // 引入vant
 // vant: https://vant-contrib.gitee.io/vant/#/zh-CN/button
 import Vant from 'vant'
