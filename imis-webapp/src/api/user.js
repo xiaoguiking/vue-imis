@@ -5,7 +5,7 @@ import request from './config'
 export const login = data => {
   return request({
     method: 'post',
-    url: '/api/user/login',
+    url: '/api/web/user/login',
     data
   })
 }

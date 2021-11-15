@@ -56,8 +56,21 @@ export default {
   },
   methods: {
     async onSubmit () {
-      const data = await login(this.user)
-      console.log(data, 'data')
+      try {
+        this.$toast.loading({
+          message: '加载中...',
+          forbidClick: true,
+          duration: 0
+        })
+        const data = await login(this.user)
+        this.$toast.success('登录成功')
+        console.log(data, 'data')
+        // console.log(this.$router)
+        this.$router.push('/')
+      } catch (error) {
+        console.log(error)
+        this.$toast.fail('登录失败')
+      }
     },
     onClickLeft () {
       console.log('返回')
