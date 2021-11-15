@@ -11,38 +11,38 @@
  *
  *
  */
-import request from "@/api/config";
+import request from '@/api/config'
 
 // 获取全部图片
-export const getImages = params => {
+export const getImages = (params) => {
   return request({
-    method: "get",
-    url: "api/image/getImages",
+    method: 'get',
+    url: 'api/image/getImages',
     params
-  });
-};
+  })
+}
 
 // 收藏图片
-export const collectImage = params => {
+export const collectImage = (params) => {
   return request({
-    method: "get",
-    url: "api/image/collectImage",
+    method: 'get',
+    url: 'api/image/collectImage',
     params
-  });
-};
+  })
+}
 
 // 删除图片
-export const deleteImage = imageId => {
+export const deleteImage = (imageId) => {
   return request({
-    method: "delete",
+    method: 'delete',
     url: `api/image/${imageId}`
-  });
-};
+  })
+}
 
 // 上传图片
 export const UploadImages = () => {
   return request({
-    method: "post",
+    method: 'post',
     url: `api/file/profile`
-  });
-};
+  })
+}

@@ -20,11 +20,7 @@
           {{ item.title }}
         </span>
       </el-menu-item>
-      <el-submenu
-        index="item.path"
-        v-for="(item, index) in hasChildren"
-        :key="index"
-      >
+      <el-submenu index="item.path" v-for="(item, index) in hasChildren" :key="index">
         <template slot="title">
           <i :class="'el-icon-' + item.icon"></i>
           <span>{{ item.title }}</span>
@@ -48,17 +44,17 @@
 </template>
 
 <script>
-import { sideMenu } from "@/mock/menuList.js";
+import { sideMenu } from '@/mock/menuList.js'
 
 export default {
-  name: "CommonAside",
-  props: ["is-collapse"],
+  name: 'CommonAside',
+  props: ['is-collapse'],
   data() {
     return {
       asideMenu: [],
       menu: []
       // isCollapse: true
-    };
+    }
   },
 
   created() {
@@ -67,23 +63,23 @@ export default {
   },
 
   mounted() {
-    this.asideMenu = sideMenu;
+    this.asideMenu = sideMenu
   },
   computed: {
     noChildren() {
-      return this.asideMenu.filter(item => !item.children);
+      return this.asideMenu.filter((item) => !item.children)
     },
     hasChildren() {
-      return this.asideMenu.filter(item => item.children);
+      return this.asideMenu.filter((item) => item.children)
     }
   },
   methods: {
     clickMenu(item) {
-      this.$router.push({ path: item.path });
-      return this.$store.commit("selectMenu", item);
+      this.$router.push({ path: item.path })
+      return this.$store.commit('selectMenu', item)
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

@@ -9,39 +9,39 @@
 </template>
 
 <script>
-import bus from "@/utils/bus.js";
+import bus from '@/utils/bus.js'
 
 export default {
-  name: "Child",
+  name: 'Child',
   props: {
     msg: {
       type: String,
-      default: ""
+      default: ''
     }
   },
   data() {
     return {
-      busMsg: "",
+      busMsg: '',
       obj: {
-        color: "green"
+        color: 'green'
       }
-    };
+    }
   },
   mounted() {
-    bus.$on("acceptMsg", val => {
-      console.log(val);
-      this.busMsg = val;
-    });
+    bus.$on('acceptMsg', (val) => {
+      console.log(val)
+      this.busMsg = val
+    })
   },
   methods: {
     sendMsg() {
-      this.$emit("showMsg", "I am from Child");
+      this.$emit('showMsg', 'I am from Child')
     },
     resetMsg() {
-      this.$emit("clearMsg", "");
+      this.$emit('clearMsg', '')
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped></style>

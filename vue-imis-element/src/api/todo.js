@@ -11,45 +11,45 @@
  *
  *
  */
-import request from "@/api/config";
+import request from '@/api/config'
 
 // 获取全部数据
 export const getTodoList = () => {
   return request({
-    method: "get",
-    url: "api/todos"
-  });
-};
+    method: 'get',
+    url: 'api/todos'
+  })
+}
 
 // 通过id查询数据
 export const getTodoId = () => {
   return request({
-    method: "get",
-    url: "api/todos/:id"
-  });
-};
+    method: 'get',
+    url: 'api/todos/:id'
+  })
+}
 
 // 添加任务
-export const addTodoList = data => {
+export const addTodoList = (data) => {
   return request({
-    method: "post",
-    url: "api/todos/add",
+    method: 'post',
+    url: 'api/todos/add',
     data
-  });
-};
+  })
+}
 
 // 修改任务
 export const patchTodoList = () => {
   return request({
-    method: "patch",
-    url: "api/todos/:id"
-  });
-};
+    method: 'patch',
+    url: 'api/todos/:id'
+  })
+}
 
 // 删除
-export const deleteTodoList = params => {
+export const deleteTodoList = (params) => {
   return request({
-    method: "delete",
+    method: 'delete',
     url: `api/todos/${params}`
-  });
-};
+  })
+}

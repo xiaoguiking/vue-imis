@@ -27,23 +27,17 @@
     <div class="header-user">
       <!-- 全屏显示 -->
       <div class="btn-fullscreen" @click="handleFullScreen">
-        <el-tooltip
-          effect="dark"
-          :content="fullscreen ? `取消全屏` : `全屏`"
-          placement="bottom"
-        >
+        <el-tooltip effect="dark" :content="fullscreen ? `取消全屏` : `全屏`" placement="bottom">
           全屏
           <i class="el-icon-rank"></i>
         </el-tooltip>
       </div>
       <!-- 个人下拉展示 -->
       <el-dropdown size="small" split-button type="primary">
-        {{ "admin" }}
+        {{ 'admin' }}
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <a href="https://github.com/xiaoguiking/vue-imis" target="_blank">
-              项目仓库</a
-            >
+            <a href="https://github.com/xiaoguiking/vue-imis" target="_blank"> 项目仓库</a>
           </el-dropdown-item>
           <el-dropdown-item @click.native="loginOut">退出登录</el-dropdown-item>
         </el-dropdown-menu>
@@ -53,71 +47,70 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
+
 export default {
-  name: "CommonHeader",
-  props: ["is-collapse"],
+  name: 'CommonHeader',
+  props: ['is-collapse'],
   data() {
     return {
       fullscreen: false
-    };
+    }
   },
   created() {},
   methods: {
     toggleSide() {
-      this.$emit("showSide");
+      this.$emit('showSide')
     },
 
     // 退出按钮
     loginOut() {
-      window.localStorage.removeItem("username");
-      this.$store.commit("clearToken");
-      this.$store.commit("clearMenu");
+      window.localStorage.removeItem('username')
+      this.$store.commit('clearToken')
+      this.$store.commit('clearMenu')
       // location.reload();
       this.$message({
         message: `恭喜你，已经注销`,
-        type: "success"
-      });
-      this.$router.push("/login");
+        type: 'success'
+      })
+      this.$router.push('/login')
     },
 
     // 是否全屏
     handleFullScreen() {
-      let element = document.documentElement;
+      let element = document.documentElement
       if (this.fullscreen) {
         if (document.exitFullscreen) {
-          document.exitFullscreen();
+          document.exitFullscreen()
         } else if (document.webkitCancelFullScreen) {
-          document.webkitCancelFullScreen();
+          document.webkitCancelFullScreen()
         } else if (document.mozCancelFullScreen) {
-          document.mozCancelFullScreen();
+          document.mozCancelFullScreen()
         } else if (document.msExitFullscreen) {
-          document.msExitFullscreen();
+          document.msExitFullscreen()
         }
-      } else {
-        if (element.requestFullscreen) {
-          element.requestFullscreen();
-        } else if (element.webkitRequestFullScreen) {
-          element.webkitRequestFullScreen();
-        } else if (element.mozRequestFullScreen) {
-          element.mozRequestFullScreen();
-        } else if (element.msRequestFullscreen) {
-          // IE11
-          element.msRequestFullscreen();
-        }
+      } else if (element.requestFullscreen) {
+        element.requestFullscreen()
+      } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen()
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen()
+      } else if (element.msRequestFullscreen) {
+        // IE11
+        element.msRequestFullscreen()
       }
-      this.fullscreen = !this.fullscreen;
+      this.fullscreen = !this.fullscreen
     }
   },
   computed: {
     ...mapState({
-      current: state => {
+      current: (state) => {
         // console.log(state.tab.currentMenu, "===========>menu");
-        return state.tab.currentMenu;
+        return state.tab.currentMenu
       }
     })
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -184,13 +177,13 @@ export default {
 
 @keyframes orange {
   to {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff5722,
-      0 0 70px #ff5722, 0 0 80px #ff5722, 0 0 100px #ff5722, 0 0 150px #ff5722;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff5722, 0 0 70px #ff5722,
+      0 0 80px #ff5722, 0 0 100px #ff5722, 0 0 150px #ff5722;
   }
   from {
     filter: brightness(110%);
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff5722,
-      0 0 35px #ff5722, 0 0 40px #ff5722, 0 0 50px #ff5722, 0 0 75px #ff5722;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff5722, 0 0 35px #ff5722,
+      0 0 40px #ff5722, 0 0 50px #ff5722, 0 0 75px #ff5722;
   }
 }
 </style>

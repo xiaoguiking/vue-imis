@@ -8,10 +8,7 @@
     <el-container :class="isCollapse ? 'common-container' : 'container-active'">
       <!-- 头部区域 -->
       <el-header style="height: 40px">
-        <common-header
-          @showSide="handleSide"
-          :is-collapse="isCollapse"
-        ></common-header>
+        <common-header @showSide="handleSide" :is-collapse="isCollapse"></common-header>
       </el-header>
       <common-tab></common-tab>
       <!-- 右侧内容主题 -->
@@ -26,19 +23,19 @@
 </template>
 
 <script>
-import CommonHeader from "@/components/CommonHeader";
-import CommonAside from "@/components/CommonAside";
-import CommonTab from "@/components/CommonTab";
+import CommonHeader from '@/components/CommonHeader'
+import CommonAside from '@/components/CommonAside'
+import CommonTab from '@/components/CommonTab'
 
 export default {
-  name: "Main",
+  name: 'Main',
   data() {
     return {
       isCollapse: false, // 当前侧边栏的状态显示
       // 数组对象控制css
       // containerActive: "container-active",
-      commonContainer: "common-container"
-    };
+      commonContainer: 'common-container'
+    }
   },
   components: {
     CommonHeader,
@@ -47,11 +44,11 @@ export default {
   },
   methods: {
     handleSide() {
-      console.log("子调父方法");
-      this.isCollapse = !this.isCollapse;
+      console.log('子调父方法')
+      this.isCollapse = !this.isCollapse
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

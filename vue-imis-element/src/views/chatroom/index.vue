@@ -17,38 +17,38 @@
 </template>
 
 <script>
-let url = "ws:localhost:8888";
-const ws = new WebSocket(url);
+let url = 'ws:localhost:8888'
+const ws = new WebSocket(url)
 export default {
-  name: "Chatroom",
+  name: 'Chatroom',
   data() {
     return {
-      message: "",
-      username: "",
+      message: '',
+      username: '',
       messageList: []
-    };
+    }
   },
   mounted() {
-    this.username = localStorage.getItem("username");
+    this.username = localStorage.getItem('username')
     if (!this.username) {
-      this.$router.push("/logincopy");
-      return;
+      this.$router.push('/logincopy')
+      return
     }
-    ws.addEventListener("open", this.handleOpen, false);
-    ws.addEventListener("error", this.handleError, false);
-    ws.addEventListener("close", this.handleClose, false);
-    ws.addEventListener("message", this.handleMessage, false);
+    ws.addEventListener('open', this.handleOpen, false)
+    ws.addEventListener('error', this.handleError, false)
+    ws.addEventListener('close', this.handleClose, false)
+    ws.addEventListener('message', this.handleMessage, false)
   },
   methods: {
     handelClickMessage() {
-      const message = this.message.trim();
-      console.log(message, "message");
+      const message = this.message.trim()
+      console.log(message, 'message')
       if (!this.message.length) {
         this.$message({
-          message: "没有信息不能提交",
-          type: "warning"
-        });
-        return;
+          message: '没有信息不能提交',
+          type: 'warning'
+        })
+        return
       }
       ws.send(
         JSON.stringify({
@@ -57,29 +57,29 @@ export default {
           message: this.message,
           dateTime: new Date().getTime()
         })
-      );
+      )
       this.$message({
-        message: "提交成功",
-        type: "success"
-      });
+        message: '提交成功',
+        type: 'success'
+      })
     },
     handleOpen(e) {
-      console.log("message open", e);
+      console.log('message open', e)
     },
     handleError() {
-      console.log("message error");
+      console.log('message error')
     },
     handleClose() {
-      console.log("message close");
+      console.log('message close')
     },
     handleMessage(e) {
-      console.log("msessage send", e.data);
-      const msgData = JSON.parse(e.data);
-      this.messageList.push(msgData);
-      console.log(msgData);
+      console.log('msessage send', e.data)
+      const msgData = JSON.parse(e.data)
+      this.messageList.push(msgData)
+      console.log(msgData)
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

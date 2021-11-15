@@ -34,8 +34,7 @@
         <template slot-scope="scope">{{ scope.row.date }}</template>
       </el-table-column>
       <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-      <el-table-column prop="address" label="地址" show-overflow-tooltip>
-      </el-table-column>
+      <el-table-column prop="address" label="地址" show-overflow-tooltip> </el-table-column>
     </el-table>
     <div style="margin-top: 20px">
       <el-button @click="toggleSelection([tableData[1], tableData[2]])"
@@ -60,90 +59,90 @@
 </template>
 
 <script>
-import Log from "@/views/test/Log";
-import Res from "@/views/test/Res";
-import CommonTable from "@/components/CommonTable";
+import Log from '@/views/test/Log'
+import Res from '@/views/test/Res'
+import CommonTable from '@/components/CommonTable'
 
 export default {
-  name: "Test",
+  name: 'Test',
   data() {
     return {
-      routervalue: "",
-      log: "",
+      routervalue: '',
+      log: '',
       tableData: [
         {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
         },
         {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
         },
         {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
         },
         {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
         },
         {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: '2016-05-08',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
         },
         {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: '2016-05-06',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: '2016-05-07',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
         }
       ],
       multipleSelection: [],
       tableDataList: [
         {
           id: 123,
-          name: "ck",
-          address: "china",
+          name: 'ck',
+          address: 'china',
           age: 123,
-          sex: "男"
+          sex: '男'
         },
         {
           id: 123,
-          name: "ck",
-          address: "china",
+          name: 'ck',
+          address: 'china',
           age: 123,
-          sex: "男"
+          sex: '男'
         }
       ],
       tableLabelList: [
         {
-          prop: "id",
-          label: "id"
+          prop: 'id',
+          label: 'id'
         },
         {
-          prop: "name",
-          label: "姓名"
+          prop: 'name',
+          label: '姓名'
         },
         {
-          prop: "address",
-          label: "地址"
+          prop: 'address',
+          label: '地址'
         },
         {
-          prop: "age",
-          label: "年领"
+          prop: 'age',
+          label: '年领'
         },
         {
-          prop: "sex",
-          label: "性别"
+          prop: 'sex',
+          label: '性别'
         }
       ],
       config: {
@@ -152,7 +151,7 @@ export default {
         loading: false
       },
       isShowOp: true
-    };
+    }
   },
   components: {
     Log,
@@ -177,45 +176,45 @@ export default {
 
       // path匹配 刷新不会丢失
       this.$router.push({
-        path: "/user",
+        path: '/user',
         query: {
-          id: id
+          id
         }
-      });
+      })
 
       this.$notify({
-        title: "提示",
+        title: '提示',
         message: `这是一条不会自动关闭的消息, ${this.$router.path}`
-      });
+      })
     },
     getPath() {
       // console.log(this.$route.path);
     },
     toggleSelection(rows) {
       if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
+        rows.forEach((row) => {
+          this.$refs.multipleTable.toggleRowSelection(row)
+        })
       } else {
-        this.$refs.multipleTable.clearSelection();
+        this.$refs.multipleTable.clearSelection()
       }
     },
     handleSelectionChange(val) {
-      this.multipleSelection = val;
+      this.multipleSelection = val
     }
   },
   watch: {
-    "$route.path": function(newVal) {
-      console.log(this.$route.path);
-      if (newVal === "/test/log") {
-        console.log("欢迎进入登录页面");
+    '$route.path': function (newVal) {
+      console.log(this.$route.path)
+      if (newVal === '/test/log') {
+        console.log('欢迎进入登录页面')
       }
-      if (newVal === "/test/res") {
-        console.log("欢迎进入注册页面");
+      if (newVal === '/test/res') {
+        console.log('欢迎进入注册页面')
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

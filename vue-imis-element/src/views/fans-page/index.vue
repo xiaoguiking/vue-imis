@@ -5,40 +5,40 @@
   </div>
 </template>
 <script>
-import echarts from "echarts";
+import echarts from 'echarts'
 
 export default {
-  name: "FansPage",
+  name: 'FansPage',
   data() {
-    return {};
+    return {}
   },
   mounted() {
-    this.drawLine();
+    this.drawLine()
   },
   methods: {
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
       // console.log(this.$refs)
-      let myChart = echarts.init(this.$refs.main);
+      let myChart = echarts.init(this.$refs.main)
       // 绘制图表
       myChart.setOption({
-        title: { text: "ECharts 入门示例" },
+        title: { text: 'ECharts 入门示例' },
         tooltip: {},
         xAxis: {
-          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
         },
         yAxis: {},
         series: [
           {
-            name: "销量",
-            type: "bar",
+            name: '销量',
+            type: 'bar',
             data: [5, 20, 36, 10, 10, 20]
           }
         ]
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped></style>

@@ -28,53 +28,53 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations } from 'vuex'
 
 export default {
-  name: "CommonTab",
+  name: 'CommonTab',
   data() {
     return {
-      dynamicTags: ["标签一", "标签二", "标签三"],
+      dynamicTags: ['标签一', '标签二', '标签三'],
       inputVisible: false,
-      inputValue: ""
-    };
+      inputValue: ''
+    }
   },
   methods: {
     ...mapMutations({
-      close: "closeTags"
+      close: 'closeTags'
     }),
     handleClose(tag) {
       //   this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-      this.close(tag);
+      this.close(tag)
     },
 
     changeMenu(tag) {
-      this.$router.push({ path: tag.path });
-      this.$store.commit("selectMenu", tag);
+      this.$router.push({ path: tag.path })
+      this.$store.commit('selectMenu', tag)
     },
 
     showInput() {
-      this.inputVisible = true;
+      this.inputVisible = true
       //   this.$nextTick(_ => {
       //     this.$refs.saveTagInput.$refs.input.focus();
       //   });
     },
 
     handleInputConfirm() {
-      let inputValue = this.inputValue;
+      let { inputValue } = this
       if (inputValue) {
-        this.dynamicTags.push(inputValue);
+        this.dynamicTags.push(inputValue)
       }
-      this.inputVisible = false;
-      this.inputValue = "";
+      this.inputVisible = false
+      this.inputValue = ''
     }
   },
   computed: {
     ...mapState({
-      tags: state => state.tab.tabsList
+      tags: (state) => state.tab.tabsList
     })
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

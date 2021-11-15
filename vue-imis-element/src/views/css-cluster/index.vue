@@ -16,8 +16,8 @@
 
 <script>
 export default {
-  name: "CssCluster"
-};
+  name: 'CssCluster'
+}
 </script>
 
 <style lang="less" scoped>

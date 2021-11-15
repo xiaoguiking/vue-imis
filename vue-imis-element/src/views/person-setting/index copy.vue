@@ -24,9 +24,7 @@
               <el-input v-model="rulePersonForm.img"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')"
-                >立即创建</el-button
-              >
+              <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
               <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -45,13 +43,7 @@
           <!-- 第一种方式 -->
           <!-- 第二种方式直接用label -->
           <!-- <p @click="$refs.file.click()" class="upload-file">点击修改头像</p> -->
-          <input
-            type="file"
-            id="file"
-            ref="file"
-            hidden
-            @change="onChangImage"
-          />
+          <input type="file" id="file" ref="file" hidden @change="onChangImage" />
         </el-col>
       </el-row>
     </el-card>
@@ -75,111 +67,109 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { getUserInfo } from "@/api/user.js";
-import "cropperjs/dist/cropper.css";
-import Cropper from "cropperjs";
+import { getUserInfo } from '@/api/user.js'
+import 'cropperjs/dist/cropper.css'
+import Cropper from 'cropperjs'
 
 export default {
-  name: "PersonSetting",
+  name: 'PersonSetting',
   data() {
     return {
-      url: "http://localhost:3000/my-uploads/yan30.jpeg",
+      url: 'http://localhost:3000/my-uploads/yan30.jpeg',
       rulePersonForm: {
-        _id: "",
-        userName: "",
-        img: "",
-        email: ""
+        _id: '',
+        userName: '',
+        img: '',
+        email: ''
       },
       rules: {
         userNamename: [
-          { required: true, message: "用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { required: true, message: '用户名', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
         img: [
-          { required: true, message: "用户头像", trigger: "blur" },
+          { required: true, message: '用户头像', trigger: 'blur' },
           {
             min: 3,
             max: 25,
-            message: "长度在 3 到 25 个字符",
-            trigger: "blur"
+            message: '长度在 3 到 25 个字符',
+            trigger: 'blur'
           }
         ],
         email: [
-          { required: true, message: "用户邮箱", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { required: true, message: '用户邮箱', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ]
       },
       dialogVisible: false, // 上传图片弹出框
       previewImage: [], // 图片预览
-      fileName: "",
+      fileName: '',
       cropper: null // 裁切器实例
-    };
+    }
   },
   created() {
-    this.loadUserInfo();
+    this.loadUserInfo()
   },
   mounted() {
-    this.onDialogImg();
+    this.onDialogImg()
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          alert('submit!')
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     },
 
     async loadUserInfo() {
-      const { data } = await getUserInfo();
-      console.log(data.user._id);
-      this.rulePersonForm = data.user;
+      const { data } = await getUserInfo()
+      console.log(data.user._id)
+      this.rulePersonForm = data.user
     },
 
     getObjectURL(file) {
       // this.limitUpload(file)
-      let url = null;
+      let url = null
       if (window.createObjectURL !== undefined) {
         // basic
-        url = window.createObjectURL(file);
+        url = window.createObjectURL(file)
       } else if (window.URL !== undefined) {
         // mozilla(firefox)
-        url = window.URL.createObjectURL(file);
+        url = window.URL.createObjectURL(file)
       } else if (window.webkitURL !== undefined) {
         // webkit or chrome
-        url = window.webkitURL.createObjectURL(file);
+        url = window.webkitURL.createObjectURL(file)
       }
-      return url;
+      return url
     },
 
     onChangImage() {
-      const file = this.$refs.file;
-      console.log(file.files[0], "file");
+      const { file } = this.$refs
+      console.log(file.files[0], 'file')
 
-      this.fileName = file.files[0].name;
+      this.fileName = file.files[0].name
       // const blobData = window.URL.createObjectURL(file.files[0]);
-      const blobData = this.getObjectURL(file.files[0]);
+      const blobData = this.getObjectURL(file.files[0])
 
-      this.previewImage = blobData;
-      console.log(this.previewImage);
-      this.dialogVisible = true;
+      this.previewImage = blobData
+      console.log(this.previewImage)
+      this.dialogVisible = true
       // 解决同一张图片无法重复上传问题
-      this.$refs.file.value = "";
+      this.$refs.file.value = ''
 
       // let reader = new FileReader();
       // reader.onload = () => {
@@ -191,14 +181,14 @@ export default {
     },
 
     handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(res => {
-          console.log(res);
-          done();
+      this.$confirm('确认关闭？')
+        .then((res) => {
+          console.log(res)
+          done()
         })
-        .catch(err => {
-          console.log(err);
-        });
+        .catch((err) => {
+          console.log(err)
+        })
     },
 
     onDialogImg() {
@@ -210,33 +200,33 @@ export default {
       // 方式二: 裁剪器 .place 方法
       // const image = document.getElementById('image');
       if (this.cropper) {
-        this.cropper.replace(this.previewImage);
-        return;
+        this.cropper.replace(this.previewImage)
+        return
       }
-      const image = this.$refs["privew-image"];
+      const image = this.$refs['privew-image']
 
-      console.log(image);
+      console.log(image)
       this.cropper = new Cropper(image, {
         aspectRatio: 16 / 9,
         crop(event) {
-          console.log(event.detail.x);
-          console.log(event.detail.y);
-          console.log(event.detail.width);
-          console.log(event.detail.height);
-          console.log(event.detail.rotate);
-          console.log(event.detail.scaleX);
-          console.log(event.detail.scaleY);
+          console.log(event.detail.x)
+          console.log(event.detail.y)
+          console.log(event.detail.width)
+          console.log(event.detail.height)
+          console.log(event.detail.rotate)
+          console.log(event.detail.scaleX)
+          console.log(event.detail.scaleY)
         }
-      });
+      })
 
-      console.log(this.cropper, "onDialogImg");
+      console.log(this.cropper, 'onDialogImg')
     },
     onDialogClosed() {
       // 对话框关闭，销毁裁切器
-      this.cropper.destory();
+      this.cropper.destory()
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

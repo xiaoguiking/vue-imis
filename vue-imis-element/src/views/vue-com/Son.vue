@@ -9,21 +9,21 @@
 
 <script>
 export default {
-  name: "Son",
+  name: 'Son',
   data() {
     return {
-      a: "",
-      b: "",
-      c: ""
-    };
+      a: '',
+      b: '',
+      c: ''
+    }
   },
   mounted() {
-    console.log("$attrs", this.$attrs);
-    this.a = this.$attrs.message;
-    this.b = this.$attrs.messageb;
-    this.c = this.$attrs.messagec;
+    console.log('$attrs', this.$attrs)
+    this.a = this.$attrs.message
+    this.b = this.$attrs.messageb
+    this.c = this.$attrs.messagec
   }
-};
+}
 </script>
 
 <style lang="less" scoped></style>

@@ -2,20 +2,12 @@
   <div class="publish-article">
     <el-card>
       <div slot="header">
-        {{ $route.query.id ? "编辑文章" : "发布文章" }}
+        {{ $route.query.id ? '编辑文章' : '发布文章' }}
       </div>
       <div>
-        <el-form
-          ref="article"
-          :model="article"
-          label-width="80px"
-          :rules="formRules"
-        >
+        <el-form ref="article" :model="article" label-width="80px" :rules="formRules">
           <el-form-item label="标题" prop="name">
-            <el-input
-              v-model="article.name"
-              placeholder="请输入文章标题"
-            ></el-input>
+            <el-input v-model="article.name" placeholder="请输入文章标题"></el-input>
           </el-form-item>
           <!-- <el-form-item label="内容">
             <el-input type="textarea" v-model="article.desc"></el-input>
@@ -55,11 +47,7 @@
             </el-radio-group>
             <div class="image-cover">
               <template v-if="article.cover.type > 0">
-                <upload-cover
-                  v-for="cover in article.cover.type"
-                  :key="cover"
-                  :class="cover"
-                />
+                <upload-cover v-for="cover in article.cover.type" :key="cover" :class="cover" />
               </template>
             </div>
           </el-form-item>
@@ -88,7 +76,7 @@
           </el-form-item>
 
           <el-button type="primary" @click="onPublish(false)">
-            {{ $route.query.id ? "编辑文章" : "发布文章" }}
+            {{ $route.query.id ? '编辑文章' : '发布文章' }}
           </el-button>
           <el-button @click="onPublish(true)">存入草稿</el-button>
         </el-form>
@@ -99,12 +87,7 @@
 
 <script>
 // getChannels
-import {
-  addArticleList,
-  getArticleById,
-  updateArticle
-} from "@/api/article.js";
-import { ElementTiptap } from "element-tiptap";
+import { ElementTiptap } from 'element-tiptap'
 import {
   // 需要的 extensions
   Doc,
@@ -118,21 +101,22 @@ import {
   ListItem,
   BulletList,
   OrderedList
-} from "element-tiptap";
+} from 'element-tiptap'
+import { addArticleList, getArticleById, updateArticle } from '@/api/article.js'
 
-import UploadCover from "@/components/UploadCover";
+import UploadCover from '@/components/UploadCover'
 
 export default {
-  name: "PublishArticle",
+  name: 'PublishArticle',
   data() {
     return {
       article: {
-        name: "",
-        price: "",
-        desc: "",
-        typename: "思想",
+        name: '',
+        price: '',
+        desc: '',
+        typename: '思想',
         typeid: 2,
-        img: "",
+        img: '',
         status: 0,
         cover: {
           images: [],
@@ -142,53 +126,53 @@ export default {
       articleStatusList: [
         {
           id: 0,
-          name: "草稿"
+          name: '草稿'
         },
         {
           id: 1,
-          name: "待审核"
+          name: '待审核'
         },
         {
           id: 2,
-          name: "审核通过"
+          name: '审核通过'
         },
         {
           id: 3,
-          name: "审核失败"
+          name: '审核失败'
         },
         {
           id: 4,
-          name: "已删除"
+          name: '已删除'
         }
       ],
       channels: [
         {
           id: 1,
-          name: "数码"
+          name: '数码'
         },
         {
           id: 2,
-          name: "科技"
+          name: '科技'
         },
         {
           id: 3,
-          name: "思想"
+          name: '思想'
         },
         {
           id: 4,
-          name: "军事"
+          name: '军事'
         },
         {
           id: 5,
-          name: "言情"
+          name: '言情'
         },
         {
           id: 6,
-          name: "水文"
+          name: '水文'
         },
         {
           id: 7,
-          name: "游记"
+          name: '游记'
         }
       ],
       channelId: null, // 查询文章频道
@@ -207,43 +191,43 @@ export default {
       ],
       formRules: {
         name: [
-          { required: true, message: "请输入文章标题", trigger: "blur" },
-          { min: 5, max: 30, message: "输入的字符在5-30之间", trigger: "blur" }
+          { required: true, message: '请输入文章标题', trigger: 'blur' },
+          { min: 5, max: 30, message: '输入的字符在5-30之间', trigger: 'blur' }
         ],
         desc: [
           // { required: true, message: "请输入文章内容", trigger: "blur" }
           // 使用自定义校验解决p标签存在问题
           {
             validator(rule, value, callback) {
-              console.log(value, "value");
-              if (value === "<p></p>") {
-                callback(new Error("请输入内容"));
+              console.log(value, 'value')
+              if (value === '<p></p>') {
+                callback(new Error('请输入内容'))
               } else {
                 // 验证通过
-                callback();
+                callback()
               }
             }
           }
         ],
-        status: [{ required: true, message: "请输入文章标题" }]
+        status: [{ required: true, message: '请输入文章标题' }]
       }
-    };
+    }
   },
   components: {
-    "el-tiptap": ElementTiptap,
-    "upload-cover": UploadCover
+    'el-tiptap': ElementTiptap,
+    'upload-cover': UploadCover
   },
   created() {
-    this.loadChannels();
+    this.loadChannels()
     // 判断编辑文章/ 创建文章
     if (this.$route.query.id) {
-      console.log(this.$route.query.id);
-      this.loadArticle();
+      console.log(this.$route.query.id)
+      this.loadArticle()
     }
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      console.log('submit!')
     },
 
     // 加载频道
@@ -256,18 +240,18 @@ export default {
     async loadArticle() {
       const {
         data: { book }
-      } = await getArticleById(this.$route.query.id);
-      this.article = book;
+      } = await getArticleById(this.$route.query.id)
+      this.article = book
     },
 
     // 发布文章或者编辑文章
     onPublish(draft = false) {
-      const bookId = this.$route.query.id;
-      this.$refs["article"].validate(async valid => {
+      const bookId = this.$route.query.id
+      this.$refs.article.validate(async (valid) => {
         if (!valid) {
-          console.log("error submit!!");
-          return;
+          console.log('无value')
         } else {
+          // eslint-disable-next-line no-lonely-if
           if (bookId) {
             // 编辑文章
             const {
@@ -278,14 +262,14 @@ export default {
                 desc: this.article.desc
               },
               draft
-            });
-            if (error == "0") {
+            })
+            if (error === '0') {
               this.$message({
-                type: "success",
-                message: message
-              });
+                type: 'success',
+                message
+              })
             }
-            console.log(error, message, "编辑");
+            console.log(error, message, '编辑')
           } else {
             // 添加文章
             addArticleList({
@@ -295,30 +279,30 @@ export default {
                 price: this.article.price,
                 typename: this.article.typename,
                 typeid: this.article.typeid,
-                img: "/images/book13.jpg",
+                img: '/images/book13.jpg',
                 status: this.article.status
               }
-            }).then(res => {
+            }).then((res) => {
               const {
                 data: { error, message }
-              } = res;
-              if (error == "0") {
+              } = res
+              if (error === '0') {
                 this.$message({
-                  type: "success",
-                  message: message
-                });
+                  type: 'success',
+                  message
+                })
               }
-            });
+            })
           }
           // setTimeout(() => {
           //   this.$router.push("/content");
           // }, 1000 * 3);
         }
-      });
-      console.log("发布");
+      })
+      console.log('发布')
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

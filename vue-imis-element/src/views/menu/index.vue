@@ -1,9 +1,11 @@
 <template>
-  <div>注册</div>
+  <div>menu page</div>
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'Menu'
+}
 </script>
 
 <style lang="less" scoped></style>

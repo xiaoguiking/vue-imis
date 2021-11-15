@@ -51,15 +51,10 @@
         ></el-input>
       </el-form-item>
       <el-form-item prop="agree">
-        <el-checkbox v-model="ruleForm.agree"
-          >我已经阅读并同意用户协议和隐私条款</el-checkbox
-        >
+        <el-checkbox v-model="ruleForm.agree">我已经阅读并同意用户协议和隐私条款</el-checkbox>
       </el-form-item>
       <el-form-item>
-        <el-button
-          type="primary"
-          @click="submitForm('ruleForm')"
-          :loading="loginloading"
+        <el-button type="primary" @click="submitForm('ruleForm')" :loading="loginloading"
           >登录</el-button
         >
         <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -69,80 +64,80 @@
 </template>
 
 <script>
-import { login } from "@/api/user.js";
+import { login } from '@/api/user.js'
 // import { login, getUserInfo } from "@/api/user.js";
 
 //
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
-    var validateUsername = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入用户名"));
+    let validateUsername = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入用户名'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
 
-    var validateEmail = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入邮箱"));
+    let validateEmail = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入邮箱'))
       }
-      callback();
-    };
+      callback()
+    }
 
     // 密码检查
-    var validatePass = (rule, value, callback) => {
+    let validatePass = (rule, value, callback) => {
       if (value) {
-        callback();
+        callback()
       } else {
-        callback(new Error("请输入密码"));
+        callback(new Error('请输入密码'))
       }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
+    }
+    let validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
       } else if (value !== this.ruleForm.password) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error('两次输入密码不一致!'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     // 校验用户协议
     // 自定义校验规则
     // 验证通过callback
     // 验证失败 callback new Error(“错误消息”)
-    var validateAgree = (rule, value, callback) => {
+    let validateAgree = (rule, value, callback) => {
       if (value) {
-        callback();
+        callback()
       } else {
-        callback(new Error("请同意用户协议"));
+        callback(new Error('请同意用户协议'))
       }
-    };
+    }
     return {
       loginloading: false,
       ruleForm: {
-        password: "",
-        checkPass: "",
-        passwordType: "password",
-        userName: "",
-        email: "",
+        password: '',
+        checkPass: '',
+        passwordType: 'password',
+        userName: '',
+        email: '',
         agree: false // 是否同意协议
       },
       rules: {
-        userName: [{ validator: validateUsername, trigger: "blur" }],
-        email: [{ validator: validateEmail, trigger: "blur" }],
-        password: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        userName: [{ validator: validateUsername, trigger: 'blur' }],
+        email: [{ validator: validateEmail, trigger: 'blur' }],
+        password: [{ validator: validatePass, trigger: 'blur' }],
+        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
 
         agree: [
           {
             validator: validateAgree,
-            trigger: "blur"
+            trigger: 'blur'
           }
         ]
       }
-    };
+    }
   },
   mounted() {},
   methods: {
@@ -157,60 +152,59 @@ export default {
      * 2.通过ref获取el-form组件，调用组件的valiate进行验证
      */
     submitForm(formName) {
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (!valid) {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-        this.loginloading = true;
-        const { userName, password, email } = this.ruleForm;
-        console.log(email, "email");
+        this.loginloading = true
+        const { userName, password, email } = this.ruleForm
+        console.log(email, 'email')
         const { data } = await login({
           userName,
           password,
           email
-        });
-        const { code, msg, user } = data;
-        window.localStorage.setItem("user", JSON.stringify(user));
+        })
+        const { code, msg, user } = data
+        window.localStorage.setItem('user', JSON.stringify(user))
 
-        if (code === "0") {
-          this.loginloading = false;
+        if (code === '0') {
+          this.loginloading = false
           this.$message({
             message: `${msg}, ${user.userName}`,
-            type: "success"
-          });
+            type: 'success'
+          })
 
-          window.localStorage.setItem("username", user.userName);
+          window.localStorage.setItem('username', user.userName)
 
-          this.$store.commit("clearMenu");
-          this.$store.commit("setToken", user.token);
+          this.$store.commit('clearMenu')
+          this.$store.commit('setToken', user.token)
           // this.$store.commit("setMenu", menu);
           //   // this.$store.commit("addMenu", this.$router);
           //   // 路由跳转
-          this.$router.push("/");
+          this.$router.push('/')
 
           this.$router.push({
-            name: "index"
-          });
+            name: 'index'
+          })
         } else {
-          this.loginloading = false;
-          this.this.$message.error(`${msg}`);
-          return;
+          this.loginloading = false
+          this.this.$message.error(`${msg}`)
         }
-      });
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-image: url("./background-login.jpg");
+  background-image: url('./background-login.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;

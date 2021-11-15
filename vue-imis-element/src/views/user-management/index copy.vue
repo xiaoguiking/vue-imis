@@ -24,33 +24,34 @@
 </template>
 
 <script>
-import axios from "axios";
-import CommonTable from "@/components/CommonTable";
+import axios from 'axios'
+import CommonTable from '@/components/CommonTable'
+
 export default {
-  name: "UserManagement",
+  name: 'UserManagement',
   data() {
     return {
       tableDataList: [],
       tableLabelList: [
         {
-          prop: "name",
-          label: "姓名"
+          prop: 'name',
+          label: '姓名'
         },
         {
-          prop: "address",
-          label: "地址"
+          prop: 'address',
+          label: '地址'
         },
         {
-          prop: "sex",
-          label: "性别"
+          prop: 'sex',
+          label: '性别'
         },
         {
-          prop: "age",
-          label: "年龄"
+          prop: 'age',
+          label: '年龄'
         },
         {
-          prop: "id",
-          label: "id"
+          prop: 'id',
+          label: 'id'
         }
       ],
       config: {
@@ -58,22 +59,20 @@ export default {
         page: 1,
         total: 30
       }
-    };
+    }
   },
   components: {
     CommonTable
   },
   created() {
-    this.getList();
+    this.getList()
   },
   mounted() {},
   methods: {
-    openModel() {
-      alert(1111);
-    },
+    openModel() {},
     // 请求数据
     async getList() {
-      var that = this;
+      let that = this
       // promise
       // console.log(this, that);
       // this.config.loading = true;
@@ -89,17 +88,15 @@ export default {
       //   .catch(function (error) {
       //     console.log(error, "error");
       //   });
-      this.config.loading = true;
-      const { data } = await axios.get(
-        "https://mock.yonyoucloud.com/mock/15866/tablelist"
-      );
-      const { users } = data.data;
-      console.log(data);
-      that.config.loading = false;
-      that.tableDataList = users;
+      this.config.loading = true
+      const { data } = await axios.get('https://mock.yonyoucloud.com/mock/15866/tablelist')
+      const { users } = data.data
+      console.log(data)
+      that.config.loading = false
+      that.tableDataList = users
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped></style>

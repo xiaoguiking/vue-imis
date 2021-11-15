@@ -2,19 +2,11 @@
   <div class="upload-cover">
     封面
     <div class="upload-container">
-      <img
-        src="http://localhost:3000/my-uploads/yan30.jpeg"
-        alt=""
-        @click="selectUploadImg"
-      />
+      <img src="http://localhost:3000/my-uploads/yan30.jpeg" alt="" @click="selectUploadImg" />
     </div>
     <el-dialog title="" :visible.sync="dialogVisible" width="width">
       <div>
-        <el-tabs
-          v-model="activeName"
-          type="card"
-          @tab-click="handleClickTab($event)"
-        >
+        <el-tabs v-model="activeName" type="card" @tab-click="handleClickTab($event)">
           <el-tab-pane label="素材库" name="first">
             <!-- 素材列表 -->
             <el-card>
@@ -38,11 +30,7 @@
                   <div class="image-action">
                     <el-button
                       type="success"
-                      :icon="
-                        item.isCollected
-                          ? 'el-icon-star-on'
-                          : 'el-icon-star-off'
-                      "
+                      :icon="item.isCollected ? 'el-icon-star-on' : 'el-icon-star-off'"
                       circle
                       size="mini"
                       @click="onCollectImage(item)"
@@ -97,89 +85,91 @@
 
 <script>
 // import { getImages, collectImage, deleteImage } from "@/api/image.js";
-import { getImages, UploadImages } from "@/api/image.js";
+import { getImages, UploadImages } from '@/api/image.js'
+
 export default {
-  name: "UploadCover",
+  name: 'UploadCover',
   data() {
     return {
       dialogVisible: false,
-      activeName: "first",
+      activeName: 'first',
       loading: false,
       imageList: [],
       page: 1,
       total: 20,
-      previewImg: "",
+      previewImg: '',
       priview: {
-        width: "300px",
-        height: "300px"
+        width: '300px',
+        height: '300px'
       }
-    };
+    }
   },
   mounted() {
-    this.loadImages();
+    this.loadImages()
   },
   methods: {
     selectUploadImg() {
-      this.dialogVisible = true;
+      this.dialogVisible = true
     },
 
     // 初始获取全部图片
     async loadImages(page, isCollected = false) {
-      this.page = page;
-      this.loading = true;
+      this.page = page
+      this.loading = true
       const {
         data: { list, total }
       } = await getImages({
         isCollected,
         page,
         pageSize: 10
-      });
-      this.loading = false;
-      list.forEach(img => {
-        img.loading = false;
-      });
-      this.imageList = list;
-      this.total = total;
+      })
+      this.loading = false
+      list.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.loading = false
+      })
+      this.imageList = list
+      this.total = total
     },
 
     // 切换状态
     handleClickTab(e) {
-      const isCollect = e.name;
+      const isCollect = e.name
       if (isCollect) {
-        this.loadImages();
+        this.loadImages()
       } else {
-        console.log(isCollect);
+        console.log(isCollect)
       }
     },
 
     changePage() {
-      console.log("current page");
+      console.log('current page')
     },
 
     changeUploadImage(e) {
-      const file = e.target.files[0];
-      const blobImg = window.URL.createObjectURL(file);
-      this.$refs["preview-image"].src = blobImg;
+      const file = e.target.files[0]
+      const blobImg = window.URL.createObjectURL(file)
+      this.$refs['preview-image'].src = blobImg
     },
 
     onCoverConfirm() {
-      const file = this.$refs.file.files[0];
+      const file = this.$refs.file.files[0]
       // 上传图片 &&  并且有上传的文件
-      if (this.activeName === "second") {
+      if (this.activeName === 'second') {
         if (!file) {
-          this.$message("请选择图片文件上传");
-          return;
+          this.$message('请选择图片文件上传')
+          return
         }
         // 调用接口 执行上传文件操作
-        const fd = new FormData();
-        fd.append("avatar", file);
-        UploadImages(fd).then(res => {
-          console.log(res);
-        });
+        const fd = new FormData()
+        fd.append('avatar', file)
+        UploadImages(fd).then((res) => {
+          console.log(res)
+        })
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

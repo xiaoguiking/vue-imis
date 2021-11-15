@@ -6,14 +6,15 @@
 </template>
 
 <script>
-import MSon from "./Son";
+import MSon from './Son'
+
 export default {
-  name: "Father",
+  name: 'Father',
   components: {
     MSon
   },
   mounted() {}
-};
+}
 </script>
 
 <style lang="less" scoped></style>

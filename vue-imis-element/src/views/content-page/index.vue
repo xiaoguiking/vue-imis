@@ -16,12 +16,7 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="频道">
-            <el-select
-              v-model="channelId"
-              placeholder="请选择文章频道"
-              ref="channel"
-              clearable
-            >
+            <el-select v-model="channelId" placeholder="请选择文章频道" ref="channel" clearable>
               <el-option label="全部" :value="null"> </el-option>
               <el-option
                 v-for="channel in channels"
@@ -53,10 +48,7 @@
             <!-- <el-button type="primary" @click="onSubmit('form')"
               >立即查询</el-button
             > -->
-            <el-button
-              type="primary"
-              :disabled="loading"
-              @click="getArticleslist(1)"
+            <el-button type="primary" :disabled="loading" @click="getArticleslist(1)"
               >立即查询
             </el-button>
           </el-form-item>
@@ -68,23 +60,13 @@
       <div slot="header" class="clearfix">
         <span>根据搜索条件查询到{{ totalCount }}条数据</span>
       </div>
-      <el-table
-        :data="tableData"
-        stripe
-        style="width: 100%"
-        v-loading="loading"
-      >
-        <el-table-column prop="time" label="出版日期" width="180" fixed>
-        </el-table-column>
-        <el-table-column prop="name" label="书籍名称" width="140">
-        </el-table-column>
-        <el-table-column prop="price" label="价格" width="50px">
-        </el-table-column>
-        <el-table-column prop="desc" label="描述" width="200px">
-        </el-table-column>
+      <el-table :data="tableData" stripe style="width: 100%" v-loading="loading">
+        <el-table-column prop="time" label="出版日期" width="180" fixed> </el-table-column>
+        <el-table-column prop="name" label="书籍名称" width="140"> </el-table-column>
+        <el-table-column prop="price" label="价格" width="50px"> </el-table-column>
+        <el-table-column prop="desc" label="描述" width="200px"> </el-table-column>
         <el-table-column prop="typename" label="书籍类型"> </el-table-column>
-        <el-table-column prop="typeid" label="书籍id" width="50px">
-        </el-table-column>
+        <el-table-column prop="typeid" label="书籍id" width="50px"> </el-table-column>
         <el-table-column prop="status" label="文章状态">
           <template slot-scope="scope">
             <el-tag :type="articleStatusList[Number(scope.row.status)].type">{{
@@ -94,16 +76,8 @@
         </el-table-column>
         <el-table-column prop="img" label="图片" width="180" align="center">
           <template slot-scope="scope">
-            <el-popover
-              placement="right"
-              :title="scope.row.img + scope.row.name"
-              trigger="hover"
-            >
-              <img
-                :src="'http://localhost:3000' + scope.row.img"
-                width="150px"
-                height="150px"
-              />
+            <el-popover placement="right" :title="scope.row.img + scope.row.name" trigger="hover">
+              <img :src="'http://localhost:3000' + scope.row.img" width="150px" height="150px" />
               <img
                 slot="reference"
                 :src="'http://localhost:3000' + scope.row.img"
@@ -151,68 +125,64 @@
 
 <script>
 // 文章状态 0草稿 1待审核 2审核通过 3审核失败 4已删除 5不传为全部
-import { getArticlesList, deleteArticleList } from "@/api/article.js";
+import { getArticlesList, deleteArticleList } from '@/api/article.js'
 // getChannels deleteArticleList updateArticle getArticleById
 // import img2 from "@/assets/img/2.jpeg";
 // import img1 from "@/assets/img/1.jpeg";
 
 export default {
-  name: "ContentPage",
+  name: 'ContentPage',
   data() {
     return {
       form: {
-        name: "",
-        channel: "",
-        date1: "",
-        date2: "",
-        resource: ""
+        name: '',
+        channel: '',
+        date1: '',
+        date2: '',
+        resource: ''
       },
       pickerOptions: {
         shortcuts: [
           {
-            text: "最近一周",
+            text: '最近一周',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
             }
           },
           {
-            text: "最近一个月",
+            text: '最近一个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
             }
           },
           {
-            text: "最近三个月",
+            text: '最近三个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
             }
           }
         ]
       },
       rules: {
-        telphone: [
-          { required: true, message: "请输入手机号", trigger: "blur" }
-        ],
-        cardnum: [
-          { required: true, message: "请输入买受人身份证号", trigger: "blur" }
-        ]
+        telphone: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
+        cardnum: [{ required: true, message: '请输入买受人身份证号', trigger: 'blur' }]
       },
       tableData: [],
       articleStatusList: [
-        { status: 0, text: "草稿", type: "info" },
-        { status: 1, text: "待审核", type: "" },
-        { status: 2, text: "审核通过", type: "success" },
-        { status: 3, text: "审核失败", type: "warning" },
-        { status: 4, text: "已删除", type: "danger" }
+        { status: 0, text: '草稿', type: 'info' },
+        { status: 1, text: '待审核', type: '' },
+        { status: 2, text: '审核通过', type: 'success' },
+        { status: 3, text: '审核失败', type: 'warning' },
+        { status: 4, text: '已删除', type: 'danger' }
       ],
       // articleStatus: ["草稿", "待审核", "审核通过", "审核失败", "已删除"],
       totalCount: 0, // 数据总数
@@ -221,57 +191,57 @@ export default {
       channels: [
         {
           id: 1,
-          name: "数码"
+          name: '数码'
         },
         {
           id: 2,
-          name: "科技"
+          name: '科技'
         },
         {
           id: 3,
-          name: "思想"
+          name: '思想'
         },
         {
           id: 4,
-          name: "军事"
+          name: '军事'
         },
         {
           id: 5,
-          name: "言情"
+          name: '言情'
         },
         {
           id: 6,
-          name: "水文"
+          name: '水文'
         },
         {
           id: 7,
-          name: "游记"
+          name: '游记'
         }
       ],
       channelId: null, // 查询文章频道
       rangeDate: null,
       loading: true,
       page: 1
-    };
+    }
   },
   mounted() {
-    this.getArticleslist();
+    this.getArticleslist()
     // this.getChannelsList();
   },
   methods: {
     onSubmit(formName) {
-      console.log("submit!", this.form, "this========", formName);
-      alert("功能待开发");
-      const data = { ...this.form };
-      console.log(data, "data");
-      console.table(data);
+      console.log('submit!', this.form, 'this========', formName)
+      alert('功能待开发')
+      const data = { ...this.form }
+      console.log(data, 'data')
+      console.table(data)
 
       // this.$refs.name;
     },
 
     // 请求列表数据
     async getArticleslist(page = 1) {
-      this.loading = true;
+      this.loading = true
       const {
         data: { list, total }
       } = await getArticlesList({
@@ -281,21 +251,21 @@ export default {
         channel_id: this.channelId,
         createTime: this.rangeDate ? this.rangeDate[0] : null,
         updateTime: this.rangeDate ? this.rangeDate[1] : null
-      });
+      })
 
-      this.loading = false;
-      this.uniqueArr(list);
-      this.tableData = list;
-      console.log("tableData============>", this.tableData);
+      this.loading = false
+      this.uniqueArr(list)
+      this.tableData = list
+      console.log('tableData============>', this.tableData)
 
-      this.tableData.map(i => i.status);
+      this.tableData.map((i) => i.status)
 
-      this.totalCount = total;
+      this.totalCount = total
     },
 
     // 第几页
     changePage(page) {
-      this.getArticleslist(page);
+      this.getArticleslist(page)
     },
     // 每页条数
     // changePageSize(pageSize) {
@@ -303,12 +273,12 @@ export default {
     //   this.getArticleslist(pageSize);
     // },
     split_array(arr, len) {
-      const a_len = arr.length;
-      const result = [];
+      const a_len = arr.length
+      const result = []
       for (let i = 0; i < a_len; i += len) {
-        result.push(arr.slice(i, i + len));
+        result.push(arr.slice(i, i + len))
       }
-      return result;
+      return result
     },
 
     // 获取文章频道
@@ -318,73 +288,72 @@ export default {
     // },
 
     uniqueArr(data) {
-      let hasArr = [];
-      let hasObj = {};
+      let hasArr = []
+      let hasObj = {}
 
-      data.forEach(item => {
+      data.forEach((item) => {
         if (hasObj[item.name]) {
-          hasArr.push(item);
-          if (hasObj[item.name].length === 0) return;
-          hasArr.push(hasObj[item.name]);
-          hasObj[item.name] = [];
+          hasArr.push(item)
+          if (hasObj[item.name].length === 0) return
+          hasArr.push(hasObj[item.name])
+          hasObj[item.name] = []
         } else {
-          hasObj[item.name] = item;
+          hasObj[item.name] = item
         }
-      });
+      })
 
-      hasObj = {};
+      hasObj = {}
 
       if (hasArr.length !== 0) {
-        const uniqueName = Array.from(new Set(hasArr.map(i => i.name)));
-        const uniqueId = Array.from(hasArr.map(i => i.id));
-        const id = this.split_array(uniqueId, 20).map(item => {
-          return item + "<br>";
-        });
+        const uniqueName = Array.from(new Set(hasArr.map((i) => i.name)))
+        const uniqueId = Array.from(hasArr.map((i) => i.id))
+        const id = this.split_array(uniqueId, 20).map((item) => {
+          return `${item}<br>`
+        })
         this.$message({
           duration: 10000,
           dangerouslyUseHTMLString: true,
           message: `警告哦，这是一条警告消息: <br/> 重复的name: ${uniqueName}, 重复的id： ${id} `,
-          type: "warning"
-        });
+          type: 'warning'
+        })
       }
 
       return {
         hasArr
-      };
+      }
     },
 
     // handleEdit(index, row) {
-    //   alert("编辑");
     //   console.log(index, row);
     // },
     async handleDelete(index, row) {
-      console.log(index, row._id, "========");
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+      console.log(index, row._id, '========')
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(async () => {
-          const { data } = await deleteArticleList({ _id: row._id });
-          console.log(data, "==========>");
-          this.getArticleslist(this.page);
-          window.location.reload();
+          const { data } = await deleteArticleList({ _id: row._id })
+          console.log(data, '==========>')
+          this.getArticleslist(this.page)
+          window.location.reload()
           if (data.code === 0) {
             this.$message({
-              type: "success",
-              message: "删除成功!"
-            });
+              type: 'success',
+              message: '删除成功!'
+            })
           }
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped></style>

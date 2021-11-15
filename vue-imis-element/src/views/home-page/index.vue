@@ -11,19 +11,19 @@
             </div>
             <div class="user-info-list">
               <span>时间:</span>
-              <span style="margin-left:20px">{{ reporttime }}</span>
+              <span style="margin-left: 20px">{{ reporttime }}</span>
             </div>
             <div class="user-info-list">
               <span>位置:</span>
-              <span style="margin-left:20px">{{ city }}</span>
+              <span style="margin-left: 20px">{{ city }}</span>
             </div>
             <div class="user-info-list">
               <span>温度:</span>
-              <span style="margin-left:20px">{{ temperature }}</span>
+              <span style="margin-left: 20px">{{ temperature }}</span>
             </div>
             <div class="user-info-list">
               <span>天气:</span>
-              <span style="margin-left:20px">{{ weather }}</span>
+              <span style="margin-left: 20px">{{ weather }}</span>
             </div>
           </el-card>
         </div></el-col
@@ -35,9 +35,7 @@
             <div slot="header" class="clearfix">
               待办事项
               <span></span>
-              <el-button style="float: right; padding: 3px 0" type="text"
-                >添加</el-button
-              >
+              <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
             </div>
             <!-- <div class="todo">待办事项</div> -->
             <el-table :show-header="false" :data="todoList" style="width: 100%">
@@ -48,10 +46,7 @@
               </el-table-column>
               <el-table-column>
                 <template slot-scope="scope">
-                  <div
-                    class="todo-item"
-                    :class="{ 'todo-item-del': scope.row.status }"
-                  >
+                  <div class="todo-item" :class="{ 'todo-item-del': scope.row.status }">
                     {{ scope.row.title }}
                   </div>
                 </template>
@@ -81,14 +76,12 @@
       <el-card class="box-card" v-for="(item, index) of homelist" :key="index">
         <div slot="header" class="clearfix">
           <span>{{ item.title }}</span>
-          <el-button style="float: right; padding: 3px 0" type="text"
-            >操作按钮</el-button
-          >
+          <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
         </div>
         <div class="index-item">
           {{ item.content }}
         </div>
-        <a class="index-bottom">查看</a>
+        <a class="index-bottom" :href="item.link" target="_blank">查看</a>
       </el-card>
     </div>
     <!-- 待办事项axios -->
@@ -98,10 +91,7 @@
           <div slot="header" class="clearfix">
             待办事项axios
             <span></span>
-            <el-button
-              style="float: right; padding: 3px 0"
-              type="text"
-              @click="addTodo()"
+            <el-button style="float: right; padding: 3px 0" type="text" @click="addTodo()"
               >添加</el-button
             >
           </div>
@@ -113,10 +103,7 @@
             </el-table-column>
             <el-table-column>
               <template slot-scope="scope">
-                <div
-                  class="todo-item"
-                  :class="{ 'todo-item-del': scope.row.status }"
-                >
+                <div class="todo-item" :class="{ 'todo-item-del': scope.row.status }">
                   {{ scope.row.title }}
                 </div>
               </template>
@@ -128,11 +115,7 @@
                   style="margin-right: 10px"
                   @click.prevent="patchTodo(scope.$index, scope.row)"
                 ></i>
-                <el-button
-                  @click.native.prevent="deleteTodo(scope.row)"
-                  type="text"
-                  size="small"
-                >
+                <el-button @click.native.prevent="deleteTodo(scope.row)" type="text" size="small">
                   <i class="el-icon-delete"></i>
                 </el-button>
               </template>
@@ -157,52 +140,55 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 // import {getTodoList, getTodoId, addTodo, patchTodo,  deleteTodo } from "@/api/todo.js"
-import { getTodoList, deleteTodoList, addTodoList } from "@/api/todo.js";
-import { getIpInfo, getWeather } from "@/api/other.js";
+import { getTodoList, deleteTodoList, addTodoList } from '@/api/todo.js'
+import { getIpInfo, getWeather } from '@/api/other.js'
 
 // import service from "../../api/config";
 // import adver from "@/assets/img/adver.jpg";
 
-import adver from "@/assets/img/adver2.jpg";
+import adver from '@/assets/img/adver2.jpg'
 
 export default {
-  name: "Home",
+  name: 'Home',
   data() {
     return {
       homelist: [],
       // 头像
       circleUrl: adver,
       // circleUrl: "https://gitee.com/king8686/web-images/blob/master/vue-imis/Garden%20of%20Words/ChMkJlbKyUOIbjJjACM9DhzAtPkAALILgPbML8AIz0m847.png",
-      weather: "",
-      reporttime: "",
-      temperature: "",
+      weather: '',
+      reporttime: '',
+      temperature: '',
       editVisible: false,
-      city: "",
-      adcode: "",
+      city: '',
+      adcode: '',
       form: {
-        id: "",
-        title: ""
+        id: '',
+        title: ''
       },
       idx: -1,
       todoList: [
         {
           id: 1,
-          title: "我喝过很烈的酒,也放过不该放的手,从前不会回头,往后不会将就."
+          title: '我喝过很烈的酒,也放过不该放的手,从前不会回头,往后不会将就.'
         },
         {
           id: 2,
-          title:
-            "什么叫喜欢一个人?那就是见到对方之前,不知情为何物,错过之后,更不知情为何物。"
+          title: '什么叫喜欢一个人?那就是见到对方之前,不知情为何物,错过之后,更不知情为何物。'
         },
         {
           id: 3,
-          title: "故事故事，便是故去的事情了，多说无益。"
+          title: '故事故事，便是故去的事情了，多说无益。'
+        },
+        {
+          id: 4,
+          title: '心无杀戮自有杀戮意，手无寸兵却拥千万卒'
         }
       ],
       todoAxios: []
-    };
+    }
   },
 
   mounted() {
@@ -210,41 +196,41 @@ export default {
     // this.$axios.get("/home/getData").then((res) => {
     //   console.log(res.data);
     // });
-    this.getData();
-    this.getTodo();
-    this.getLocation();
+    this.getData()
+    this.getTodo()
+    this.getLocation()
   },
   methods: {
     async getData() {
-      const { data } = await axios.get("/home/getData");
-      const { videoData } = data.data;
-      this.homelist = videoData;
+      const { data } = await axios.get('/home/getData')
+      const { videoData } = data.data
+      this.homelist = videoData
     },
 
     deleteRow(index) {
-      this.todoList.splice(index, 1);
+      this.todoList.splice(index, 1)
     },
 
     // 编辑操作
     editRow(index, rows) {
-      console.log(index);
-      this.form = rows;
-      this.editVisible = true;
+      console.log(index)
+      this.form = rows
+      this.editVisible = true
     },
 
     // 编辑操作
     handleEdit(index, row) {
-      this.idx = index;
-      this.form = row;
-      this.editVisible = true;
+      this.idx = index
+      this.form = row
+      this.editVisible = true
     },
     // 保存编辑
     async saveEditTodo() {
-      this.editVisible = false;
-      console.log(this.form.title, "title");
-      const { data } = await addTodoList({ title: this.form.title });
-      console.log(data);
-      this.getTodo();
+      this.editVisible = false
+      console.log(this.form.title, 'title')
+      const { data } = await addTodoList({ title: this.form.title })
+      console.log(data)
+      this.getTodo()
       // if (data.error === 1) {
       //   this.$notify({
       //     title: '提示',
@@ -256,90 +242,90 @@ export default {
 
     //  添加item
     addItem() {
-      this.editVisible = true;
-      console.log(this.form.id, "id");
+      this.editVisible = true
+      console.log(this.form.id, 'id')
       console.log(
         this.todoList.push({
           id: this.form.id,
           title: this.form.title
         })
-      );
+      )
     },
 
     // 获取todo
     async getTodo() {
       const {
         data: { data }
-      } = await getTodoList();
-      this.todoAxios = data;
+      } = await getTodoList()
+      this.todoAxios = data
     },
     // 获取指定id的todo
 
     // 添加todo
     addTodo() {
-      this.editVisible = true;
-      this.form.title = "";
-      console.log(this.form.title, "title");
+      this.editVisible = true
+      this.form.title = ''
+      console.log(this.form.title, 'title')
     },
     // 修改todo
     patchTodo() {},
 
     // 删除todo
     async deleteTodo(row) {
-      console.log(row.id);
+      console.log(row.id)
 
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(async () => {
-          const { data } = await deleteTodoList(row.id);
-          this.getTodo();
+          const { data } = await deleteTodoList(row.id)
+          this.getTodo()
           if (data.code === 0) {
             this.$message({
-              type: "success",
-              message: "删除成功!"
-            });
+              type: 'success',
+              message: '删除成功!'
+            })
           }
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
 
     // 获取地址位置
     async getLocation() {
-      console.log("地址位置");
+      console.log('地址位置')
       const {
         data: { city, adcode }
       } = await getIpInfo({
-        key: "153e8c7841cb60d5376f06eec53c7567"
+        key: '153e8c7841cb60d5376f06eec53c7567'
         // ip: "123.112.16.140"
-      });
-      this.city = city;
-      this.adcode = adcode;
+      })
+      this.city = city
+      this.adcode = adcode
 
       const {
         data: { lives }
       } = await getWeather({
-        key: "2d0823d5f3aaa21fadffd3205ab4944b",
-        city: "110000",
-        extensions: "base",
-        output: "json"
-      });
-      const { weather, temperature, reporttime, ...rest } = lives[0];
-      this.weather = weather;
-      this.temperature = temperature;
-      this.reporttime = reporttime;
+        key: '2d0823d5f3aaa21fadffd3205ab4944b',
+        city: '110000',
+        extensions: 'base',
+        output: 'json'
+      })
+      const { weather, temperature, reporttime, ...rest } = lives[0]
+      this.weather = weather
+      this.temperature = temperature
+      this.reporttime = reporttime
 
-      console.log(lives, rest, "data=======>");
+      console.log(lives, rest, 'data=======>')
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -349,7 +335,7 @@ export default {
     font-weight: 700;
     padding-top: 10px;
     padding-bottom: 20px;
-    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   }
   .user-info {
     display: flex;
@@ -370,8 +356,8 @@ export default {
 
   .box-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 300px);
-    gap: 20px 10px;
+    grid-template-columns: repeat(auto-fill, 330px);
+    gap: 20px 20px;
     margin-bottom: 20px;
 
     .box-card {

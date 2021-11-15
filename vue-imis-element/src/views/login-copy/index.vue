@@ -7,27 +7,27 @@
 
 <script>
 export default {
-  name: "LoginCopy",
+  name: 'LoginCopy',
   data() {
     return {
-      username: ""
-    };
+      username: ''
+    }
   },
   methods: {
     handleClickBtn() {
-      const username = this.username.trim();
+      const username = this.username.trim()
       if (this.username.length < 4) {
         this.$message({
-          message: "用户名不能小于4位",
-          type: "warning"
-        });
-        return;
+          message: '用户名不能小于4位',
+          type: 'warning'
+        })
+        return
       }
-      localStorage.setItem("username", username);
-      this.$router.push("/chatroom");
+      localStorage.setItem('username', username)
+      this.$router.push('/chatroom')
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
