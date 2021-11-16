@@ -6,7 +6,7 @@
         <i
           :class="{
             'el-icon-s-fold': isCollapse,
-            'el-icon-s-unfold': !isCollapse
+            'el-icon-s-unfold': !isCollapse,
           }"
           @click="toggleSide"
         >
@@ -59,7 +59,7 @@ export default {
   props: ["is-collapse"],
   data() {
     return {
-      fullscreen: false
+      fullscreen: false,
     };
   },
   created() {},
@@ -76,7 +76,7 @@ export default {
       // location.reload();
       this.$message({
         message: `恭喜你，已经注销`,
-        type: "success"
+        type: "success",
       });
       this.$router.push("/login");
     },
@@ -107,16 +107,16 @@ export default {
         }
       }
       this.fullscreen = !this.fullscreen;
-    }
+    },
   },
   computed: {
     ...mapState({
-      current: state => {
+      current: (state) => {
         // console.log(state.tab.currentMenu, "===========>menu");
         return state.tab.currentMenu;
-      }
-    })
-  }
+      },
+    }),
+  },
 };
 </script>
 

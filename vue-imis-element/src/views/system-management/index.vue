@@ -82,7 +82,7 @@ export default {
       dialogTableVisible: false,
       dialogFormVisible: false,
       rowShowData: [],
-      rowEditData: {}
+      rowEditData: {},
     };
   },
   methods: {
@@ -93,7 +93,7 @@ export default {
     handleEditClick(row) {
       this.dialogFormVisible = true;
       this.rowEditData = row;
-    }
+    },
   },
   created() {
     // 非当前且之后时间 + status: 8
@@ -108,14 +108,14 @@ export default {
           `非当前且之后的时间并且状态为status为8的, id: ${arrId}`,
           "警告",
           {
-            confirmButtonText: "确定"
+            confirmButtonText: "确定",
           }
         );
       }
       return item;
     });
     this.tableData = listData;
-  }
+  },
 };
 </script>
 

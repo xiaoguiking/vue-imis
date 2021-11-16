@@ -37,20 +37,20 @@ export default {
       isCollapse: false, // 当前侧边栏的状态显示
       // 数组对象控制css
       // containerActive: "container-active",
-      commonContainer: "common-container"
+      commonContainer: "common-container",
     };
   },
   components: {
     CommonHeader,
     CommonAside,
-    CommonTab
+    CommonTab,
   },
   methods: {
     handleSide() {
       console.log("子调父方法");
       this.isCollapse = !this.isCollapse;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    test page
-  </div>
+  <div>test page</div>
 </template>
 
 <script>
@@ -10,6 +8,4 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

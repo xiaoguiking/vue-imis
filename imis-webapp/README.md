@@ -18,9 +18,10 @@
 
 ### 项目初始化
 
-- 移动端适配问题javascript
-  ```
-  rem + amfe-flexible + postcss-pxtorem  
+- 移动端适配问题 javascript
+
+  ````
+  rem + amfe-flexible + postcss-pxtorem
    rem:
   amfe-flexible: yarn add amfe-flexible
   postcss-pxtorem: px--------> rem yarn add postcss-pxtorem@5.1.1
@@ -41,14 +42,13 @@
 
       ```
 
-
-
+  ````
 
 - 字体图标 icon-font
-  ```
-  
+
   ```
 
+  ```
 
 ## 项目模块
 

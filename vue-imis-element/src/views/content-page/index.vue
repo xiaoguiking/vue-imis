@@ -165,7 +165,7 @@ export default {
         channel: "",
         date1: "",
         date2: "",
-        resource: ""
+        resource: "",
       },
       pickerOptions: {
         shortcuts: [
@@ -176,7 +176,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近一个月",
@@ -185,7 +185,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit("pick", [start, end]);
-            }
+            },
           },
           {
             text: "最近三个月",
@@ -194,17 +194,17 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       rules: {
         telphone: [
-          { required: true, message: "请输入手机号", trigger: "blur" }
+          { required: true, message: "请输入手机号", trigger: "blur" },
         ],
         cardnum: [
-          { required: true, message: "请输入买受人身份证号", trigger: "blur" }
-        ]
+          { required: true, message: "请输入买受人身份证号", trigger: "blur" },
+        ],
       },
       tableData: [],
       articleStatusList: [
@@ -212,7 +212,7 @@ export default {
         { status: 1, text: "待审核", type: "" },
         { status: 2, text: "审核通过", type: "success" },
         { status: 3, text: "审核失败", type: "warning" },
-        { status: 4, text: "已删除", type: "danger" }
+        { status: 4, text: "已删除", type: "danger" },
       ],
       // articleStatus: ["草稿", "待审核", "审核通过", "审核失败", "已删除"],
       totalCount: 0, // 数据总数
@@ -221,37 +221,37 @@ export default {
       channels: [
         {
           id: 1,
-          name: "数码"
+          name: "数码",
         },
         {
           id: 2,
-          name: "科技"
+          name: "科技",
         },
         {
           id: 3,
-          name: "思想"
+          name: "思想",
         },
         {
           id: 4,
-          name: "军事"
+          name: "军事",
         },
         {
           id: 5,
-          name: "言情"
+          name: "言情",
         },
         {
           id: 6,
-          name: "水文"
+          name: "水文",
         },
         {
           id: 7,
-          name: "游记"
-        }
+          name: "游记",
+        },
       ],
       channelId: null, // 查询文章频道
       rangeDate: null,
       loading: true,
-      page: 1
+      page: 1,
     };
   },
   mounted() {
@@ -273,14 +273,14 @@ export default {
     async getArticleslist(page = 1) {
       this.loading = true;
       const {
-        data: { list, total }
+        data: { list, total },
       } = await getArticlesList({
         page,
         pageSize: this.pageSize,
         status: this.status,
         channel_id: this.channelId,
         createTime: this.rangeDate ? this.rangeDate[0] : null,
-        updateTime: this.rangeDate ? this.rangeDate[1] : null
+        updateTime: this.rangeDate ? this.rangeDate[1] : null,
       });
 
       this.loading = false;
@@ -288,7 +288,7 @@ export default {
       this.tableData = list;
       console.log("tableData============>", this.tableData);
 
-      this.tableData.map(i => i.status);
+      this.tableData.map((i) => i.status);
 
       this.totalCount = total;
     },
@@ -321,7 +321,7 @@ export default {
       let hasArr = [];
       let hasObj = {};
 
-      data.forEach(item => {
+      data.forEach((item) => {
         if (hasObj[item.name]) {
           hasArr.push(item);
           if (hasObj[item.name].length === 0) return;
@@ -335,21 +335,21 @@ export default {
       hasObj = {};
 
       if (hasArr.length !== 0) {
-        const uniqueName = Array.from(new Set(hasArr.map(i => i.name)));
-        const uniqueId = Array.from(hasArr.map(i => i.id));
-        const id = this.split_array(uniqueId, 20).map(item => {
+        const uniqueName = Array.from(new Set(hasArr.map((i) => i.name)));
+        const uniqueId = Array.from(hasArr.map((i) => i.id));
+        const id = this.split_array(uniqueId, 20).map((item) => {
           return item + "<br>";
         });
         this.$message({
           duration: 10000,
           dangerouslyUseHTMLString: true,
           message: `警告哦，这是一条警告消息: <br/> 重复的name: ${uniqueName}, 重复的id： ${id} `,
-          type: "warning"
+          type: "warning",
         });
       }
 
       return {
-        hasArr
+        hasArr,
       };
     },
 
@@ -362,7 +362,7 @@ export default {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(async () => {
           const { data } = await deleteArticleList({ _id: row._id });
@@ -372,18 +372,18 @@ export default {
           if (data.code === 0) {
             this.$message({
               type: "success",
-              message: "删除成功!"
+              message: "删除成功!",
             });
           }
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: "已取消删除",
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

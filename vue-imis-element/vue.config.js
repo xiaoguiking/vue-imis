@@ -10,9 +10,9 @@ module.exports = {
         target: "http://localhost:3000", //代理接口
         changeOrigin: true, // 是否跨域
         pathRewrite: {
-          "^/api": "/api" //代理的路径
-        }
-      }
-    }
-  }
+          "^/api": "/api", //代理的路径
+        },
+      },
+    },
+  },
 };

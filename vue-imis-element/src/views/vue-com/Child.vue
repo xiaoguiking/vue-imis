@@ -16,19 +16,19 @@ export default {
   props: {
     msg: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data() {
     return {
       busMsg: "",
       obj: {
-        color: "green"
-      }
+        color: "green",
+      },
     };
   },
   mounted() {
-    bus.$on("acceptMsg", val => {
+    bus.$on("acceptMsg", (val) => {
       console.log(val);
       this.busMsg = val;
     });
@@ -39,8 +39,8 @@ export default {
     },
     resetMsg() {
       this.$emit("clearMsg", "");
-    }
-  }
+    },
+  },
 };
 </script>
 

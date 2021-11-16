@@ -34,34 +34,34 @@ export default {
       tableLabelList: [
         {
           prop: "name",
-          label: "姓名"
+          label: "姓名",
         },
         {
           prop: "address",
-          label: "地址"
+          label: "地址",
         },
         {
           prop: "sex",
-          label: "性别"
+          label: "性别",
         },
         {
           prop: "age",
-          label: "年龄"
+          label: "年龄",
         },
         {
           prop: "id",
-          label: "id"
-        }
+          label: "id",
+        },
       ],
       config: {
         loading: false,
         page: 1,
-        total: 30
-      }
+        total: 30,
+      },
     };
   },
   components: {
-    CommonTable
+    CommonTable,
   },
   created() {
     this.getList();
@@ -97,8 +97,8 @@ export default {
       console.log(data);
       that.config.loading = false;
       that.tableDataList = users;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -19,7 +19,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 1
+            id: 1,
           },
           {
             date: "2016-05-04",
@@ -28,7 +28,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 2
+            id: 2,
           },
           {
             date: "2016-05-01",
@@ -37,7 +37,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 3
+            id: 3,
           },
           {
             date: "2016-05-03",
@@ -46,7 +46,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 4
+            id: 4,
           },
           {
             date: "2016-05-02",
@@ -55,7 +55,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 5
+            id: 5,
           },
           {
             date: "2016-05-04",
@@ -64,7 +64,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 6
+            id: 6,
           },
           {
             date: "2016-05-01",
@@ -73,7 +73,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 7
+            id: 7,
           },
           {
             date: "2016-05-03",
@@ -82,7 +82,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 8
+            id: 8,
           },
           {
             date: "2016-05-02",
@@ -91,7 +91,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 9
+            id: 9,
           },
           {
             date: "2016-05-04",
@@ -100,7 +100,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 10
+            id: 10,
           },
           {
             date: "2016-05-01",
@@ -109,7 +109,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 11
+            id: 11,
           },
           {
             date: "2016-05-03",
@@ -118,7 +118,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 12
+            id: 12,
           },
           {
             date: "2016-05-02",
@@ -127,7 +127,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 13
+            id: 13,
           },
           {
             date: "2016-05-04",
@@ -136,7 +136,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 14
+            id: 14,
           },
           {
             date: "2016-05-01",
@@ -145,7 +145,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 15
+            id: 15,
           },
           {
             date: "2016-05-03",
@@ -154,7 +154,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 16
+            id: 16,
           },
           {
             date: "2016-05-02",
@@ -163,7 +163,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 17
+            id: 17,
           },
           {
             date: "2016-05-04",
@@ -172,7 +172,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 18
+            id: 18,
           },
           {
             date: "2016-05-01",
@@ -181,7 +181,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 19
+            id: 19,
           },
           {
             date: "2016-05-03",
@@ -190,7 +190,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 20
+            id: 20,
           },
           {
             date: "2016-05-02",
@@ -199,7 +199,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 21
+            id: 21,
           },
           {
             date: "2016-05-04",
@@ -208,7 +208,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 22
+            id: 22,
           },
           {
             date: "2016-05-01",
@@ -217,7 +217,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 23
+            id: 23,
           },
           {
             date: "2016-05-03",
@@ -226,7 +226,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 24
+            id: 24,
           },
           {
             date: "2016-05-02",
@@ -235,7 +235,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 25
+            id: 25,
           },
           {
             date: "2016-05-04",
@@ -244,7 +244,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 26
+            id: 26,
           },
           {
             date: "2016-05-01",
@@ -253,7 +253,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 27
+            id: 27,
           },
           {
             date: "2016-05-03",
@@ -262,7 +262,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 28
+            id: 28,
           },
           {
             date: "2016-05-02",
@@ -271,7 +271,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 29
+            id: 29,
           },
           {
             date: "2016-05-04",
@@ -280,7 +280,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 30
+            id: 30,
           },
           {
             date: "2016-05-01",
@@ -289,7 +289,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 31
+            id: 31,
           },
           {
             date: "2016-05-03",
@@ -298,7 +298,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 32
+            id: 32,
           },
           {
             date: "2016-05-02",
@@ -307,7 +307,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 33
+            id: 33,
           },
           {
             date: "2016-05-04",
@@ -316,7 +316,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 34
+            id: 34,
           },
           {
             date: "2016-05-01",
@@ -325,7 +325,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 35
+            id: 35,
           },
           {
             date: "2016-05-03",
@@ -334,7 +334,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 36
+            id: 36,
           },
           {
             date: "2016-05-02",
@@ -343,7 +343,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 37
+            id: 37,
           },
           {
             date: "2016-05-04",
@@ -352,7 +352,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 38
+            id: 38,
           },
           {
             date: "2016-05-01",
@@ -361,7 +361,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 39
+            id: 39,
           },
           {
             date: "2016-05-03",
@@ -370,7 +370,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 40
+            id: 40,
           },
           {
             date: "2016-05-02",
@@ -379,7 +379,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 41
+            id: 41,
           },
           {
             date: "2016-05-04",
@@ -388,7 +388,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 42
+            id: 42,
           },
           {
             date: "2016-05-01",
@@ -397,7 +397,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 43
+            id: 43,
           },
           {
             date: "2016-05-03",
@@ -406,7 +406,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 44
+            id: 44,
           },
           {
             date: "2016-05-02",
@@ -415,7 +415,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 45
+            id: 45,
           },
           {
             date: "2016-05-04",
@@ -424,7 +424,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 46
+            id: 46,
           },
           {
             date: "2016-05-01",
@@ -433,7 +433,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 47
+            id: 47,
           },
           {
             date: "2016-05-03",
@@ -442,7 +442,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 48
+            id: 48,
           },
           {
             date: "2016-05-02",
@@ -451,7 +451,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 49
+            id: 49,
           },
           {
             date: "2016-05-04",
@@ -460,7 +460,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 50
+            id: 50,
           },
           {
             date: "2016-05-01",
@@ -469,7 +469,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 51
+            id: 51,
           },
           {
             date: "2016-05-03",
@@ -478,7 +478,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 52
+            id: 52,
           },
           {
             date: "2016-05-02",
@@ -487,7 +487,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 53
+            id: 53,
           },
           {
             date: "2016-05-04",
@@ -496,7 +496,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 54
+            id: 54,
           },
           {
             date: "2016-05-01",
@@ -505,7 +505,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 55
+            id: 55,
           },
           {
             date: "2016-05-03",
@@ -514,7 +514,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 56
+            id: 56,
           },
           {
             date: "2016-05-02",
@@ -523,7 +523,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 57
+            id: 57,
           },
           {
             date: "2016-05-04",
@@ -532,7 +532,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 58
+            id: 58,
           },
           {
             date: "2016-05-01",
@@ -541,7 +541,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 59
+            id: 59,
           },
           {
             date: "2016-05-03",
@@ -550,7 +550,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 60
+            id: 60,
           },
           {
             date: "2016-05-02",
@@ -559,7 +559,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 61
+            id: 61,
           },
           {
             date: "2016-05-04",
@@ -568,7 +568,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 62
+            id: 62,
           },
           {
             date: "2016-05-01",
@@ -577,7 +577,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1519 弄",
             zip: 200333,
-            id: 63
+            id: 63,
           },
           {
             date: "2016-05-03",
@@ -586,7 +586,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1516 弄",
             zip: 200333,
-            id: 64
+            id: 64,
           },
           {
             date: "2016-05-02",
@@ -595,7 +595,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1518 弄",
             zip: 200333,
-            id: 65
+            id: 65,
           },
           {
             date: "2016-05-04",
@@ -604,7 +604,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 66
+            id: 66,
           },
           {
             date: "2016-05-04",
@@ -613,7 +613,7 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 67
+            id: 67,
           },
           {
             date: "2016-05-04",
@@ -622,12 +622,12 @@ export default {
             city: "普陀区",
             address: "上海市普陀区金沙江路 1517 弄",
             zip: 200333,
-            id: 68
-          }
-        ]
-      }
+            id: 68,
+          },
+        ],
+      },
     };
-  }
+  },
 
   //
 };

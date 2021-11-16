@@ -102,7 +102,7 @@
 import {
   addArticleList,
   getArticleById,
-  updateArticle
+  updateArticle,
 } from "@/api/article.js";
 import { ElementTiptap } from "element-tiptap";
 import {
@@ -117,7 +117,7 @@ import {
   Strike,
   ListItem,
   BulletList,
-  OrderedList
+  OrderedList,
 } from "element-tiptap";
 
 import UploadCover from "@/components/UploadCover";
@@ -136,60 +136,60 @@ export default {
         status: 0,
         cover: {
           images: [],
-          type: 0 // 封面类型 -1自动 0 无图  11张 3张
-        }
+          type: 0, // 封面类型 -1自动 0 无图  11张 3张
+        },
       },
       articleStatusList: [
         {
           id: 0,
-          name: "草稿"
+          name: "草稿",
         },
         {
           id: 1,
-          name: "待审核"
+          name: "待审核",
         },
         {
           id: 2,
-          name: "审核通过"
+          name: "审核通过",
         },
         {
           id: 3,
-          name: "审核失败"
+          name: "审核失败",
         },
         {
           id: 4,
-          name: "已删除"
-        }
+          name: "已删除",
+        },
       ],
       channels: [
         {
           id: 1,
-          name: "数码"
+          name: "数码",
         },
         {
           id: 2,
-          name: "科技"
+          name: "科技",
         },
         {
           id: 3,
-          name: "思想"
+          name: "思想",
         },
         {
           id: 4,
-          name: "军事"
+          name: "军事",
         },
         {
           id: 5,
-          name: "言情"
+          name: "言情",
         },
         {
           id: 6,
-          name: "水文"
+          name: "水文",
         },
         {
           id: 7,
-          name: "游记"
-        }
+          name: "游记",
+        },
       ],
       channelId: null, // 查询文章频道
       extensions: [
@@ -203,12 +203,12 @@ export default {
         new Strike(),
         new ListItem(),
         new BulletList(),
-        new OrderedList()
+        new OrderedList(),
       ],
       formRules: {
         name: [
           { required: true, message: "请输入文章标题", trigger: "blur" },
-          { min: 5, max: 30, message: "输入的字符在5-30之间", trigger: "blur" }
+          { min: 5, max: 30, message: "输入的字符在5-30之间", trigger: "blur" },
         ],
         desc: [
           // { required: true, message: "请输入文章内容", trigger: "blur" }
@@ -222,16 +222,16 @@ export default {
                 // 验证通过
                 callback();
               }
-            }
-          }
+            },
+          },
         ],
-        status: [{ required: true, message: "请输入文章标题" }]
-      }
+        status: [{ required: true, message: "请输入文章标题" }],
+      },
     };
   },
   components: {
     "el-tiptap": ElementTiptap,
-    "upload-cover": UploadCover
+    "upload-cover": UploadCover,
   },
   created() {
     this.loadChannels();
@@ -255,7 +255,7 @@ export default {
     // 加载指定id对应内容
     async loadArticle() {
       const {
-        data: { book }
+        data: { book },
       } = await getArticleById(this.$route.query.id);
       this.article = book;
     },
@@ -263,7 +263,7 @@ export default {
     // 发布文章或者编辑文章
     onPublish(draft = false) {
       const bookId = this.$route.query.id;
-      this.$refs["article"].validate(async valid => {
+      this.$refs["article"].validate(async (valid) => {
         if (!valid) {
           console.log("error submit!!");
           return;
@@ -271,18 +271,18 @@ export default {
           if (bookId) {
             // 编辑文章
             const {
-              data: { error, message }
+              data: { error, message },
             } = await updateArticle(bookId, {
               book: {
                 name: this.article.name,
-                desc: this.article.desc
+                desc: this.article.desc,
               },
-              draft
+              draft,
             });
             if (error == "0") {
               this.$message({
                 type: "success",
-                message: message
+                message: message,
               });
             }
             console.log(error, message, "编辑");
@@ -296,16 +296,16 @@ export default {
                 typename: this.article.typename,
                 typeid: this.article.typeid,
                 img: "/images/book13.jpg",
-                status: this.article.status
-              }
-            }).then(res => {
+                status: this.article.status,
+              },
+            }).then((res) => {
               const {
-                data: { error, message }
+                data: { error, message },
               } = res;
               if (error == "0") {
                 this.$message({
                   type: "success",
-                  message: message
+                  message: message,
                 });
               }
             });
@@ -316,8 +316,8 @@ export default {
         }
       });
       console.log("发布");
-    }
-  }
+    },
+  },
 };
 </script>
 

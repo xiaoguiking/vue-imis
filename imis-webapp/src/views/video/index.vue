@@ -1,7 +1,5 @@
 <template>
-  <div>
-    video page
-  </div>
+  <div>video page</div>
 </template>
 
 <script>

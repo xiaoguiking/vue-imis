@@ -154,7 +154,7 @@ export default {
         passwordType: "password",
         userName: "",
         email: "",
-        agree: false // 是否同意协议
+        agree: false, // 是否同意协议
         // age: "",
       },
       rules: {
@@ -166,11 +166,11 @@ export default {
         agree: [
           {
             validator: validateAgree,
-            trigger: "blur"
-          }
-        ]
+            trigger: "blur",
+          },
+        ],
         // age: [{ validator: checkAge, trigger: "blur" }],
-      }
+      },
     };
   },
   mounted() {
@@ -192,7 +192,7 @@ export default {
      * 2.通过ref获取el-form组件，调用组件的valiate进行验证
      */
     submitForm(formName) {
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (!valid) {
           console.log("error submit!!");
           return false;
@@ -225,7 +225,7 @@ export default {
         const { data } = await login({
           userName: this.userName,
           password: this.password,
-          email: this.email
+          email: this.email,
         });
 
         console.log(data, "data");
@@ -268,8 +268,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -10,7 +10,7 @@ export default {
   name: "LoginCopy",
   data() {
     return {
-      username: ""
+      username: "",
     };
   },
   methods: {
@@ -19,14 +19,14 @@ export default {
       if (this.username.length < 4) {
         this.$message({
           message: "用户名不能小于4位",
-          type: "warning"
+          type: "warning",
         });
         return;
       }
       localStorage.setItem("username", username);
       this.$router.push("/chatroom");
-    }
-  }
+    },
+  },
 };
 </script>
 

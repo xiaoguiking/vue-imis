@@ -97,15 +97,14 @@ export default {
   data() {
     return {
       collect: false, // 获取全部的图片素材
-      url:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       imageList: [],
       dialogUpload: false,
       uploadHeaders: "",
       loading: true,
       page: 1,
       total: null,
-      srcList: []
+      srcList: [],
     };
   },
   created() {
@@ -117,14 +116,14 @@ export default {
       this.page = page;
       this.loading = true;
       const {
-        data: { list, total }
+        data: { list, total },
       } = await getImages({
         isCollected,
         page,
-        pageSize: 18
+        pageSize: 18,
       });
       this.loading = false;
-      list.forEach(img => {
+      list.forEach((img) => {
         console.log(img);
         img.loading = false;
       });
@@ -143,7 +142,7 @@ export default {
       this.loadImages(this.page, false);
       this.$message({
         type: "success",
-        message: "图片上传成功"
+        message: "图片上传成功",
       });
     },
 
@@ -163,12 +162,12 @@ export default {
       item.loading = true;
       const { data } = await collectImage({
         _id,
-        isCollected: !isCollected
+        isCollected: !isCollected,
       });
       if (data.code == "0") {
         this.$message({
           type: "success",
-          message: data.message
+          message: data.message,
         });
       }
       item.loading = false;
@@ -182,13 +181,13 @@ export default {
       if (data.code == "0") {
         this.$message({
           type: "success",
-          message: data.message
+          message: data.message,
         });
       }
       item.loading = false;
       this.loadImages(1, this.collect);
-    }
-  }
+    },
+  },
 };
 </script>
 

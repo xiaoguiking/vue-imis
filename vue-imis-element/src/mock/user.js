@@ -59,7 +59,7 @@ for (let i = 0; i < count; i++) {
         "湖南大学软件学院",
         "谷歌",
         "腾讯",
-        "阿里"
+        "阿里",
       ],
       "contract|1": [
         "湖北光明会计所签章系统",
@@ -69,7 +69,7 @@ for (let i = 0; i < count; i++) {
         "dsafadf",
         "asdf",
         "Micro Lee",
-        "测试123"
+        "测试123",
       ],
       "department|1": ["销售部", "运营部", "研发部", "策划部"],
       reportNo: Mock.Random.natural(1, 100000),
@@ -91,7 +91,7 @@ for (let i = 0; i < count; i++) {
       reduction_money: Mock.Random.natural(10000, 1000000),
       proname: Mock.Random.string(5),
       dname: Mock.Random.cname(),
-      fileversion: Mock.Random.float(0, 0, 1, 1)
+      fileversion: Mock.Random.float(0, 0, 1, 1),
     })
   );
 }
@@ -103,10 +103,10 @@ export default {
    * @param name, page, limit
    * @return {{code: number, count: number, data: *[]}}
    */
-  getUserList: config => {
+  getUserList: (config) => {
     const { name, page = 1, limit = 20 } = param2Obj(config.url);
     console.log("name:" + name, "page:" + page, "分页大小limit:" + limit);
-    const mockList = List.filter(user => {
+    const mockList = List.filter((user) => {
       if (
         name &&
         user.name.indexOf(name) === -1 &&
@@ -123,7 +123,7 @@ export default {
     return {
       code: 20000,
       count: mockList.length,
-      list: pageList
+      list: pageList,
     };
   },
   /**
@@ -131,16 +131,9 @@ export default {
    * @param number, name, category, client, contract, state, finish_time
    * @return {{code: number, data: {message: string}}}
    */
-  createUser: config => {
-    const {
-      number,
-      name,
-      category,
-      client,
-      contract,
-      state,
-      finish_time
-    } = JSON.parse(config.body);
+  createUser: (config) => {
+    const { number, name, category, client, contract, state, finish_time } =
+      JSON.parse(config.body);
     console.log(JSON.parse(config.body));
     List.unshift({
       id: Mock.Random.guid(),
@@ -150,13 +143,13 @@ export default {
       client: client,
       contract: contract,
       state: state,
-      finish_time: finish_time
+      finish_time: finish_time,
     });
     return {
       code: 20000,
       data: {
-        message: "添加成功"
-      }
+        message: "添加成功",
+      },
     };
   },
   /**
@@ -164,18 +157,18 @@ export default {
    * @param id
    * @return {*}
    */
-  deleteUser: config => {
+  deleteUser: (config) => {
     const { id } = param2Obj(config.url);
     if (!id) {
       return {
         code: -999,
-        message: "参数不正确"
+        message: "参数不正确",
       };
     } else {
-      List = List.filter(u => u.id !== id);
+      List = List.filter((u) => u.id !== id);
       return {
         code: 20000,
-        message: "删除成功"
+        message: "删除成功",
       };
     }
   },
@@ -184,15 +177,15 @@ export default {
    * @param config
    * @return {{code: number, data: {message: string}}}
    */
-  batchremove: config => {
+  batchremove: (config) => {
     let { ids } = param2Obj(config.url);
     ids = ids.split(",");
-    List = List.filter(u => !ids.includes(u.id));
+    List = List.filter((u) => !ids.includes(u.id));
     return {
       code: 20000,
       data: {
-        message: "批量删除成功"
-      }
+        message: "批量删除成功",
+      },
     };
   },
   /**
@@ -200,18 +193,10 @@ export default {
    * @param id, name, category, client, contract, state, finish_time
    * @return {{code: number, data: {message: string}}}
    */
-  updateUser: config => {
-    const {
-      id,
-      number,
-      name,
-      category,
-      client,
-      contract,
-      state,
-      finish_time
-    } = JSON.parse(config.body);
-    List.some(u => {
+  updateUser: (config) => {
+    const { id, number, name, category, client, contract, state, finish_time } =
+      JSON.parse(config.body);
+    List.some((u) => {
       if (u.id === id) {
         alert("修改成功！");
         u.number = number;
@@ -227,8 +212,8 @@ export default {
     return {
       code: 20000,
       data: {
-        message: "编辑成功"
-      }
+        message: "编辑成功",
+      },
     };
-  }
+  },
 };

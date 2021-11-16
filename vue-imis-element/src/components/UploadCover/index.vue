@@ -111,8 +111,8 @@ export default {
       previewImg: "",
       priview: {
         width: "300px",
-        height: "300px"
-      }
+        height: "300px",
+      },
     };
   },
   mounted() {
@@ -128,14 +128,14 @@ export default {
       this.page = page;
       this.loading = true;
       const {
-        data: { list, total }
+        data: { list, total },
       } = await getImages({
         isCollected,
         page,
-        pageSize: 10
+        pageSize: 10,
       });
       this.loading = false;
-      list.forEach(img => {
+      list.forEach((img) => {
         img.loading = false;
       });
       this.imageList = list;
@@ -173,12 +173,12 @@ export default {
         // 调用接口 执行上传文件操作
         const fd = new FormData();
         fd.append("avatar", file);
-        UploadImages(fd).then(res => {
+        UploadImages(fd).then((res) => {
           console.log(res);
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

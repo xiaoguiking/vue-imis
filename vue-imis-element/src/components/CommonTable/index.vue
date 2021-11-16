@@ -51,15 +51,15 @@ export default {
   props: {
     isShowOp: {
       type: Boolean,
-      default: true
+      default: true,
     },
     tableLabelList: {
-      type: Array
+      type: Array,
     },
     tableDataList: {
-      type: Array
+      type: Array,
     },
-    config: Object
+    config: Object,
   },
   data() {
     return {
@@ -67,29 +67,29 @@ export default {
         {
           date: "2016-05-02",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-04",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
+          address: "上海市普陀区金沙江路 1517 弄",
         },
         {
           date: "2016-05-01",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
+          address: "上海市普陀区金沙江路 1519 弄",
         },
         {
           date: "2016-05-03",
           name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
       ],
       tableLabel: {
         date: "日期",
         name: "姓名",
-        address: "地址"
-      }
+        address: "地址",
+      },
     };
   },
   methods: {
@@ -99,8 +99,8 @@ export default {
     },
     handleDelete(index, row) {
       console.log(index, row);
-    }
-  }
+    },
+  },
 };
 </script>
 

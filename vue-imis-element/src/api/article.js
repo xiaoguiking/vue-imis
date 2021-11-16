@@ -14,27 +14,27 @@
 import request from "@/api/config";
 
 // 获取文章列表
-export const getArticlesList = data => {
+export const getArticlesList = (data) => {
   return request({
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "post",
     // url: "/api/articles/list",
     url: "/api/book/getInfoByPage",
-    data
+    data,
   });
 };
 
 // 删除文章
-export const deleteArticleList = data => {
+export const deleteArticleList = (data) => {
   return request({
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "post",
     url: "api/book/delete",
-    data
+    data,
   });
 };
 
@@ -46,15 +46,15 @@ export const getChannels = () => {
     // },
     method: "get",
     // url: "/api/articles/list",
-    url: "/api/book/getChannels"
+    url: "/api/book/getChannels",
   });
 };
 
 // 获取指定文章内容
-export const getArticleById = bookId => {
+export const getArticleById = (bookId) => {
   return request({
     method: "get",
-    url: `/api/book/${bookId}`
+    url: `/api/book/${bookId}`,
   });
 };
 
@@ -62,14 +62,14 @@ export const getArticleById = bookId => {
 export const addArticleList = (data, draft = false) => {
   return request({
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "post",
     url: "api/book/add",
     params: {
-      draft // 是否为草稿 draft =true 存为草稿
+      draft, // 是否为草稿 draft =true 存为草稿
     },
-    data
+    data,
   });
 };
 // 编辑文章
@@ -78,8 +78,8 @@ export const updateArticle = (bookId, data, draft = false) => {
     method: "put",
     url: `/api/book/${bookId}`,
     params: {
-      draft
+      draft,
     },
-    data
+    data,
   });
 };

@@ -13,7 +13,7 @@ const service = axios.create({
 // console.log(data.token);
 
 // 添加请求拦截器
-service.interceptors.request.use(config => {
+service.interceptors.request.use((config) => {
   // 任何请求都会经过的配置的信息对象
   config.headers = {
     Accept: '*/*'
@@ -23,14 +23,14 @@ service.interceptors.request.use(config => {
   return config
 })
 // eslint-disable-next-line no-unused-expressions
-err => {
+;(err) => {
   console.log(err)
   return Promise.reject(err)
 }
 
 //  响应拦截器
 service.interceptors.response.use(
-  response => {
+  (response) => {
     // 所有状态码为2xx的进入
     const res = response.data
     // 判断状态码code
@@ -45,21 +45,21 @@ service.interceptors.response.use(
     return res
   },
   // 超出2xx的状态码进入这里
-  err => {
+  (err) => {
     console.log('状态异常')
     const { status } = err.response
     if (err.response && status === 401) {
       // 跳转到登录页
       router.push('/login')
-    //   Message('登录状态无效，请重新登录')
+      //   Message('登录状态无效，请重新登录')
     } else if (status === 403) {
       // 没有操作权限 token 未携带
-    //   Message('没有操作权限')
+      //   Message('没有操作权限')
     } else if (status === 400) {
-    //   Message('请求参数错误，请检查')
+      //   Message('请求参数错误，请检查')
     } else if (status >= 500) {
       // 服务器错误
-    //   Message('')
+      //   Message('')
     }
 
     return Promise.reject(err)

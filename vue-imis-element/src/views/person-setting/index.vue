@@ -158,12 +158,12 @@ export default {
         _id: "",
         userName: "",
         img: "",
-        email: ""
+        email: "",
       },
       rules: {
         userNamename: [
           { required: true, message: "用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
         ],
         img: [
           { required: true, message: "用户头像", trigger: "blur" },
@@ -171,13 +171,13 @@ export default {
             min: 3,
             max: 25,
             message: "长度在 3 到 25 个字符",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         email: [
           { required: true, message: "用户邮箱", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ]
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+        ],
       },
       dialogVisible: false, // 上传图片弹出框
       // previewImage: [], // 图片预览
@@ -204,9 +204,9 @@ export default {
         infoTrue: false, //true为展示真实输出图片宽高，false展示看到的截图框宽高
         maxImgSize: 3000, //限制图片最大宽度和高度
         enlarge: 1, //图片根据截图框输出比例倍数
-        mode: "100% auto" //图片默认渲染方式
+        mode: "100% auto", //图片默认渲染方式
       },
-      previews: {}
+      previews: {},
     };
   },
   created() {
@@ -214,11 +214,11 @@ export default {
   },
   mounted() {},
   components: {
-    VueCropper
+    VueCropper,
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
         } else {
@@ -260,7 +260,7 @@ export default {
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
         this.$message({
           message: "图片类型要求：jpeg、jpg、png",
-          type: "error"
+          type: "error",
         });
         return false;
       }
@@ -270,7 +270,7 @@ export default {
       this.$nextTick(() => {
         //转化为blob
         let reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = (e) => {
           let data;
           if (typeof e.target.result === "object") {
             data = this.getObjectURL(new Blob([e.target.result]));
@@ -318,7 +318,7 @@ export default {
       console.log(type, _this, "this=========>");
       if (type === "blob") {
         //获取截图的blob数据
-        this.$refs.cropper.getCropBlob(async data => {
+        this.$refs.cropper.getCropBlob(async (data) => {
           let formData = new FormData();
           formData.append("file", data, "DX.jpg");
           //调用axios上传
@@ -329,21 +329,18 @@ export default {
           if (res.code === 200) {
             _this.$message({
               message: res.msg,
-              type: "success"
+              type: "success",
             });
-            let data = res.data
-              .replace("[", "")
-              .replace("]", "")
-              .split(",");
+            let data = res.data.replace("[", "").replace("]", "").split(",");
             let imgInfo = {
               name: _this.Name,
-              url: data[0]
+              url: data[0],
             };
             _this.$emit("uploadImgSuccess", imgInfo);
           } else {
             _this.$message({
               message: "文件服务异常，请联系管理员！",
-              type: "error"
+              type: "error",
             });
           }
         });
@@ -352,17 +349,17 @@ export default {
 
     handleClose(done) {
       this.$confirm("确认关闭？")
-        .then(res => {
+        .then((res) => {
           console.log(res);
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
 
-    onDialogImg() {}
-  }
+    onDialogImg() {},
+  },
 };
 </script>
 

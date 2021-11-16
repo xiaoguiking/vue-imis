@@ -100,7 +100,7 @@ export default {
         channel: "",
         date1: "",
         date2: "",
-        resource: ""
+        resource: "",
       },
       tableData: [],
       articleStatusList: [
@@ -108,7 +108,7 @@ export default {
         { status: 1, text: "待审核", type: "" },
         { status: 2, text: "审核通过", type: "success" },
         { status: 3, text: "审核失败", type: "warning" },
-        { status: 4, text: "已删除", type: "danger" }
+        { status: 4, text: "已删除", type: "danger" },
       ],
       // articleStatus: ["草稿", "待审核", "审核通过", "审核失败", "已删除"],
       totalCount: 0, // 数据总数
@@ -117,7 +117,7 @@ export default {
       rangeDate: null,
       loading: true,
       page: 1,
-      currentPage: 1
+      currentPage: 1,
     };
   },
   created() {
@@ -133,7 +133,7 @@ export default {
       let dom = that.$refs.myTable.bodyWrapper;
 
       console.log(dom, "dom==========>");
-      dom.addEventListener("scroll", function() {
+      dom.addEventListener("scroll", function () {
         //实现原理: 判断表格滚动条是否滚动到底部
         // scrollHeight: 元素的高度即表格内容的高度
         // scrollTop: 元素滚动出去的高度
@@ -169,8 +169,8 @@ export default {
               time: "2021-06-02T22:31:00.000Z",
               typeid: 4,
               typename: "增加数据恋爱",
-              _id: "60c4cffa69bed4173c1a228a"
-            }
+              _id: "60c4cffa69bed4173c1a228a",
+            },
           ];
           that.tableData = that.tableData.concat(data);
           console.log(that.tableData, "数据");
@@ -198,13 +198,13 @@ export default {
     async getArticleslist(page = 1) {
       this.loading = true;
       const {
-        data: { list, total }
+        data: { list, total },
       } = await getArticlesList({
         page,
         pageSize: 15,
         status: this.status,
         createTime: this.rangeDate ? this.rangeDate[0] : null,
-        updateTime: this.rangeDate ? this.rangeDate[1] : null
+        updateTime: this.rangeDate ? this.rangeDate[1] : null,
       });
       let data = list.splice(0, 15);
       console.log(data);
@@ -223,7 +223,7 @@ export default {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(async () => {
           const { data } = await deleteArticleList({ _id: row._id });
@@ -233,18 +233,18 @@ export default {
           if (data.code === 0) {
             this.$message({
               type: "success",
-              message: "删除成功!"
+              message: "删除成功!",
             });
           }
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: "已取消删除",
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

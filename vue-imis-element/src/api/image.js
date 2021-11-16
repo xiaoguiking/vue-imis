@@ -14,28 +14,28 @@
 import request from "@/api/config";
 
 // 获取全部图片
-export const getImages = params => {
+export const getImages = (params) => {
   return request({
     method: "get",
     url: "api/image/getImages",
-    params
+    params,
   });
 };
 
 // 收藏图片
-export const collectImage = params => {
+export const collectImage = (params) => {
   return request({
     method: "get",
     url: "api/image/collectImage",
-    params
+    params,
   });
 };
 
 // 删除图片
-export const deleteImage = imageId => {
+export const deleteImage = (imageId) => {
   return request({
     method: "delete",
-    url: `api/image/${imageId}`
+    url: `api/image/${imageId}`,
   });
 };
 
@@ -43,6 +43,6 @@ export const deleteImage = imageId => {
 export const UploadImages = () => {
   return request({
     method: "post",
-    url: `api/file/profile`
+    url: `api/file/profile`,
   });
 };

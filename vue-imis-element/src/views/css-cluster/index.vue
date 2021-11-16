@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "CssCluster"
+  name: "CssCluster",
 };
 </script>
 

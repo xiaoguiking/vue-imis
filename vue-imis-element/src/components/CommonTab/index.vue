@@ -36,12 +36,12 @@ export default {
     return {
       dynamicTags: ["标签一", "标签二", "标签三"],
       inputVisible: false,
-      inputValue: ""
+      inputValue: "",
     };
   },
   methods: {
     ...mapMutations({
-      close: "closeTags"
+      close: "closeTags",
     }),
     handleClose(tag) {
       //   this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
@@ -67,13 +67,13 @@ export default {
       }
       this.inputVisible = false;
       this.inputValue = "";
-    }
+    },
   },
   computed: {
     ...mapState({
-      tags: state => state.tab.tabsList
-    })
-  }
+      tags: (state) => state.tab.tabsList,
+    }),
+  },
 };
 </script>
 

@@ -22,11 +22,11 @@ export default {
   data() {
     return {
       msg: "父级传递给子级的消息变量",
-      fromChild: ""
+      fromChild: "",
     };
   },
   components: {
-    MChild
+    MChild,
   },
   methods: {
     showMsg(val) {
@@ -35,7 +35,7 @@ export default {
     },
     clearMsg(val) {
       this.fromChild = val;
-    }
+    },
   },
   mounted() {
     // 调用值
@@ -45,7 +45,7 @@ export default {
 
     // refs 方式
     console.log("refs", this.$refs.child.msg);
-  }
+  },
 };
 </script>
 

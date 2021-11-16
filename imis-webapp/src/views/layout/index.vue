@@ -15,7 +15,7 @@
 <script>
 export default {
   name: 'layout',
-  data () {
+  data() {
     return {
       active: 0
     }

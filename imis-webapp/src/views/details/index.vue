@@ -1,15 +1,9 @@
 <template>
-  <div class="detail-container">
-
-  </div>
+  <div class="detail-container"></div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

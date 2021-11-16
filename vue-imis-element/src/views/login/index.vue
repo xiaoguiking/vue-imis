@@ -127,7 +127,7 @@ export default {
         passwordType: "password",
         userName: "",
         email: "",
-        agree: false // 是否同意协议
+        agree: false, // 是否同意协议
       },
       rules: {
         userName: [{ validator: validateUsername, trigger: "blur" }],
@@ -138,10 +138,10 @@ export default {
         agree: [
           {
             validator: validateAgree,
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   mounted() {},
@@ -157,7 +157,7 @@ export default {
      * 2.通过ref获取el-form组件，调用组件的valiate进行验证
      */
     submitForm(formName) {
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (!valid) {
           console.log("error submit!!");
           return false;
@@ -168,7 +168,7 @@ export default {
         const { data } = await login({
           userName,
           password,
-          email
+          email,
         });
         const { code, msg, user } = data;
         window.localStorage.setItem("user", JSON.stringify(user));
@@ -177,7 +177,7 @@ export default {
           this.loginloading = false;
           this.$message({
             message: `${msg}, ${user.userName}`,
-            type: "success"
+            type: "success",
           });
 
           window.localStorage.setItem("username", user.userName);
@@ -190,7 +190,7 @@ export default {
           this.$router.push("/");
 
           this.$router.push({
-            name: "index"
+            name: "index",
           });
         } else {
           this.loginloading = false;
@@ -201,8 +201,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 

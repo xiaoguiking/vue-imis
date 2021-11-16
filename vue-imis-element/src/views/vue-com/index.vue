@@ -45,20 +45,20 @@ export default {
   name: "VueCom",
   components: {
     MParent,
-    MFather
+    MFather,
   },
   data() {
     return {
       a: "消息a",
       b: "消息b",
-      c: "消息c"
+      c: "消息c",
     };
   },
   methods: {
     passMsg() {
       bus.$emit("acceptMsg", "我是使用eventsbus传值");
-    }
-  }
+    },
+  },
 };
 </script>
 

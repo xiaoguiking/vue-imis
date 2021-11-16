@@ -25,7 +25,7 @@ export default {
     return {
       message: "",
       username: "",
-      messageList: []
+      messageList: [],
     };
   },
   mounted() {
@@ -46,7 +46,7 @@ export default {
       if (!this.message.length) {
         this.$message({
           message: "没有信息不能提交",
-          type: "warning"
+          type: "warning",
         });
         return;
       }
@@ -55,12 +55,12 @@ export default {
           id: new Date().getTime(),
           username: this.username,
           message: this.message,
-          dateTime: new Date().getTime()
+          dateTime: new Date().getTime(),
         })
       );
       this.$message({
         message: "提交成功",
-        type: "success"
+        type: "success",
       });
     },
     handleOpen(e) {
@@ -77,8 +77,8 @@ export default {
       const msgData = JSON.parse(e.data);
       this.messageList.push(msgData);
       console.log(msgData);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -97,12 +97,12 @@ export default {
         _id: "",
         userName: "",
         img: "",
-        email: ""
+        email: "",
       },
       rules: {
         userNamename: [
           { required: true, message: "用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
         ],
         img: [
           { required: true, message: "用户头像", trigger: "blur" },
@@ -110,18 +110,18 @@ export default {
             min: 3,
             max: 25,
             message: "长度在 3 到 25 个字符",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         email: [
           { required: true, message: "用户邮箱", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ]
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+        ],
       },
       dialogVisible: false, // 上传图片弹出框
       previewImage: [], // 图片预览
       fileName: "",
-      cropper: null // 裁切器实例
+      cropper: null, // 裁切器实例
     };
   },
   created() {
@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
         } else {
@@ -192,11 +192,11 @@ export default {
 
     handleClose(done) {
       this.$confirm("确认关闭？")
-        .then(res => {
+        .then((res) => {
           console.log(res);
           done();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -226,7 +226,7 @@ export default {
           console.log(event.detail.rotate);
           console.log(event.detail.scaleX);
           console.log(event.detail.scaleY);
-        }
+        },
       });
 
       console.log(this.cropper, "onDialogImg");
@@ -234,8 +234,8 @@ export default {
     onDialogClosed() {
       // 对话框关闭，销毁裁切器
       this.cropper.destory();
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       asideMenu: [],
-      menu: []
+      menu: [],
       // isCollapse: true
     };
   },
@@ -71,18 +71,18 @@ export default {
   },
   computed: {
     noChildren() {
-      return this.asideMenu.filter(item => !item.children);
+      return this.asideMenu.filter((item) => !item.children);
     },
     hasChildren() {
-      return this.asideMenu.filter(item => item.children);
-    }
+      return this.asideMenu.filter((item) => item.children);
+    },
   },
   methods: {
     clickMenu(item) {
       this.$router.push({ path: item.path });
       return this.$store.commit("selectMenu", item);
-    }
-  }
+    },
+  },
 };
 </script>
 

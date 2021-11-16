@@ -23,38 +23,32 @@ const routes = [
         path: '/',
         name: 'home',
         redirect: '/login',
-        component: () =>
-          import('../views/home')
+        component: () => import('../views/home')
       },
       {
         path: '/qa',
         name: 'qa',
-        component: () =>
-          import('../views/qa')
+        component: () => import('../views/qa')
       },
       {
         path: '/video',
         name: 'video',
-        component: () =>
-          import('../views/video')
+        component: () => import('../views/video')
       },
       {
         path: '/my',
         name: 'my',
-        component: () =>
-          import('../views/my')
+        component: () => import('../views/my')
       },
       {
         path: '/details',
         name: 'test',
-        component: () =>
-          import('../views/details')
+        component: () => import('../views/details')
       },
       {
         path: '/store-name',
         name: 'store-name',
-        component: () =>
-          import('../views/store-name')
+        component: () => import('../views/store-name')
       }
       // {
       //   path: '/test',

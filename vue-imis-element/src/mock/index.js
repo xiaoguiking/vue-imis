@@ -12,7 +12,7 @@ import userApi from "./user";
 // 设置200 -2000 延时
 
 Mock.setup({
-  timeout: "200-1000"
+  timeout: "200-1000",
 });
 
 // 首页相关  拦截/home/getData

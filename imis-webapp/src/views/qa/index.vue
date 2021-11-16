@@ -1,5 +1,5 @@
 <template>
-  <div> qa page</div>
+  <div>qa page</div>
 </template>
 
 <script>

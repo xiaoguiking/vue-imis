@@ -27,16 +27,12 @@
           maxlength="4"
         >
           <template #button>
-            <van-button size="small" type="primary" class="btn-sms"
-              >发送验证码</van-button
-            >
+            <van-button size="small" type="primary" class="btn-sms">发送验证码</van-button>
           </template>
         </van-field>
       </van-cell-group>
       <div style="margin: 26px 16px">
-        <van-button round block type="info" native-type="submit"
-          >登录</van-button
-        >
+        <van-button round block type="info" native-type="submit">登录</van-button>
       </div>
     </van-form>
   </div>
@@ -46,7 +42,7 @@
 import { login } from '../../api/user'
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
       user: {
         phone: '19888888888',
@@ -55,7 +51,7 @@ export default {
     }
   },
   methods: {
-    async onSubmit () {
+    async onSubmit() {
       try {
         this.$toast.loading({
           message: '加载中...',
@@ -72,10 +68,10 @@ export default {
         this.$toast.fail('登录失败')
       }
     },
-    onClickLeft () {
+    onClickLeft() {
       console.log('返回')
     },
-    onClickRight () {
+    onClickRight() {
       console.log('按钮')
     }
   }

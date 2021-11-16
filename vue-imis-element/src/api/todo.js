@@ -17,7 +17,7 @@ import request from "@/api/config";
 export const getTodoList = () => {
   return request({
     method: "get",
-    url: "api/todos"
+    url: "api/todos",
   });
 };
 
@@ -25,16 +25,16 @@ export const getTodoList = () => {
 export const getTodoId = () => {
   return request({
     method: "get",
-    url: "api/todos/:id"
+    url: "api/todos/:id",
   });
 };
 
 // 添加任务
-export const addTodoList = data => {
+export const addTodoList = (data) => {
   return request({
     method: "post",
     url: "api/todos/add",
-    data
+    data,
   });
 };
 
@@ -42,14 +42,14 @@ export const addTodoList = data => {
 export const patchTodoList = () => {
   return request({
     method: "patch",
-    url: "api/todos/:id"
+    url: "api/todos/:id",
   });
 };
 
 // 删除
-export const deleteTodoList = params => {
+export const deleteTodoList = (params) => {
   return request({
     method: "delete",
-    url: `api/todos/${params}`
+    url: `api/todos/${params}`,
   });
 };

@@ -17,7 +17,7 @@ export default {
   data() {
     // let id = this.$router;
     return {
-      par: ""
+      par: "",
     };
   },
   methods: {
@@ -33,13 +33,13 @@ export default {
       // 返回上一级
       // history.back(-1)
       // window.history.back();
-    }
+    },
   },
   watch: {
     $route(to, from) {
       console.log(to.path, from.path, "=========================>");
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -16,7 +16,7 @@ Vue.use(VueRouter);
  */
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err);
+  return originalPush.call(this, location).catch((err) => err);
 };
 
 /**
@@ -46,46 +46,46 @@ const routes = [
         name: "index",
         component: () => import("@/views/home-page/index"),
         meta: {
-          needLogin: false
-        }
+          needLogin: false,
+        },
       },
       {
         path: "/css",
         name: "csscluster",
         component: () => import("@/views/css-cluster/index"),
         meta: {
-          needLogin: true
-        }
+          needLogin: true,
+        },
       },
       {
         path: "/vue",
         name: "vuecom",
-        component: () => import("@/views/vue-com/index")
+        component: () => import("@/views/vue-com/index"),
       },
       {
         path: "/content",
         name: "content",
-        component: () => import("@/views/content-page/index")
+        component: () => import("@/views/content-page/index"),
       },
       {
         path: "/source",
         name: "source",
-        component: () => import("@/views/source-page/index")
+        component: () => import("@/views/source-page/index"),
       },
       {
         path: "/comment",
         name: "comment",
-        component: () => import("@/views/comment-page/index")
+        component: () => import("@/views/comment-page/index"),
       },
       {
         path: "/publish",
         name: "publish",
-        component: () => import("@/views/publish-article/index")
+        component: () => import("@/views/publish-article/index"),
       },
       {
         path: "/person",
         name: "person",
-        component: () => import("@/views/person-setting/index")
+        component: () => import("@/views/person-setting/index"),
       },
       {
         path: "/test",
@@ -95,96 +95,96 @@ const routes = [
           {
             path: "log",
             name: "log",
-            component: Log
+            component: Log,
           },
           {
             path: "res",
             name: "res",
-            component: Res
-          }
-        ]
+            component: Res,
+          },
+        ],
       },
       {
         path: "fans",
         name: "fans",
-        component: () => import("@/views/fans-page/index")
+        component: () => import("@/views/fans-page/index"),
       },
       {
         path: "systemmanagement",
         name: "SystemManagement",
-        component: () => import("@/views/system-management/index")
+        component: () => import("@/views/system-management/index"),
       },
       {
         path: "usermanagement",
         component: () => import("@/views/user-management/index"),
-        name: "DynamicTable"
+        name: "DynamicTable",
         // meta: { title: "Dynamic Table" }
       },
       {
         path: "logincopy",
         component: () => import("@/views/login-copy/index"),
-        name: "loginCopy"
+        name: "loginCopy",
       },
       {
         path: "permission",
         // component: () => import("@/views/chatroom/index"),
-        name: "permission"
+        name: "permission",
       },
       {
         path: "chatroom",
         component: () => import("@/views/chatroom/index"),
-        name: "chatroom"
+        name: "chatroom",
       },
       {
         path: "drag-table",
         // component: () => import('@/views/table/drag-table'),
         name: "DragTable",
-        meta: { title: "Drag Table" }
+        meta: { title: "Drag Table" },
       },
       {
         path: "inline-edit-table",
         // component: () => import('@/views/table/inline-edit-table'),
         name: "InlineEditTable",
-        meta: { title: "Inline Edit" }
+        meta: { title: "Inline Edit" },
       },
       {
         path: "complex-table",
         // component: () => import('@/views/table/complex-table'),
         name: "ComplexTable",
-        meta: { title: "Complex Table" }
-      }
-    ]
+        meta: { title: "Complex Table" },
+      },
+    ],
   },
   {
     path: "/login",
     name: "login",
     // component: () => import('@/views/login/index'),
-    component: Login
+    component: Login,
   },
   // 动态路径参数 以冒号开头
   {
     path: "/test/:id",
-    component: User
+    component: User,
   },
 
   {
     path: "/user",
     name: "user",
-    component: User
+    component: User,
   },
   // 匹配404page
   {
     // 会匹配所有路径
     path: "*",
     name: "404",
-    component: NoFound
-  }
+    component: NoFound,
+  },
 ];
 
 const router = new VueRouter({
   mode: "hash",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

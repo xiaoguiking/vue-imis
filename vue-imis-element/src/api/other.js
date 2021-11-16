@@ -9,19 +9,19 @@
 import request from "@/api/config";
 
 // 获取ip
-export const getIpInfo = params => {
+export const getIpInfo = (params) => {
   return request({
     method: "get",
     url: "https://restapi.amap.com/v3/ip",
-    params
+    params,
   });
 };
 
 // 获取天气
-export const getWeather = params => {
+export const getWeather = (params) => {
   return request({
     method: "get",
     url: "https://restapi.amap.com/v3/weather/weatherInfo",
-    params
+    params,
   });
 };
