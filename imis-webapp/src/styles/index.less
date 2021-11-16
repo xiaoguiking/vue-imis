@@ -1,8 +1,7 @@
 @import './icon.less';
+@import "./_varibables.less";
 
-body {
-  background-color: #f5f7f9;
-}
+
 .app-nav-bar {
   background-color: #3296fa;
   .van-nav-bar__title {
@@ -20,6 +19,9 @@ body {
 
 body {
   height: 100%;
+    // background-color: #f5f7f9;
+    background-color: #e1e3e5e3;
+
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -78,14 +80,6 @@ div:focus {
 
 .fl {
   float: left;
-}
-
-.pr-5 {
-  padding-right: 5px;
-}
-
-.pl-5 {
-  padding-left: 5px;
 }
 
 .block {
@@ -227,3 +221,193 @@ ul li {
 .clearfix {
   *zoom: 1; /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
 }
+
+.ft-16 {
+  font-size: 16px;
+}
+.ft-18 {
+  font-size: 18px;
+}
+
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  height: 100%;
+}
+
+// text align
+each(@text-align, {
+    .text-@{value} {
+        text-align: @value!important;
+      }
+})
+
+// 文字颜色
+each(@colors, {
+    .text-@{key} {
+        color: @value
+    }
+})
+
+// background-color
+each(@colors, {
+    .bg-@{key} {
+        background-color: @value;
+    }
+});
+
+// font-size
+each(@font-sizes, {
+    .font-@{key} {
+        font-size: @value;
+    }
+})
+
+// flex  grid
+
+.flex-1 {
+  flex: @flex-1;
+}
+
+.d-flex {
+  display: @flex;
+}
+.d-block {
+  display: block;
+}
+.d-inline {
+  display: inline-block;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-column {
+  flex-direction: column;
+}
+each(@flex-jc, {
+    .jc-@{key} {
+        justify-content: @value;
+    }
+})
+
+each(@flex-ai, {
+    .ai-@{key} {
+        align-items: @value;
+    }
+})
+
+
+each(@marAndPadAndFontList, {
+    .mt-@{key} {
+        margin-top: @value;
+    }
+    .mr-@{key} {
+        margin-right: @value;
+    }
+    .mb-@{key} {
+        margin-bottom: @value;
+    }
+    .ml-@{key} {
+        margin-left: @value;
+    }
+    .mg-@{key} {
+        margin: @value;
+    }
+});
+
+each(@marAndPadAndFontList, {
+    .pt-@{key} {
+        padding-top: @value;
+    }
+    .pr-@{key} {
+        padding-right: @value;
+    }
+    .pb-@{key} {
+        padding-bottom: @value;
+    }
+    .pl-@{key} {
+        padding-left: @value;
+    }
+    .pg-@{key} {
+        padding: @value;
+    }
+    .pg-@{key} {
+        padding: @value;
+    }
+    .ptb-@{key} {
+        padding-top: @value;
+        padding-bottom: @value;
+    }
+    .plr-@{key} {
+        padding-left: @value;
+        padding-right: @value;
+    }
+});
+
+
+each(@border, {
+  .border-@{key}{
+      border-@{key}: 1px solid #999;
+  }
+})
+
+
+
+// btn
+.btn {
+  border: none;
+  border-radius: 0.1538rem;
+  padding: 0.2rem 0.6rem;
+  font-size: @font-sizes[sm];
+}
+
+.nav {
+  display: flex;
+  .nav-item {
+    border-bottom: 3px solid transparent;
+    color: @colors[dark]
+  }
+  & .active {
+    border-bottom-color: @colors[primary];
+    color: @colors[primary]
+  }
+&.nav-inverse {
+  .nav-item {
+    color: @colors[white];
+    border-bottom-color:  transparent;
+  }
+  & .active {
+    border-bottom-color: @colors[white];
+  }
+}
+}
+
+// sprite
+.sprites {
+  // background: url(../index.png) no-repeat 0 0;
+  background-size: 28.8462rem;
+  // 展示问题i
+  display: inline-block;
+  &.sprites-new {
+    background-position: 63.546% 15.517%;
+    width: 1.7692rem;
+    height: 1.5385rem;
+  }
+
+  &.sprites-arrow {
+    width: 0.7692rem;
+    height: 0.7692rem;
+    background-position: 38.577% 52.076%;
+  }
+}
+
+
+// card 组件
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

@@ -66,13 +66,12 @@ service.interceptors.response.use(
         // })
       }
       return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      console.log(res, 'res')
-      return res
     }
+    console.log(res, 'res')
+    return res
   },
   (error) => {
-    console.log('err' + error) // for debug
+    console.log(`err${error}`) // for debug
     // Message({
     //   message: error.message,
     //   type: 'error',

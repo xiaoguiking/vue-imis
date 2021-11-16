@@ -13,16 +13,9 @@ const routes = [
     path: '/',
     component: () => import('../views/layout'),
     children: [
-      // {
-      //   path: '/test',
-      //   name: 'test',
-      //   component: () =>
-      //     import('../views/test')
-      // },
       {
         path: '/',
         name: 'home',
-        redirect: '/login',
         component: () => import('../views/home')
       },
       {
@@ -49,37 +42,17 @@ const routes = [
         path: '/store-name',
         name: 'store-name',
         component: () => import('../views/store-name')
+      },
+      {
+        path: '/my-address',
+        name: 'my-address',
+        component: () => import('../views/my-address')
       }
       // {
-      //   path: '/test',
-      //   name: 'test',
-      //   component: () =>
-      //     import('../views/test')
-      // },
-      // {
-      //   path: '/test',
-      //   name: 'test',
-      //   component: () =>
-      //     import('../views/test')
-      // },
-      // {
-      //   path: '/test',
-      //   name: 'test',
-      //   component: () =>
-      //     import('../views/test')
-      // },
-      // {
-      //   path: '/test',
-      //   name: 'test',
-      //   component: () =>
-      //     import('../views/test')
-      // },
-      // {
-      //   path: '/test',
-      //   name: 'test',
-      //   component: () =>
-      //     import('../views/test')
-      // },
+      //   path: '/store-name',
+      //   name: 'store-name',
+      //   component: () => import('../views/store-name')
+      // }
     ]
   }
 ]
