@@ -93,11 +93,8 @@ export default {
       }
     },
     onFailed(error) {
-      console.log(error.errors, 'message')
       if (error.errors[0]) {
-        // eslint-disable-next-line no-unused-expressions
-        // this.$toast.error.errors[0].message
-        console.log(error.errors[0].message, 'value')
+        this.$toast(error.errors[0].message)
       }
     },
     onClickLeft() {

@@ -35,10 +35,7 @@ export default {
     }
   },
   methods: {},
-  created() {
-    alert(111)
-    console.log(1)
-  }
+
 }
 </script>
 

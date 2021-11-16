@@ -69,7 +69,6 @@ export default {
   mounted() {},
   methods: {
     openModel() {
-      alert(1111);
     },
     // 请求数据
     async getList() {
