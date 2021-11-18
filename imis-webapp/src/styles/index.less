@@ -222,13 +222,6 @@ ul li {
   *zoom: 1; /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
 }
 
-.ft-16 {
-  font-size: 16px;
-}
-.ft-18 {
-  font-size: 18px;
-}
-
 .w-100 {
   width: 100%;
 }
@@ -264,8 +257,6 @@ each(@font-sizes, {
     }
 })
 
-// flex  grid
-
 .flex-1 {
   flex: @flex-1;
 }
@@ -273,18 +264,23 @@ each(@font-sizes, {
 .d-flex {
   display: @flex;
 }
+
 .d-block {
   display: block;
 }
+
 .d-inline {
   display: inline-block;
 }
+
 .flex-wrap {
   flex-wrap: wrap;
 }
+
 .flex-column {
   flex-direction: column;
 }
+
 each(@flex-jc, {
     .jc-@{key} {
         justify-content: @value;
@@ -352,9 +348,6 @@ each(@border, {
   }
 })
 
-
-
-// btn
 .btn {
   border: none;
   border-radius: 0.1538rem;

@@ -2,23 +2,18 @@
   <div class="sky-card-container">
     <div class="sky-card-header"></div>
     <div class="sky-card-content pg-6">
-      <!-- <template #tags> -->
-      <!-- <van-tag plain type="danger">标签</van-tag>
-        <van-tag plain type="danger">标签</van-tag> -->
-      <!-- </template> -->
-      <!-- <template #footer> -->
-      <!-- <van-button size="mini">按钮</van-button>
-        <van-button size="mini">按钮</van-button> -->
-      <!-- </template> -->
       <div class="d-inline font-lg pr-10">{{ username }}</div>
       <div class="d-inline font-lg">{{ mobile }}</div>
       <div class="font-lg border-bottom ptb-10">{{ address }}</div>
     </div>
     <div class="sky-card-bottom">
-      <!-- <slot></slot> -->
       <div class="sky-card-operate d-flex jc-end font-xs ptb-10">
-        <div class="pr-10">编辑</div>
-        <div class="pr-10">删除</div>
+        <sky-button-common type="edit" iconfont="icon-imisedit" @click="handleEdit"
+          >编辑</sky-button-common
+        >
+        <sky-button-common type="delete" iconfont="icon-imisdelete" @click="handleDelete"
+          >删除</sky-button-common
+        >
       </div>
     </div>
   </div>
@@ -44,6 +39,21 @@ export default {
     //   type: String,
     //   required: true
     // }
+  },
+  data() {
+    return {
+      msg: 'Card'
+    }
+  },
+  methods: {
+    handleEdit() {
+      // this.$emit('onHandleEdit', this.msg)
+      console.log('edit')
+    },
+    handleDelete() {
+      // console.log('delete')
+      console.log('delete')
+    }
   }
 }
 </script>
