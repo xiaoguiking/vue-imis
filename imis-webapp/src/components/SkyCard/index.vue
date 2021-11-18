@@ -6,7 +6,7 @@
       <div class="d-inline font-lg">{{ mobile }}</div>
       <div class="font-lg border-bottom ptb-10">{{ address }}</div>
     </div>
-    <div class="sky-card-bottom">
+    <div class="sky-card-bottom" v-if="operate">
       <div class="sky-card-operate d-flex jc-end font-xs ptb-10">
         <sky-button-common type="edit" iconfont="icon-imisedit" @click="handleEdit"
           >编辑</sky-button-common
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'Card',
+  name: 'SkyCard',
   props: {
     username: {
       type: String,
@@ -34,11 +34,11 @@ export default {
     address: {
       type: String,
       required: true
+    },
+    operate: {
+      type: Boolean,
+      default: false
     }
-    // icon: {
-    //   type: String,
-    //   required: true
-    // }
   },
   data() {
     return {

@@ -10,6 +10,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/login')
   },
   {
+    path: '/store-name',
+    name: 'store-name',
+    component: () => import('../views/store-name')
+  },
+  {
+    path: '/my-address',
+    name: 'my-address',
+    component: () => import('../views/my-address')
+  },
+  {
+    path: '/order-details',
+    name: 'order-details',
+    component: () => import('../views/order-details')
+  },
+  {
     path: '/',
     component: () => import('../views/layout'),
     children: [
@@ -37,22 +52,7 @@ const routes = [
         path: '/details',
         name: 'test',
         component: () => import('../views/details')
-      },
-      {
-        path: '/store-name',
-        name: 'store-name',
-        component: () => import('../views/store-name')
-      },
-      {
-        path: '/my-address',
-        name: 'my-address',
-        component: () => import('../views/my-address')
       }
-      // {
-      //   path: '/store-name',
-      //   name: 'store-name',
-      //   component: () => import('../views/store-name')
-      // }
     ]
   }
 ]

@@ -33,6 +33,8 @@ export default {
 
 .sky-button-init {
   border: 1px solid darkgrey;
+  background-color: #fff;
+  border-radius: 2px;
 }
 .sky-button-info {
   border: 1px solid rgb(49, 49, 163);

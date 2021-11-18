@@ -4,9 +4,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import SkyButton from './components/SkyButton'
-import SkyButtonCommon from './components/SkyButtonCommon'
-
+import { SkyButton, SkyButtonCommon, SkyCard, SkyShopCard } from './components'
 import 'normalize.css'
 // 引入vant
 // vant: https://vant-contrib.gitee.io/vant/#/zh-CN/button
@@ -22,6 +20,8 @@ Vue.use(Vant) // 全局样式
 
 Vue.component(SkyButton.name, SkyButton)
 Vue.component(SkyButtonCommon.name, SkyButtonCommon)
+Vue.component(SkyCard.name, SkyCard)
+Vue.component(SkyShopCard.name, SkyShopCard)
 Vue.config.productionTip = false
 
 new Vue({

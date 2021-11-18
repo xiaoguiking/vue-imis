@@ -6,16 +6,19 @@
       :mobile="menuList.mobile"
       :address="menuList.address"
       @onHandleEdit="onHandleEdit"
+      operate
     ></sky-card>
     <sky-card
       :username="menuList.username"
       :mobile="menuList.mobile"
       :address="menuList.address"
+      operate
     ></sky-card>
     <sky-card
       :username="menuList.username"
       :mobile="menuList.mobile"
       :address="menuList.address"
+      operate
     ></sky-card>
     <footer class="my-address-footer">
       <div class="my-address-footer-text font-md">新增收货地址</div>
@@ -58,7 +61,7 @@ export default {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 40px;
+    bottom: 0px;
     margin: 20px;
     box-sizing: border-box;
     height: 30px;
