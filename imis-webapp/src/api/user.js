@@ -9,3 +9,12 @@ export const login = (data) => {
     data
   })
 }
+
+// 获取验证码
+export const getSms = (params) => {
+  return request({
+    method: 'get',
+    url: '/api/web/user/sms',
+    params
+  })
+}

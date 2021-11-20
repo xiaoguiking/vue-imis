@@ -9,11 +9,18 @@
       @click-left="onClickLeft"
     />
     <!-- 登录表单 -->
-    <van-form :show-error="false" :show-error-message="false" @submit="onSubmit" @failed="onFailed">
+    <van-form
+      :show-error="false"
+      :show-error-message="false"
+      @submit="onSubmit"
+      @failed="onFailed"
+      ref="login-form"
+    >
       <!-- <van-cell-group> -->
       <van-field
         v-model="user.mobile"
         label="请输入手机号"
+        name="mobile"
         right-icon="warning-o"
         placeholder="请输入手机号"
         maxlength="11"
@@ -21,6 +28,7 @@
       />
       <van-field
         v-model="user.sms"
+        name="sms"
         center
         clearable
         label="短信验证码"
@@ -29,7 +37,7 @@
         :rules="formRules.sms"
       >
         <template #button>
-          <van-button size="small" type="primary" native-type="button" class="btn-sms"
+          <van-button size="small" type="button" @click.prevent="onSubmitSms" class="btn-sms"
             >发送验证码</van-button
           >
         </template>
@@ -48,7 +56,7 @@
 </template>
 
 <script>
-import { login } from '../../api/user'
+import { getSms, login } from '../../api/user'
 
 export default {
   name: 'Login',
@@ -58,7 +66,7 @@ export default {
         // mobile: '',
         // sms: ''
         mobile: '',
-        sms: '6666'
+        sms: ''
       },
       formRules: {
         mobile: [
@@ -69,11 +77,12 @@ export default {
       },
       defaultInfo: {
         mobile: '19888888888',
-        sms: '6666'
+        sms: ''
       }
     }
   },
   methods: {
+    // 提交登录表单
     async onSubmit(values) {
       console.log(values, 'values')
       try {
@@ -85,18 +94,46 @@ export default {
         const data = await login(this.user)
         this.$toast.success('登录成功')
         console.log(data, 'data')
-        // console.log(this.$router)
         this.$router.push('/')
       } catch (error) {
         console.log(error)
         this.$toast.fail('登录失败')
       }
     },
+
     onFailed(error) {
       if (error.errors[0]) {
-        this.$toast(error.errors[0].message)
+        this.$toast({
+          message: error.errors[0].message,
+          position: 'top'
+        })
       }
     },
+
+    // TODO 验证码校验
+    async onSubmitSms() {
+      try {
+        // 校验手机号
+        await this.$refs['login-form'].validate('mobile')
+        // 验证通过 请求验证码
+        const params = {
+          mobile: this.user.mobile
+        }
+        const { data: sms } = await getSms(params)
+        console.log(sms, 'sms')
+        this.user.sms = sms
+        console.log(this.user.sms, '========>')
+      } catch (error) {
+        this.$toast({
+          message: error.message,
+          position: 'top'
+        })
+      }
+      // this.$refs['login-form'].validate('mobile').then((data) => {
+      // console.log(data.message, 'data')
+      // })
+    },
+
     onClickLeft() {
       console.log('返回')
     },
