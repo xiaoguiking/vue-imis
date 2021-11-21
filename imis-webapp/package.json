@@ -16,6 +16,7 @@
     "init": "^0.1.2",
     "normalize.css": "^8.0.1",
     "postcss-pxtorem": "5.1.1",
+    "store": "^2.0.12",
     "vant": "^2.12.31",
     "vconsole": "^3.9.5",
     "vue": "^2.6.11",

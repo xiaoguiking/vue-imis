@@ -14,7 +14,6 @@ export const login = (data) => {
 export const getSms = (params) => {
   return request({
     method: 'get',
-    url: '/api/web/user/sms',
-    params
+    url: `/api/web/user/sms/${params}`
   })
 }

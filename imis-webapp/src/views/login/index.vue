@@ -37,7 +37,19 @@
         :rules="formRules.sms"
       >
         <template #button>
-          <van-button size="small" type="button" @click.prevent="onSubmitSms" class="btn-sms"
+          <van-count-down
+            :time="1000 * 5"
+            v-if="isCountDown"
+            format="ss 秒"
+            @finish="isCountDown = false"
+          />
+          <van-button
+            :loading="isSendSmsLoading"
+            size="small"
+            type="button"
+            @click.prevent="onSubmitSms"
+            class="btn-sms"
+            v-else
             >发送验证码</van-button
           >
         </template>
@@ -78,7 +90,9 @@ export default {
       defaultInfo: {
         mobile: '19888888888',
         sms: ''
-      }
+      },
+      isCountDown: false,
+      isSendSmsLoading: false
     }
   },
   methods: {
@@ -93,7 +107,8 @@ export default {
         })
         const data = await login(this.user)
         this.$toast.success('登录成功')
-        console.log(data, 'data')
+        console.log(data)
+        this.$store.commit('saveUserInfo', data)
         this.$router.push('/')
       } catch (error) {
         console.log(error)
@@ -115,23 +130,22 @@ export default {
       try {
         // 校验手机号
         await this.$refs['login-form'].validate('mobile')
-        // 验证通过 请求验证码
-        const params = {
-          mobile: this.user.mobile
-        }
-        const { data: sms } = await getSms(params)
+        this.isSendSmsLoading = true
+        const {
+          data: { sms }
+        } = await getSms(this.user.mobile)
         console.log(sms, 'sms')
         this.user.sms = sms
-        console.log(this.user.sms, '========>')
+
+        this.isCountDown = true
       } catch (error) {
+        // todo 处理发送频繁逻辑
         this.$toast({
           message: error.message,
           position: 'top'
         })
       }
-      // this.$refs['login-form'].validate('mobile').then((data) => {
-      // console.log(data.message, 'data')
-      // })
+      this.isSendSmsLoading = false
     },
 
     onClickLeft() {
