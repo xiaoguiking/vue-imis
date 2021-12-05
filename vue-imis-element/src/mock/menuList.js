@@ -42,7 +42,7 @@ const sideMenu = [
     icon: "warning",
   },
   {
-    title: "css集群",
+    title: "css-flex",
     path: "/css",
     icon: "picture",
   },
