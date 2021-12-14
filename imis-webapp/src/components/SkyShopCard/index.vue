@@ -9,13 +9,15 @@
       <div class="sky-shop-content font-md">
         <div class="sky-shop-multi-ellipsis--l2 sky-ellipsis">{{ title }}</div>
         <div class="sky-shop-car-desc mt-5">描述:{{ desc }}</div>
-        <div class="sky-shop-price mt-10">￥{{ price }}</div>
+        <div class="sky-shop-bottom mt-10">
+          <div class="sky-shop-price">￥{{ price }}</div>
+          <div class="sky-shop_num">{{ num }}</div>
+        </div>
       </div>
     </div>
     <div class="sky-shop-operate d-flex jc-end">
       <sky-button type="init">售后中</sky-button>
     </div>
-    <div class="sky-shop-footer">信息</div>
   </div>
 </template>
 
@@ -36,6 +38,9 @@ export default {
     },
     thumb: {
       type: String
+    },
+    num: {
+      type: String
     }
   },
   created() {
@@ -46,9 +51,11 @@ export default {
 
 <style lang="less">
 .sky-shop-car {
-  margin: 10px;
+  margin: 0 10px;
   border-radius: 5px;
   background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
   .sky-shop-header {
     .sky-shop-image {
       position: relative;
@@ -81,6 +88,13 @@ export default {
       }
       .sky-shop-price {
         font-weight: 700;
+      }
+      .sky-shop-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        // padding-left: 5px;
+        padding-right: 10px;
       }
     }
   }
