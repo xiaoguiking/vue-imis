@@ -8,7 +8,11 @@
     <el-container :class="isCollapse ? 'common-container' : 'container-active'">
       <!-- 头部区域 -->
       <el-header style="height: 40px">
-        <common-header @showSide="handleSide" :is-collapse="isCollapse"></common-header>
+        <common-header
+          @showSide="handleSide"
+          :is-collapse="isCollapse"
+          :message-unread-count="unreadCount"
+        ></common-header>
       </el-header>
       <common-tab></common-tab>
       <!-- 右侧内容主题 -->

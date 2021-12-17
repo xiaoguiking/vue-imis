@@ -21,17 +21,17 @@ VueRouter.prototype.push = function push(location) {
 
 /**
  * 路由规则
- * 
+ *
  * // 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
      hidden: true // (默认 false)
- * 
+ *
  *meta: {
- *   roles: ["admin", "edit"]  多个路由权限   
- *    
- * 
+ *   roles: ["admin", "edit"]  多个路由权限
+ *
+ *
  * }
- * 
- * 
+ *
+ *
  */
 
 const routes = [
@@ -48,6 +48,24 @@ const routes = [
         meta: {
           needLogin: false
         }
+      },
+      {
+        path: '/admin/message_page',
+        name: 'message_page',
+        meta: {
+          icon: 'md-notifications',
+          title: '消息中心'
+        },
+        component: () => import('@/views/single-page/message/index.vue')
+      },
+      {
+        path: '/admin/count_to_page',
+        name: 'count_to_page',
+        meta: {
+          icon: 'md-trending-up',
+          title: '数字渐变'
+        },
+        component: () => import('@/views/count-to/index.vue')
       },
       {
         path: '/admin/menu',

@@ -32,12 +32,20 @@
           <i class="el-icon-rank"></i>
         </el-tooltip>
       </div>
+      <!-- 消息标记 -->
+      <el-badge :value="12" class="item" style="margin: 0 15px">
+        <!-- <el-button size="mini">消息中心</el-button> -->
+        <el-link type="primary" href="http://localhost:8096/#/admin/message_page">消息中心</el-link>
+      </el-badge>
       <!-- 个人下拉展示 -->
       <el-dropdown size="small" split-button type="primary">
         {{ 'admin' }}
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <a href="https://github.com/xiaoguiking/vue-imis" target="_blank"> 项目仓库</a>
+            <a href="https://github.com/xiaoguiking/vue-imis" target="_blank">项目仓库</a>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <!-- <Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge> -->
           </el-dropdown-item>
           <el-dropdown-item @click.native="loginOut">退出登录</el-dropdown-item>
         </el-dropdown-menu>
@@ -51,7 +59,17 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'CommonHeader',
-  props: ['is-collapse'],
+  // props: ['is-collapse'],
+  props: {
+    isCollapse: {
+      type: Boolean,
+      default: false
+    },
+    messageUnreadCount: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       fullscreen: false
@@ -196,5 +214,11 @@ export default {
 
 .el-breadcrumb__item:last-child .el-breadcrumb__inner {
   color: #fff;
+}
+.header-container {
+  .el-badge__content.is-fixed {
+    top: 10px;
+    right: 20px;
+  }
 }
 </style>

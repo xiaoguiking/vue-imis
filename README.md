@@ -56,7 +56,7 @@
   图片裁切
   https://www.cnblogs.com/linxiyue/archive/2019/01/18/10288490.html
 
-# linux 操作
+## linux 操作
 
 服务器文件下载： wget https://www.baidu.com.xz
 
@@ -75,3 +75,14 @@
 - 随风起舞
 - 穷凶极恶
 - 寒风凛凛
+
+## vue-imis-element 重构功能(dev)
+
+- 全局消息提示
+
+- 数字渐变功能
+
+
+
+
+
