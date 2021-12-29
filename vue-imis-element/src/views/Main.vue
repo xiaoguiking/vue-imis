@@ -38,7 +38,9 @@ export default {
       isCollapse: false, // 当前侧边栏的状态显示
       // 数组对象控制css
       // containerActive: "container-active",
-      commonContainer: 'common-container'
+      commonContainer: 'common-container',
+      // 暂时写入
+      unreadCount: 20
     }
   },
   components: {

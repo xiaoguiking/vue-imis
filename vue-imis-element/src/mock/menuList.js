@@ -20,6 +20,23 @@ const sideMenu = [
     icon: 'present'
   },
   {
+    title: 'Excel',
+    path: '/excel',
+    icon: 'folder',
+    children: [
+      {
+        title: '上传excel',
+        path: '/excel/upload-excel',
+        icon: 'plus'
+      },
+      {
+        title: '下载excel',
+        path: '/excel/export-excel',
+        icon: 'download'
+      }
+    ]
+  },
+  {
     title: '内容管理',
     path: '/content',
     icon: 'picture-outline-round'

@@ -87,7 +87,8 @@
 
 <script>
 // getChannels
-import { ElementTiptap } from 'element-tiptap'
+// import { ElementTiptap } from 'element-tiptap'
+
 import {
   // 需要的 extensions
   Doc,
@@ -100,7 +101,8 @@ import {
   Strike,
   ListItem,
   BulletList,
-  OrderedList
+  OrderedList,
+  ElementTiptap
 } from 'element-tiptap'
 import { addArticleList, getArticleById, updateArticle } from '@/api/article.js'
 

@@ -257,6 +257,7 @@ export default {
         // 转化为blob
         let reader = new FileReader()
         reader.onload = (e) => {
+          console.log(e, 'e')
           let data
           if (typeof e.target.result === 'object') {
             data = this.getObjectURL(new Blob([e.target.result]))
@@ -314,6 +315,7 @@ export default {
               message: res.msg,
               type: 'success'
             })
+            // eslint-disable-next-line no-shadow
             let data = res.data.replace('[', '').replace(']', '').split(',')
             let imgInfo = {
               name: _this.Name,

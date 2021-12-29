@@ -59,6 +59,25 @@ const routes = [
         component: () => import('@/views/single-page/message/index.vue')
       },
       {
+        // path: '/admin/count_to_page',
+        path: '/excel/upload-excel',
+        name: '上传excel',
+        meta: {
+          icon: 'plus',
+          title: '上传excel'
+        },
+        component: () => import('@/views/excel/upload-excel.vue')
+      },
+      {
+        path: '/excel/export-excel',
+        name: '下载excel',
+        meta: {
+          icon: 'download',
+          title: '下载excel'
+        },
+        component: () => import('@/views/excel/export-excel.vue')
+      },
+      {
         path: '/admin/count_to_page',
         name: 'count_to_page',
         meta: {
@@ -182,6 +201,7 @@ const routes = [
       }
     ]
   },
+
   {
     path: '/login',
     name: 'login',

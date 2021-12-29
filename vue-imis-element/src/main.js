@@ -51,6 +51,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     // 如果没有local,访问如何页面都会跳转到index.vue
+    // eslint-disable-next-line no-lonely-if
     if (to.path === '/login') {
       next()
     } else {
