@@ -15,6 +15,7 @@
             accept=".xlsx, .xls"
             multiple
             :limit="3"
+            show-file-list
           >
             <!-- :file-list="fileList" -->
             <el-button size="small" icon="el-icon-upload" @click="handleUploadFile"
@@ -25,19 +26,24 @@
         </el-row>
         <el-row :gutter="10">
           <transition name="fade">
-            <el-progress :percentage="100" :format="format" color="" status="success"></el-progress>
+            <!-- <el-progress :percentage="100" :format="format" color="" status="success"></el-progress> -->
           </transition>
         </el-row>
       </div>
     </el-card>
     <el-row :gutter="10" style="margin: 10px 0">
-      <el-table :data="data" style="width: 100%">
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+        :columns="tableTitle"
+        v-loading="tableLoading"
+      >
         <el-table-column
-          prop="prop"
-          label="label"
+          v-for="item in tableTitle"
+          :prop="item.title"
+          :label="item.title"
+          :key="item.key"
           width="width"
-          :loading="tableLoading"
-          :columns="tableTitle"
           :data="tableData"
         >
         </el-table-column>
@@ -47,6 +53,8 @@
 </template>
 
 <script>
+import excel from '@/libs/excel'
+
 export default {
   name: 'UploadExcel',
   data() {
@@ -58,7 +66,8 @@ export default {
       file: null,
       tableData: [],
       tableTitle: [],
-      tableLoading: false
+      tableLoading: false,
+      loadingProgress: 0
     }
   },
   methods: {
@@ -69,9 +78,7 @@ export default {
       this.tableData = []
       this.tableTitle = []
     },
-    handleUploadFile() {
-      console.log(1)
-    },
+    handleUploadFile() {},
     format(percentage) {
       return percentage === 100 ? '成功' : `${percentage}%`
     },
@@ -87,9 +94,8 @@ export default {
       this.$message('上传的文件已删除！')
     },
     handleBeforeUpload(file) {
-      console.log(file, 'handleBeforeUpload')
       const fileExt = file.name.split('.').pop().toLocaleLowerCase()
-      console.log(fileExt, 'fileExt')
+      // console.log(fileExt, 'fileExt')
       if (fileExt === 'xls' || fileExt === 'xlsx') {
         this.readFile(file)
       } else {
@@ -103,7 +109,34 @@ export default {
     readFile(file) {
       const reader = new FileReader()
       reader.readAsArrayBuffer(file)
-      console.log(file)
+      reader.onloadstart = () => {
+        this.uploadLoading = true
+        this.tableLoading = true
+        this.showProgress = true
+      }
+      reader.onprogress = (e) => {
+        this.progressPercent = Math.round((e.loaded / e.total) * 100)
+      }
+      reader.onerror = () => {
+        this.$notify.error({
+          title: '错误',
+          message: `文件读取出错`
+        })
+      }
+      reader.onload = (e) => {
+        this.$message({
+          message: `文件读取成功`,
+          type: 'success'
+        })
+        const data = e.target.result
+        const { header, results } = excel.read(data, 'array')
+        const tableTitle = header.map((item) => {
+          return { title: item, key: item }
+        })
+        this.tableData = results
+        this.tableTitle = tableTitle
+        this.tableLoading = false
+      }
     },
     beforeRemove() {},
     handleExceed() {}

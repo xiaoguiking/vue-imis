@@ -60,7 +60,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.name) {
-    document.title = `${to.name}-Vue-imis-element`
+    document.title = `Vue-imis-element-${to.name}`
   }
   next()
 })

@@ -7,7 +7,7 @@ const resolve = (dir) => {
 module.exports = {
   devServer: {
     // port: 8096,
-    port: 8096,
+    port: 8080,
     open: true,
     // 代理接口
     proxy: {
